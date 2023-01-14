@@ -32,6 +32,7 @@
         position: relative;
         left: 35%;
     }
+
 }
 
 /* from 0 to 992px */
@@ -128,5 +129,11 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
+    }
+}
+
+@media only screen and (min-width: 490px) {
+    .logo-body > div > p > br.break {
+        display: none;
     }
 }
