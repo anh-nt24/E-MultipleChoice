@@ -1,0 +1,132 @@
+
+/* from 992 to n*/
+@media only screen and (min-width: 992px) {
+    .right-header {
+        display: flex;
+        flex-direction: row;
+    }
+    .dropdown-menu {
+        left: auto;
+        right: 0rem;
+        min-width: 7rem;
+    }
+
+    .bd-container {
+        margin-top: 80px;
+    }
+
+    a.logo-header-left {
+        display: none;
+    }
+
+    img.intro-img--half {
+        width: 40vw;
+        height: 510px;
+    }
+
+    .introduction-content {
+        width: 50%;
+    }
+
+    .introduction-content > button {
+        position: relative;
+        left: 35%;
+    }
+}
+
+/* from 0 to 992px */
+@media screen and (max-width: 992px) {
+    .nav-lang > span {
+        padding-left: 5px;
+    }
+    .dropdown-menu {
+        left: auto;
+        right: auto;
+        min-width: 7rem;
+    }
+
+    .bd-container {
+        margin-top: 76px;
+    }
+
+    a.logo-header-center {
+        display: none;
+    }
+
+    a.logo-header-left, button.navbar-toggler {
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+
+    img.intro-img--half {
+        display: none;
+    }
+
+    .introduction-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 510px;
+        position: relative;
+    }
+
+    .introduction-content:after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100%;
+        opacity: 0.2;
+        background: url('../../resource/img/intro-home.webp');
+        background-size: cover;
+        margin: -20px -40px;
+        z-index: -1;
+    }
+
+    .logo-body > div > p {
+        font-weight: 550;
+    }
+
+    .introduction-content > .introduction-title > h2 {
+        text-align: center;
+    }
+
+    .introduction-content > button {
+        font-weight: 600;
+    }
+}
+
+/* from 720 - 992 */
+@media only screen
+    and (min-width: 720px) 
+    and (max-width: 992px) {
+        .navbar-collapse, .nav-link, .nav-item, .navbar-nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 0.3rem 0.5rem;
+        }
+
+        .right-header {
+            display: flex;
+            flex-direction: row;
+        }
+}
+
+/* from 0 to 720 */
+@media only screen and (max-width: 720px) {
+    .nav-link, .nav-item, .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 0.3rem 0.5rem;
+    }
+
+    .right-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+}
