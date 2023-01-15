@@ -11,6 +11,10 @@ body {
     box-shadow: 0px 5px 10px #ddd;
 }
 
+.navbar-nav {
+    flex-wrap: wrap;
+}
+
 
 .navbar-custom {
     background-color: var(--main-color);
@@ -19,7 +23,6 @@ body {
 .navbar-light .navbar-nav .nav-link {
     color: var(--main-bg-color);
     font-size: var(--main-size);
-    opacity: 0.8;
 }
 
 .navbar-light .navbar-nav .active>.nav-link {
@@ -159,8 +162,8 @@ body {
 }
 
 .logo-body > div> span {
-    font-weight: calc(var(--main-bold));
-    font-size: calc(var(--main-size));
+    font-weight: var(--main-bold);
+    font-size: var(--main-size);
 }
 
 
@@ -186,4 +189,16 @@ body {
 
 .introduction-content > button:hover {
     font-weight: 550;
+}
+
+i.fa {
+    margin-right: 4px;
+}
+
+p.list-brief-content {
+    padding: 2px 10px;
+    width: max-content;
+    background-color: rgba(0,0,0,0.05);
+    border-radius: 20px;
+    font-size: 13px;
 }

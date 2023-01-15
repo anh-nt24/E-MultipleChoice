@@ -26,6 +26,7 @@
 
     .introduction-content {
         width: 50%;
+        margin-top: -50px;
     }
 
     .introduction-content > button {
@@ -130,10 +131,31 @@
         flex-direction: row;
         justify-content: center;
     }
+
+    .introduction-content > .introduction-title > h2 {
+        font-size: calc(var(--main-size) + 10px);
+        line-height: 1;
+    }
+
+    .logo-body > img {
+        width: 50px;
+    }
+
+    .logo-body > div> span {
+        font-size: calc(var(--main-size) - 5px);
+    }
+
+    .logo-body > div > p {
+        font-size: 9px;
+    }
 }
 
-@media only screen and (min-width: 490px) {
-    .logo-body > div > p > br.break {
-        display: none;
+@media only screen and (max-width: 490px) {
+    .introduction-content > button {
+        margin: 20px 0px;
+    }
+
+    .introduction-title {
+        margin-top: 20px;
     }
 }
