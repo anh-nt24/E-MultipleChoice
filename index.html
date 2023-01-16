@@ -26,14 +26,14 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                    <a class="nav-link" href=""> INTRODUCTION <span class="sr-only">(current)</span></a>
+                    <li id="intro-src" class="nav-item zoom active">
+                        <div class="nav-link" href="" > INTRODUCTION <span class="sr-only">(current)</span></div>
                     </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="">FEATURES</a>
+                    <li id="feature-src" class="nav-item zoom">
+                        <div class="nav-link" href="" >FEATURES</div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">CONTACT</a>
+                    <li id="contact-src" class="nav-item zoom">
+                        <div class="nav-link" href="" >CONTACT</div>
                     </li>
                 </ul>
 
@@ -55,9 +55,9 @@
                         <div class="my-2 my-lg-0 language">
                             <div class="dropdown">
                                 <div class="nav-link nav-lang">
-                                    <img src="./resource/img/vie.png" alt="" style="width:20px">
+                                    <img src="./resource/img/eng.png" alt="" style="width:20px">
                                     <br>
-                                    <span>VIE</span>
+                                    <span>ENG</span>
                                 </div>
                                 <div class="dropdown-menu language list-lang">
                                     <a class="dropdown-item" href="#vie">
@@ -79,14 +79,14 @@
             </div>
         </nav>
             <div class="progress-container">
-                <div class="progress-bar" id="myBar"></div>
+                <div class="progress-bar" id="scrollBar"></div>
             </div>
     </div>
 
     <div id="container" class="bd-container position-relative">
         <div id="introduction" class="introduction">
             <div class="introduction-content">
-                <div class="navbar-brand logo-body mr-auto">
+                <div class="navbar-brand logo-body mr-auto hidden">
                     <img src="./resource/img/logo.png" alt="logo">
                     <br>
                     <div>
@@ -94,29 +94,165 @@
                         <p> a website to meet almost your needs in </p>
                     </div>
                 </div>
-                <div class="introduction-title">
-                    <h2>Creating multiple choice online tests and validation</h2>
+                <div class="introduction-title hidden">
+                    <h2 class="content-title">Creating multiple choice online tests and validation</h2>
                 </div>
-                <button type="button" class="btn btn-primary">Join now</button>
+                <button type="button" class="btn btn-primary hidden">Join now</button>
                 
-                <div class="container list-brief mt-3 mb-3">
+                <div class="container list-brief mt-4 mb-3 ml-auto mr-auto hidden">
                     <div class="row">
                         <div class="col"><p class="list-brief-content"><i class="fa fa-regular fa-thumbs-up"></i>Beautiful interface</p></div>
-                        <div class="col"><p class="list-brief-content"><i class="fa fa-regular fa-thumbs-up"></i>Honest validation</p></div>
+                        <div class="col"><p class="list-brief-content"><i class="fa fa-regular fa-thumbs-up"></i>Easy to use</p></div>
                     </div>
                     <div class="row">
-                        <div class="col"><p class="list-brief-content"><i class="fa fa-regular fa-thumbs-up"></i>Easy to use</p></div>
+                        <div class="col"><p class="list-brief-content"><i class="fa fa-regular fa-thumbs-up"></i>Honest validation</p></div>
                         <div class="col"><p class="list-brief-content"><i class="fa fa-regular fa-thumbs-up"></i>User supportive</p></div>
                     </div>
                 </div>
             </div>
-            <div class="introduction-img">
+            <div class="introduction-img hidden">
                 <img class="intro-img--half" src="./resource/img/intro-home.png" alt=""></img>
+            </div>
+        </div>
+
+        <div id="features" class="feature">
+            <h2 class="content-title">Key features</h2>
+            <div class="col timeline">
+                <span class="default-line"></span>
+                <span class="drawn-line hidden"></span>
+                
+                <div class="time-line-container hidden">
+                    <div class="time-line-mark"><img src="./resource/img/db-icon.png" alt=""></div>
+                    <div class="timeline-content zoom">
+                        <h4 class="time-line-name">Storage</h4>
+                        <p>All examinations stored in our database helps you easily 
+                            customize, reuse or query them
+                        </p>
+                    </div>
+                </div>
+
+                <div class="time-line-container hidden">
+                    <div class="time-line-mark"><img src="./resource/img/privacy-icon.png" alt=""></div>
+                    <div class="timeline-content zoom">
+                        <h4 class="time-line-name">Privacy</h4>
+                        <p>Allowing examiners to set the examination public for all 
+                            or private for internal. For private, only people having test ID 
+                            or invited is able to access
+                        </p>
+                    </div>
+                </div>
+
+                <div class="time-line-container hidden">
+                    <div class="time-line-mark"><img src="./resource/img/stats-icon.png" alt=""></div>
+                    <div class="timeline-content zoom">
+                        <h4 class="time-line-name">Statistics</h4>
+                        <p>
+                            Statistics of the number of people who have taken the test, the score, the rank, etc
+                        </p>
+                    </div>
+                </div>
+
+                <div class="time-line-container hidden">
+                    <div class="time-line-mark"><img src="./resource/img/pdf-icon.png" alt=""></div>
+                    <div class="timeline-content zoom">
+                        <h4 class="time-line-name">Export</h4>
+                        <p>Able to export the test to pdf file to print out when necessary
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="contact" class="contact">
+            <div class="keep-in-touch col-lg-4 ">
+                <div class="contact-info hidden ">
+                    <h4 class="content-title">Information</h4>
+                    <h5 class="content-subtitle">
+                        Here's our some basic information
+                    </h5>
+                    <ul class="contact-info-content">
+                        <li class="contact-method">
+                            <h6 class="method-name"><i class="fa fa-regular fa-phone"></i></i> Phone</h6>
+                            <p class="method-note">Mon-Fri from 8AM to 7PM</p>
+                            <p class="method-content">
+                                (+84) 123131245
+                            </p>
+                        </li>
+    
+                        <li class="contact-method">
+                            <h6 class="method-name"><i class="fa fa-solid fa-envelope" style="margin-right: 10px"></i>Email</h6>
+                            <p class="method-note">Anytime but sometimes cannot reply right away, 2 days at the latest</p>
+                            <p class="method-content">
+                                contact@multia.support.com
+                            </p>
+                        </li>
+    
+                        <li class="contact-method">
+                            <h6 class="method-name"><i class="fa fa-map-marker" style="margin-right: 10px; width: 15px;"></i>Office</h6>
+                            <p class="method-note">Come say hello at our office</p>
+                            <p class="method-content">
+                                19, Nguyen Huu Tho St., Tan Phong ward, District 7, Ho Chi Minh City, Vietnam
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="follow-info hidden ">
+                    <h4 class="content-title">Follow us:</h4>
+                    <div class="follow-icon">
+                        <a href="https://www.facebook.com" target="_blank"><i class="fa fa-brands fa-facebook"></i></a>
+                        <a href="https://www.twitter.com" target="_blank"><i class="fa fa-brands fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com" target="_blank"><i class="fa fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-contact col-lg-8">
+                <h2 class="content-title">Contact us</h2>
+                <p>Any issues? Leave a message</p>
+                <div class="user-contact">
+                    <form>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Your Name</label>
+                            <input type="name" class="form-control" id="exampleFormControlInput1" placeholder="Nguyen Van A">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Phone number</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="012345678">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Text here"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Having file(s) to attack?</label>
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="gridCheck">
+                              <label class="form-check-label" for="gridCheck">
+                                I have carefully checked!
+                              </label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"
+  ></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <script src="./static/js/index.js"></script>
 </body>

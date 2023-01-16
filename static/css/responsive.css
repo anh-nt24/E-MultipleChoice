@@ -20,8 +20,9 @@
     }
 
     img.intro-img--half {
-        width: 40vw;
-        height: 510px;
+        width: 45vw;
+        height: 555px;
+        margin-right: -40px;
     }
 
     .introduction-content {
@@ -29,11 +30,25 @@
         margin-top: -50px;
     }
 
+    .introduction-content::before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: -570px;
+        bottom: 0;
+        top: -150px;
+        width: 70%;
+        height: 705px;
+        background-color: #ffff80;
+        border-radius: 0 150% 0% 0;
+        z-index: -1;
+        overflow: hidden;
+    }
+
     .introduction-content > button {
         position: relative;
         left: 35%;
     }
-
 }
 
 /* from 0 to 992px */
@@ -68,7 +83,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: 510px;
+        height: 555px;
         position: relative;
     }
 
@@ -79,10 +94,11 @@
         left: 0;
         top: 0;
         width: 100vw;
-        height: 100%;
+        height: 575px;
         opacity: 0.2;
         background: url('../../resource/img/intro-home.webp');
         background-size: cover;
+        background-position: center;
         margin: -20px -40px;
         z-index: -1;
     }
@@ -97,6 +113,10 @@
 
     .introduction-content > button {
         font-weight: 600;
+    }
+
+    p.list-brief-content {
+        background-color: rgba(0,0,0,0.1);
     }
 }
 
@@ -148,6 +168,47 @@
     .logo-body > div > p {
         font-size: 9px;
     }
+
+    .default-line,
+    .drawn-line {
+        left: 25px;
+    }
+
+    .time-line-mark > img {
+        position: relative;
+        left: -35%;
+        top: 0;
+    }
+
+    .time-line-container {
+        margin: 40px 10px;
+    }
+
+    .timeline-content {
+        width: 90%;
+    }
+
+    .time-line-container:nth-child(odd) {
+        flex-direction: row;
+    }
+    
+    .time-line-container:nth-child(even) {
+        text-align: left;
+    }
+
+    .contact > .keep-in-touch {
+        padding: 30px;
+    }
+}
+
+@media only screen
+    and (min-width: 491px) 
+    and (max-width: 991px) {
+        .introduction-content > button {
+            width: max-content;
+            margin-left: auto;
+            margin-right: auto
+        }
 }
 
 @media only screen and (max-width: 490px) {
@@ -157,5 +218,18 @@
 
     .introduction-title {
         margin-top: 20px;
+        font-weight: 700;
+    }
+
+    .user-contact {
+        padding: 10px;
+    }
+
+    .timeline-content > p {
+        font-size: 10px;
+    }
+
+    h4.time-line-name {
+        font-size: 14px;
     }
 }
