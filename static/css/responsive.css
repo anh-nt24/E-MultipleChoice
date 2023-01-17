@@ -211,6 +211,7 @@
         }
 }
 
+
 @media only screen and (max-width: 490px) {
     .introduction-content > button {
         margin: 20px 0px;
@@ -232,4 +233,5 @@
     h4.time-line-name {
         font-size: 14px;
     }
+
 }

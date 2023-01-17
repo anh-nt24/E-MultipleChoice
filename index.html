@@ -44,12 +44,12 @@
                 </a>
 
                 <div class="right-header">
-                    <form class="form-inline my-2 my-lg-0 mr-2 sign-in">
-                        <button class="btn btn-primary my-2 my-sm-0" type="submit">Sign in</button>
-                    </form>
-                    <form class="form-inline my-2 my-lg-0 sign-up">
-                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Sign up</button>
-                    </form>
+                    <div class="form-inline my-2 my-lg-0 mr-2 sign-in">
+                        <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#sign-in-form">Sign in</button>
+                    </div>
+                    <div class="form-inline my-2 my-lg-0 sign-up">
+                        <button class="btn btn-outline-secondary my-2 my-sm-0" data-toggle="modal" data-target="#sign-up-form">Sign up</button>
+                    </div>
 
                     <div>
                         <div class="my-2 my-lg-0 language">
@@ -97,7 +97,7 @@
                 <div class="introduction-title hidden">
                     <h2 class="content-title">Creating multiple choice online tests and validation</h2>
                 </div>
-                <button type="button" class="btn btn-primary hidden">Join now</button>
+                <button type="button" class="btn btn-primary hidden" data-toggle="modal" data-target="#sign-in-form">Join now</button>
                 
                 <div class="container list-brief mt-4 mb-3 ml-auto mr-auto hidden">
                     <div class="row">
@@ -208,33 +208,33 @@
 
             <div class="user-contact col-lg-8">
                 <h2 class="content-title">Contact us</h2>
-                <p>Any issues? Leave a message</p>
+                <p>--Issues? Leave a message--</p>
                 <div class="user-contact">
                     <form>
                         <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Your Name</label>
-                            <input type="name" class="form-control" id="exampleFormControlInput1" placeholder="Nguyen Van A">
+                            <label for="contact-usr-name" class="form-label">Your Name</label>
+                            <input type="name" class="form-control" id="contact-usr-name" placeholder="Nguyen Van A">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                            <label for="contact-usr-mail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="contact-usr-mail" placeholder="name@example.com">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Phone number</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="012345678">
+                            <label for="contact-usr-phone" class="form-label">Phone number</label>
+                            <input type="email" class="form-control" id="contact-usr-phone" placeholder="012345678">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Text here"></textarea>
+                            <label for="contact-usrmsg" class="form-label">Message</label>
+                            <textarea class="form-control" id="contact-usrmsg" rows="3" placeholder="Text here"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="formFile" class="form-label">Having file(s) to attack?</label>
-                            <input class="form-control" type="file" id="formFile">
+                            <label for="contact-usr-file" class="form-label">Having file(s) to attack?</label>
+                            <input class="form-control" type="file" id="contact-usr-file">
                         </div>
                         <div class="col-12">
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="gridCheck">
-                              <label class="form-check-label" for="gridCheck">
+                              <input class="form-check-input" type="checkbox" id="contact-usr-has-checked">
+                              <label class="form-check-label" for="contact-usr-has-checked">
                                 I have carefully checked!
                               </label>
                             </div>
@@ -248,11 +248,132 @@
         </div>
     </div>
 
-    <script
-    src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"
-  ></script>
+    <div class="modal fade" id="sign-in-form" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >Welcome back!</h5>
+                        <button class="sign-form-close close" type="button" data-dismiss="modal" aria-label="Close">
+                            <img src="./resource/img/Xclose.png" alt="X">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="row g-3 sign-form-content">
+                            <div class="col-md-12">
+                                <label for="inputEmailSignIn" class="form-label sign-form-label">Email or Username</label>
+                                <input type="email" class="form-control" id="inputEmailSignIn">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="inputPasswordSignIn" class="form-label sign-form-label">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-6">Password</div>
+                                        <div class="col-6">
+                                            <div class="form-check d-flex justify-content-end mr-3">
+                                                <div class="row check-to-show-password d-flex align-items-center">
+                                                    <input class="form-check-input" type="checkbox" id="show-password-in" style="margin-top: -2px">
+                                                    <label class="form-check-label" for="show-password-in">
+                                                        Show
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </label>
+                                <input type="password" class="form-control demo-show-password" id="inputPasswordSignIn" style="background-image: url('./resource/img/hide-password.webp');">
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Sign in</button>
+                                <div class="or-container">
+                                    <div class="line-separator"></div> 
+                                    <span class="ml-2 mr-2">or</span>
+                                    <div class="line-separator"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-lg with-google-btn btn-block btn-outline" href=""><img src="./resource/img/gg-logo.png" style="width: 7%;"> Sign in with Google</a>
+                                    </div>
+                                </div>
+                                <br>
+                                <p class="text-inverse text-center" style="font-size: 13px; opacity: 0.8; margin-bottom:0">Don't have an account yet? <a id="switch-to-sign-up" href="" data-toggle="modal" data-target="#sign-up-form">Sign up</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="modal fade" id="sign-up-form" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Hello. Create an account</h5>
+                    <button class="sign-form-close close" type="button" data-dismiss="modal" aria-label="Close">
+                        <img src="./resource/img/Xclose.png" alt="X">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3 sign-form-content">
+                        <div class="col-md-6">
+                            <label for="account-name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="account-name">
+                        </div>
+                        <div class="col-md-6">
+                        <label for="account-usrname" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="account-usrname">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputEmailSignUp" class="form-label sign-form-label">Email</label>
+                            <input type="email" class="form-control" id="inputEmailSignUp">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputPasswordSignUp" class="form-label sign-form-label">
+                                Password
+                            </label>
+                            <input type="password" class="form-control" id="inputPasswordSignUp" style="background-image: url('./resource/img/hide-password.webp');">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputConfirmPasswordSignUp" class="form-label sign-form-label">
+                                <div class="row d-flex align-items-center">
+                                    <div class="col-6">Confirm password</div>
+                                    <div class="col-6">
+                                        <div class="form-check d-flex justify-content-end mr-3">
+                                            <div class="row check-to-show-password d-flex align-items-center">
+                                                <input class="form-check-input" type="checkbox" id="show-password-up" style="margin-top: -2px">
+                                                <label class="form-check-label" for="show-password-up">
+                                                    Show
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </label>
+                            <input type="password" class="form-control demo-show-password" id="inputConfirmPasswordSignUp" style="background-image: url('./resource/img/hide-password.webp');">
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Create account</button>
+                            <div class="or-container">
+                                <div class="line-separator"></div> 
+                                <span class="ml-2 mr-2">or</span>
+                                <div class="line-separator"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a class="btn btn-lg with-google-btn btn-block btn-outline" href=""><img src="./resource/img/gg-logo.png" style="width: 7%;"> Sign up with Google</a>
+                                </div>
+                            </div>
+                            <br>
+                            <p class="text-inverse text-center" style="font-size: 13px; opacity: 0.8; margin-bottom:0">Already have an account? <a id="switch-to-sign-in" href="" data-toggle="modal" data-target="#sign-in-form">Sign in</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <script src="./static/js/index.js"></script>
 </body>

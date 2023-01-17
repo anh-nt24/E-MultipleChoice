@@ -32,6 +32,71 @@
     font-size: 12px;
 }
 
+.sign-form-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.sign-form-content > div.col-md-12 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.sign-form-content > div:last-child {
+    margin-top: 15px;
+}
+
+label.sign-form-label {
+    justify-content: start;
+}
+
+
+.check-to-show-password {
+    font-size: 10px;
+    opacity: 0.6;
+}
+
+.demo-show-password {
+    background-repeat:no-repeat;
+    background-position: right;
+    background-size: 10%;
+}
+
+.with-google-btn {
+    color: #000;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 1px #ddd;
+    font-size: 15px;
+}
+
+.with-google-btn:hover {
+    background-color: #ddd;
+}
+
+.or-container {
+    align-items: center;
+    color: #ccc;
+    display: flex;
+    margin: 3px 0;
+}
+
+.line-separator {
+    background-color: #ddd;
+    flex-grow: 5;
+    height: 1px;
+}
+
+.sign-form-close > img {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    border-radius: 50%;
+    width: 10%;
+}
+
 .language {
     display: inline-block;
 }

@@ -1,7 +1,7 @@
 function isQueried(selector, all = false) {
     return all ? document.querySelectorAll(selector) : document.querySelector(selector);
-  }
-  
+}
+
 const sections = isQueried('.time-line-container', true);
 const timeline = isQueried('.timeline');
 const line = isQueried('.drawn-line');
@@ -58,8 +58,22 @@ const observer = new IntersectionObserver((e) => {
 })
 
 const hidden = document.querySelectorAll('.hidden');
-
-hidden.forEach((i)=> observer.observe(i));
+hidden.forEach((i)=> {
+    observer.observe(i);
+    var lastScrollTop = 0;
+    window.addEventListener("scroll", function(){
+        var st = window.pageYOffset || document.documentElement.scrollTop;
+        if (st < lastScrollTop){
+            if (i.classList.contains('show-ani') &&i.classList.contains('hidden') ) {
+                i.classList.remove('hidden');
+            }
+        }
+        else {
+            i.classList.add('hidden');
+        }
+        lastScrollTop = st <= 0 ? 0 : st; // for Mobile or negative scrolling
+    }, false);
+});
 
 
 // CLICK TO MOVE TO PAGE SECTIONS
@@ -105,3 +119,58 @@ $(window).bind('scroll', function() {
         addActiveClass('contact-src');
     }
 });
+
+
+// SHOW PASSWORD OR NOT
+function showPassFunc(id) {
+    const showPassword = document.querySelector(id);
+    const demoShowPassword = document.querySelectorAll('.demo-show-password');
+    showPassword.onclick = () => {
+        if (showPassword.checked) {
+            demoShowPassword.forEach((d) => {
+                d.style.backgroundImage = 'url("./resource/img/show-password.webp")';
+                d.type = 'text';
+            })
+        }
+        else {
+            demoShowPassword.forEach((d) => {
+                d.style.backgroundImage = 'url("./resource/img/hide-password.webp")';
+                d.type = 'password';
+            })
+        }
+    }
+}
+
+showPassFunc('#show-password-in');
+showPassFunc('#show-password-up');
+
+function openFormReset(id) {
+    signInBtn = document.querySelector(id);
+    const key = id.split('-')[1];
+    signInBtn.addEventListener('click',function() {
+        const demoShowPassword = document.querySelectorAll('.demo-show-password');
+        demoShowPassword.forEach((d) => {
+            d.style.backgroundImage = 'url("./resource/img/hide-password.webp")';
+            d.type = 'password';
+        })
+        const showPassword = document.querySelector('#show-password-'+key);
+        showPassword.checked = false;
+    })
+}
+
+openFormReset('.sign-in');
+openFormReset('.sign-up');
+
+
+// SWITCH BETWEEN SIGN IN AND SIGN UP
+const signUp = document.querySelector("#switch-to-sign-up");
+signUp.addEventListener('click', function() {
+    const btn = document.getElementsByClassName('sign-form-close');
+    btn[0].click();
+})
+
+const signIn = document.querySelector("#switch-to-sign-in");
+signIn.addEventListener('click', function() {
+    const btn = document.getElementsByClassName('sign-form-close');
+    btn[1].click();
+})
