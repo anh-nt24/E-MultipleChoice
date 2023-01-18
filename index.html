@@ -27,13 +27,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li id="intro-src" class="nav-item zoom active">
-                        <div class="nav-link" href="" > INTRODUCTION <span class="sr-only">(current)</span></div>
+                        <div class="nav-link"> INTRODUCTION <span class="sr-only">(current)</span></div>
                     </li>
                     <li id="feature-src" class="nav-item zoom">
-                        <div class="nav-link" href="" >FEATURES</div>
+                        <div class="nav-link">FEATURES</div>
                     </li>
                     <li id="contact-src" class="nav-item zoom">
-                        <div class="nav-link" href="" >CONTACT</div>
+                        <div class="nav-link">CONTACT</div>
                     </li>
                 </ul>
 
@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div class="introduction-img hidden">
-                <img class="intro-img--half" src="./resource/img/intro-home.png" alt=""></img>
+                <img class="intro-img--half" src="./resource/img/intro-home.png" alt="">
             </div>
         </div>
 
@@ -172,7 +172,7 @@
                     </h5>
                     <ul class="contact-info-content">
                         <li class="contact-method">
-                            <h6 class="method-name"><i class="fa fa-regular fa-phone"></i></i> Phone</h6>
+                            <h6 class="method-name"><i class="fa fa-regular fa-phone"></i> Phone</h6>
                             <p class="method-note">Mon-Fri from 8AM to 7PM</p>
                             <p class="method-content">
                                 (+84) 123131245
@@ -213,7 +213,7 @@
                     <form>
                         <div class="mb-3">
                             <label for="contact-usr-name" class="form-label">Your Name</label>
-                            <input type="name" class="form-control" id="contact-usr-name" placeholder="Nguyen Van A">
+                            <input type="text" class="form-control" id="contact-usr-name" placeholder="Nguyen Van A">
                         </div>
                         <div class="mb-3">
                             <label for="contact-usr-mail" class="form-label">Email address</label>
@@ -248,7 +248,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="sign-in-form" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal fade" id="sign-in-form" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -265,20 +265,19 @@
                             </div>
                             <div class="col-md-12">
                                 <label for="inputPasswordSignIn" class="form-label sign-form-label">
-                                    <div class="row d-flex align-items-center">
-                                        <div class="col-6">Password</div>
-                                        <div class="col-6">
-                                            <div class="form-check d-flex justify-content-end mr-3">
-                                                <div class="row check-to-show-password d-flex align-items-center">
-                                                    <input class="form-check-input" type="checkbox" id="show-password-in" style="margin-top: -2px">
+                                    <span class="row d-flex align-items-center">
+                                        <span class="col-6">Password</span>
+                                        <span class="col-6">
+                                            <span class="form-check d-flex justify-content-end mr-3">
+                                                <span class="row check-to-show-password d-flex align-items-center">
                                                     <label class="form-check-label" for="show-password-in">
+                                                        <input class="form-check-input" type="checkbox" id="show-password-in" style="margin-top: -2px">
                                                         Show
                                                     </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
+                                                </span>
+                                            </span>
+                                        </span>
+                                    </span>
                                 </label>
                                 <input type="password" class="form-control demo-show-password" id="inputPasswordSignIn" style="background-image: url('./resource/img/hide-password.webp');">
                             </div>
@@ -291,7 +290,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <a class="btn btn-lg with-google-btn btn-block btn-outline" href=""><img src="./resource/img/gg-logo.png" style="width: 7%;"> Sign in with Google</a>
+                                        <a class="btn btn-lg with-google-btn btn-block btn-outline" href=""><img src="./resource/img/gg-logo.png" alt="G" style="width: 7%;"> Sign in with Google</a>
                                     </div>
                                 </div>
                                 <br>
@@ -303,7 +302,7 @@
             </div>
     </div>
 
-    <div class="modal fade" id="sign-up-form" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal fade" id="sign-up-form" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -334,20 +333,19 @@
                         </div>
                         <div class="col-md-12">
                             <label for="inputConfirmPasswordSignUp" class="form-label sign-form-label">
-                                <div class="row d-flex align-items-center">
-                                    <div class="col-6">Confirm password</div>
-                                    <div class="col-6">
-                                        <div class="form-check d-flex justify-content-end mr-3">
-                                            <div class="row check-to-show-password d-flex align-items-center">
-                                                <input class="form-check-input" type="checkbox" id="show-password-up" style="margin-top: -2px">
+                                <span class="row d-flex align-items-center">
+                                    <span class="col-6">Confirm password</span>
+                                    <span class="col-6">
+                                        <span class="form-check d-flex justify-content-end mr-3">
+                                            <span class="row check-to-show-password d-flex align-items-center">
                                                 <label class="form-check-label" for="show-password-up">
+                                                    <input class="form-check-input" type="checkbox" id="show-password-up" style="margin-top: -2px">
                                                     Show
                                                 </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
+                                            </span>
+                                        </span>
+                                    </span>
+                                </span>
                             </label>
                             <input type="password" class="form-control demo-show-password" id="inputConfirmPasswordSignUp" style="background-image: url('./resource/img/hide-password.webp');">
                         </div>
@@ -360,7 +358,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="btn btn-lg with-google-btn btn-block btn-outline" href=""><img src="./resource/img/gg-logo.png" style="width: 7%;"> Sign up with Google</a>
+                                    <a class="btn btn-lg with-google-btn btn-block btn-outline" href=""><img src="./resource/img/gg-logo.png" alt="G" style="width: 7%;"> Sign up with Google</a>
                                 </div>
                             </div>
                             <br>
