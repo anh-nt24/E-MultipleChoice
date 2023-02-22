@@ -57,19 +57,19 @@ const observer = new IntersectionObserver((e) => {
     });
 })
 
-const hidden = document.querySelectorAll('.hidden');
+const hidden = document.querySelectorAll('.hidden-ani');
 hidden.forEach((i)=> {
     observer.observe(i);
     var lastScrollTop = 0;
     window.addEventListener("scroll", function(){
         var st = window.pageYOffset || document.documentElement.scrollTop;
         if (st < lastScrollTop){
-            if (i.classList.contains('show-ani') &&i.classList.contains('hidden') ) {
-                i.classList.remove('hidden');
+            if (i.classList.contains('show-ani') &&i.classList.contains('hidden-ani') ) {
+                i.classList.remove('hidden-ani');
             }
         }
         else {
-            i.classList.add('hidden');
+            i.classList.add('hidden-ani');
         }
         lastScrollTop = st <= 0 ? 0 : st; // for Mobile or negative scrolling
     }, false);
