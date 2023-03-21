@@ -115,6 +115,7 @@
     font-size: 1.2rem;
 }
 
+
 .quiz-questions .form-group .form-control:focus,
 .question-option {
     box-shadow: none;
@@ -159,4 +160,8 @@
 .quiz-footer > .btn:last-child {
     background-color: #f0f0f0;
     border: 1px solid #000;
+}
+
+.scores::placeholder {
+    font-size: 1rem;
 }

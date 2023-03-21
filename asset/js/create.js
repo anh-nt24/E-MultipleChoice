@@ -62,7 +62,7 @@ setInterval(() => {
 
 function multichoiceOption(idx, dataIdx) {
 	return  `
-		<div class="col-sm-10 col-9">
+		<div class="col-11">
 			<div class="options">
 				<div class="form-group d-flex align-items-center">
 					<i class="fa fa-circle-thin pr-3"></i>
@@ -70,8 +70,7 @@ function multichoiceOption(idx, dataIdx) {
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-2 col-3 d-flex align-items-center">
-			<button type="button" class="btn w-100 question__image-import"><i class="fa fa-image"></i></button>
+		<div class="col-1 d-flex align-items-center">
 			<button type="button" onclick="removeOption(this)" class="btn"><i class="fa fa-close"></i></button>
 		</div>
 `;
@@ -79,7 +78,7 @@ function multichoiceOption(idx, dataIdx) {
 
 function checkboxesChoice(idx, dataIdx) {
 	return `
-		<div class="col-sm-10 col-9">
+		<div class="col-11">
 			<div class="options">
 				<div class="form-group d-flex align-items-center">
 					<i class="fa fa-square-o pr-3"></i>
@@ -87,8 +86,7 @@ function checkboxesChoice(idx, dataIdx) {
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-2 col-3 d-flex align-items-center">
-			<button type="button" class="btn w-100 question__image-import"><i class="fa fa-image"></i></button>
+		<div class="col-1 d-flex align-items-center">
 			<button type="button" onclick="removeOption(this)" class="btn"><i class="fa fa-close"></i></button>
 		</div>
 	`;
@@ -96,16 +94,13 @@ function checkboxesChoice(idx, dataIdx) {
 
 function textChoice() {
 	return `
-		<div class="col-sm-10 col-9">
+		<div class="col-12">
 			<div class="options">
 				<div class="form-group d-flex align-items-center">
 					<i class="fa fa-pencil-square-o pr-3"></i>
 					<input type="text" class="form-control" name="question-option">
 				</div>
 			</div>
-		</div>
-		<div class="col-sm-2 col-3 d-flex align-items-center">
-			<button type="button" class="btn w-100 question__image-import"><i class="fa fa-image"></i></button>
 		</div>
 	`;
 }
@@ -145,7 +140,9 @@ const addQuestion = (e) => {
 				</div>
 			</div>
 			<div class="col-md-1 col-sm-2 col-3">
-				<button type="button" class="btn w-100 question__image-import"><i class="fa fa-image"></i></button>
+				<div class="form-group">
+					<input required type="text" class="form-control" name="score[]" class="scores" placeholder="Score">
+				</div>
 			</div>
 			<div class="col-md-3 col-sm-12 col-9 question__type-selection">
 				<select name="quiz-type" class="form-control inputState">
@@ -159,7 +156,7 @@ const addQuestion = (e) => {
 			<div class="col-12">
 				<div class="quiz-question__options">
 					<div class="row option">
-						<div class="col-sm-10 col-9">
+						<div class="col-11">
 							<div class="options">
 								<div class="form-group d-flex align-items-center">
 									<i class="fa fa-circle-thin pr-3"></i>
@@ -167,8 +164,7 @@ const addQuestion = (e) => {
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-2 col-3 d-flex align-items-center">
-							<button type="button" class="btn w-100 question__image-import"><i class="fa fa-image"></i></button>
+						<div class="col-1 d-flex align-items-center">
 							<button type="button" onclick="removeOption(this)" class="btn"><i class="fa fa-close"></i></button>
 						</div>
 					</div>

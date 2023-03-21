@@ -284,6 +284,18 @@
             margin-left: auto;
             margin-right: auto
         }
+
+        #page-container {
+            min-height: 560px;
+        }
+        
+        .sidepanel {
+            min-height: 560px;
+        }
+        
+        #main-content {
+            min-height: 100%;
+        }
 }
 
 
@@ -315,5 +327,9 @@
 
     .carousel-item__card__list li {
         font-size: .45rem;
+    }
+
+    .quiz-item__card__name, .rcm-item__card__name {
+        font-size: .7rem;
     }
 }
