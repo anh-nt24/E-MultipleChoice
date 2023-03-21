@@ -34,7 +34,7 @@
     if (isset($_POST['login'])) {
         $username = $_POST['username'];
         $password = md5($_POST['password']);
-        $sql = "Select * FROM User WHERE username='$username' AND password='$password' LIMIT 1";
+        $sql = "Select * FROM User WHERE user_id='$username' AND password='$password' LIMIT 1";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {

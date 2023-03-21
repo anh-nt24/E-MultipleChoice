@@ -42,6 +42,7 @@ if (!isset($_SESSION['admin'])) {
 <body>
     <?php
     include("../connection.php");
+    include("main/login.php");
     include("main/header.php");
     include("main/menu.php");
     include("main/main.php");

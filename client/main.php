@@ -9,8 +9,17 @@
         include('pages/login.php');
     }
     if ($dist == 'home') {
-        include('components/header.php');
-        include('pages/home.php');
+        if (isset($_SESSION['login'])) {
+            include('components/header.php');
+            include('pages/home.php');
+        }
+        else {
+            echo "
+                <script>
+                    window.location.replace('App.php?action=login');
+                </script>
+            ";
+        }
     }
     if ($dist == 'create') {
         include('pages/create.php');
@@ -21,7 +30,12 @@
             include('pages/launch.php');
         }
         else {
-            include('pages/login.php');
+            unset($_SESSION['login']);
+            echo "
+                <script>
+                    window.location.replace('App.php?action=login');
+                </script>
+            ";
         }
     }
 ?>

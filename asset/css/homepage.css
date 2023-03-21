@@ -121,11 +121,18 @@
 .user__info__menu li {
     font-size: 13px;
     padding: 5px 10px;
+    width: 100%;
 }
 
 .user__info__menu li:first-child {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
+}
+
+.user__info__menu li a {
+    text-decoration: none;
+    width: 100%;
+    display: block;
 }
 
 .user__info__menu li:last-child a {

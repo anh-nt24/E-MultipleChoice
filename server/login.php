@@ -57,7 +57,7 @@
                 
     ?>
                 <script>
-                    window.location.replace("index.php");
+                    window.location.replace("index.php?action=users&query=usersrp");
                 </script>
     <?php
             

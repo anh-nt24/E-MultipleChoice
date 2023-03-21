@@ -1,26 +1,22 @@
 <?php
-// Đăng xuất, hủy sesion
+// Đăng xuất, hủy session
 if (isset($_GET['logout']) && $_GET['logout'] == 1) {
-  unset($_SESSION['login']);
-  unset($_SESSION['client_id']);
+    unset($_SESSION['login']);
+    unset($_SESSION['client_id']);
 }
 ?>
-
 
 <?php
     // Kiểm tra xem đã tồn tai sesion login hay chưa, nếu tồn tại thì truy vấn lấy Id
     if (isset($_SESSION['login'])) {
-        if (true) {
-            
-        // }
-        // $account = $_SESSION['login'];
+        $account = $_SESSION['login'];
 
-        // $sql = "SELECT * FROM User WHERE name ='$account' LIMIT 1";
-        // $result = $conn->query($sql);
+        $sql = "SELECT * FROM User WHERE username ='$account' LIMIT 1";
+        $result = $conn->query($sql);
 
-        // if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) {
 
-        // $row = $result->fetch_array();
+            $row = $result->fetch_array();
 ?>
 <link rel="stylesheet" href="asset/css/homepage.css">
 <div id="header" class="header">
