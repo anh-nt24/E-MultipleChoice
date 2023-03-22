@@ -72,7 +72,7 @@
                         </div>
                         <div class="col-lg-3 col-12">
                             <div class="homepage__quiz-create">
-                                <button class="btn quiz-create__btn px-3 py-2">
+                                <button type="button" class="btn quiz-create__btn px-3 py-2">
                                     <i class="fa fa-plus-circle"></i>
                                     New quizz
                                 </button>

@@ -65,7 +65,7 @@ sidePanelToggler.addEventListener('click', function() {
 });
 
 document.querySelector('.quiz-create__btn').addEventListener('click', () => {
-    window.location.href = '../QuizCreate/index.html';
+    window.location.href = 'App.php?action=create';
 })
 
 var carouselWidth = $('.carousel-inner')[0].scrollWidth;

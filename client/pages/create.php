@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="./asset/css/create.css">
 <link rel="stylesheet" href="./asset/css/responsive.css">
+
 <div id="page-container">
     <div class="row nopadding">
         <form method="post" class="col-lg-10 col-12 m-auto">
@@ -37,6 +38,21 @@
                                     <input readonly id="num-ques" name="num-ques" class="w-100 form-control" type="text" onkeyup="generateQues(this)">
                                 </label>
                             </div>
+                            <div class="col-md-6 col-12">
+                                <label class="w-100" for="quiz-level">
+                                    Difficulty:
+                                    <input id="quiz-level" name="quiz-level" class="w-100 form-control" placeholder="0" type="number">
+                                </label>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label class="w-100" for="quiz-privacy">
+                                    Privacy:
+                                    <select name="quiz-privacy" class="form-control inputState">
+                                        <option value="1" selected> Public </option>
+                                        <option value="2"> Private </option>
+                                    </select>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -57,7 +73,7 @@
                                 <option value="1" selected> &#9673; Multiple choice</option>
                                 <option value="2">&#9745; Checkboxes</option>
                                 <option value="3">&#8230; Text answer</option>
-                                </select>
+                            </select>
                         </div>
                     </div>
                     <div class="row px-2">
