@@ -48,7 +48,9 @@
             $username = $_POST['username'];
             $password = md5($_POST['password']);
 
-            $sql = "SELECT * FROM admin WHERE username='$username' AND password='$password' LIMIT 1";
+            echo $password;
+
+            $sql = "SELECT * FROM Admin WHERE username='$username' AND password='$password' LIMIT 1";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {

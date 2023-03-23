@@ -17,19 +17,19 @@
                             <div class="col-md-6 col-12">
                                 <label class="w-100" for="stating-date">
                                     Starting date: 
-                                    <input required id="stating-date" name="stating-date" class="w-100 form-control" type="datetime-local">
+                                    <input id="stating-date" name="stating-date" class="w-100 form-control" type="datetime-local">
                                 </label>
                             </div>
                             <div class="col-md-6 col-12">
                                 <label class="w-100" for="ending-date">
                                     Due to:
-                                    <input required id="ending-date" name="ending-date" class="w-100 form-control" type="datetime-local">
+                                    <input id="ending-date" name="ending-date" class="w-100 form-control" type="datetime-local">
                                 </label>
                             </div>
                             <div class="col-md-6 col-12">
                                 <label class="w-100" for="in-time">
                                     Time: 
-                                    <input required id="in-time" name="in-time" class="w-100 form-control" type="text" placeholder="  min(s)">
+                                    <input id="in-time" name="in-time" class="w-100 form-control" type="number" placeholder="  min(s)">
                                 </label>
                             </div>
                             <div class="col-md-6 col-12">
@@ -47,7 +47,7 @@
                             <div class="col-md-6 col-12">
                                 <label class="w-100" for="quiz-privacy">
                                     Privacy:
-                                    <select name="quiz-privacy" class="form-control inputState">
+                                    <select name="quiz-privacy" class="form-control">
                                         <option value="1" selected> Public </option>
                                         <option value="2"> Private </option>
                                     </select>
@@ -65,14 +65,13 @@
                         </div>
                         <div class="col-md-1 col-sm-2 col-3">
                             <div class="form-group">
-                                <input required type="text" class="form-control" name="score[]" class="scores" placeholder="Score">
+                                <input type="number" class="form-control scores" name="score[]" placeholder="Score">
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-12 col-9 question__type-selection">
-                            <select name="quiz-type" class="form-control inputState">
+                            <select name="quiz-type[]" class="form-control inputState">
                                 <option value="1" selected> &#9673; Multiple choice</option>
-                                <option value="2">&#9745; Checkboxes</option>
-                                <option value="3">&#8230; Text answer</option>
+                                <option value="2">&#8230; Text answer</option>
                             </select>
                         </div>
                     </div>
@@ -101,7 +100,7 @@
                             <div class="row pl-2">
                                 <div class="correct-answer d-flex">
                                     <span class="pr-3">Correct answer <span class="correct-answer__instruction" style="font-size: 9px;">(number only)</span>: </span>
-                                    <input required name="correct-ans[]" style="width: 50px" type="text" placeholder="ex: 1">
+                                    <input name="correct-ans[]" style="width: 50px" type="number" placeholder="1">
                                 </div>
                             </div>
                         </div>
@@ -120,63 +119,95 @@
             </div>
         </form>
     </div>
+    <div id="modal-here">
+
+    </div>
 </div>
 <script src="asset/js/create.js"></script>
 
 <?php
     if (isset($_POST['create-quiz'])) {
         $quizTitle = $_POST['quiz-title'];
-        $startDate = $_POST['stating-date'];
-        $dueTo = $_POST['ending-date'];
+        $startDate = ($_POST['stating-date'] == "") ? date("Y-m-d H:i:s") : $_POST['stating-date'];
+        $dueTo = ($_POST['ending-date'] == "") ? 'NULL' : "'".$_POST['ending-date']."'";
         $numQues = (int)$_POST['num-ques'];
-        $inTime = (int)$_POST['in-time'];
+        $inTime = ($_POST['in-time'] == "") ? 'NULL' : $_POST['in-time'];
+        $privacy = (int)$_POST['quiz-privacy'];
+        $diff = (int)$_POST['quiz-level'];
+
+
+        if ($diff < 0) {
+            $diff = 0;
+        }
+        else if ($diff > 100) {
+            $diff = 100;
+        }
 
         while (true) {
             $quiz_id = uniqid();
             $sql = "Select * from Quiz where Quiz_id='" . $quiz_id . "'";
             $result = $conn->query($sql);
             if ($result->num_rows <= 0) {
-                break;
+                break; 
             }
         }
-        $sql = "Insert into Quiz values('".$quiz_id."', '".$startDate."', '".$dueTo."', ".$inTime.", ".$numQues.")";
-
+        $sql = "Insert into Quiz values('".$quiz_id."', '".$quizTitle."', '".$startDate."', ".$dueTo.", ".$inTime.", ".$diff.", ".$privacy.", ".$numQues.")";
         if ($conn->query($sql) == false) {
             echo "
                 <script>
-                    alert('Error: ".$conn->error.".\nTry again!');
+                    console.log('Error: ".$conn->error.". Try again!'); 
                 </script>
-            ";
+            "; 
         }
         else {
+            $j = 0;
+            $success = true;
             for ($i = 0; $i < $numQues; $i++) {
                 while (true) {
-                    $id = uniqid();
-                    $sql = "Select * from Question where Question_id='" . $id . "'";
-                    $result = $conn->query($sql);
+                    $question_id = uniqid();
+                    $sql = "Select * from Question where Question_id='" . $question_id . "'";
+                    $result = $conn->query($sql); 
                     if ($result->num_rows <= 0) {
                         break;
                     }
                 }
                 $quesTitle = $_POST['ques-title'][$i];
-                $corr = $_POST['correct-ans'][$i];
-                $quizType = $_POST['quiz-type'][$i];
-                $quesOps = $_POST['question-option'.($i+1)];
-                $selection = '';
-                $score = 1;
-                $diff = 100;
-                for ($j = 0; $j < count($quesOps)-1; $j++) {
-                    $selection = $selection . $quesOps[$j] . '  Xms1312442*o33  ';
+                $quesType = $_POST['quiz-type'][$i];
+
+                if ($quesType == 1) {
+                    $score = ($_POST['scores'][$j] == "") ? 0 : $_POST['scores'][$j];
+                    $j += 1;
                 }
-                $selection = $selection . $quesOps[$j];
+                else {
+                    $score = 0;
+                }
     
-                $sql = "Insert into Question values('".$id."', '".$quesTitle."', '".$selection."', ".$corr.", ".$score.", ".$diff.", '".$quiz_id."')";
+                $sql = "Insert into Question values('".$question_id."', '".$quesTitle."', ".$score.", ".$quesType.", '".$quiz_id."')";
+
                 if ($conn->query($sql)) {
-                    echo "
-                        <script>
-                            alert('Added successfully. Save this QuizID: ".$quiz_id."');
-                        </script>
-                    ";
+                    if ($quesType == 1) {
+                        $quesOps = $_POST['question-option'.($i+1)];
+                        $corr = max((int)$_POST['correct-ans'][$i], 1);
+                        $order = 1;
+                        foreach ($quesOps as $val) {
+                            $sql = "Select * from Answer";
+                            $row = $conn->query($sql);
+                            $answer_id = $row -> num_rows;
+                            $isCorr = ($corr == $order) ? 1 : 0;
+                            $sql = "Insert into Answer values('".$answer_id."', '".$val."', ".$order.", ".$isCorr.", '".$question_id."')";
+                            $order +=1;
+
+                            if (!$conn->query($sql)) {
+                                echo "
+                                    <script>
+                                        alert('Error: ".$conn->error.".\nTry again!');
+                                    </script>
+                                ";
+                                $success = false;
+                                break;
+                            }
+                        }
+                    }
                 }
                 else {
                     echo "
@@ -186,6 +217,14 @@
                     ";
                 }
             }
+            if ($success) {
+                echo "
+                    <script>
+                        success('".$quiz_id."');
+                    </script>
+                ";
+            }
+
         }
 
     }

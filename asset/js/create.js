@@ -1,3 +1,6 @@
+var inputState;
+
+
 setInterval(() => {
 	const boxes = document.querySelectorAll('.quiz-content > div');
 	boxes.forEach(box => {
@@ -20,8 +23,7 @@ setInterval(() => {
 			inp.setAttribute('name', `question-option${i+1}[]`);
 		})
 	});
-
-	const inputState = document.querySelectorAll('.inputState');
+	inputState = document.querySelectorAll('.inputState');
 	inputState.forEach((e,i) => {
 		e.addEventListener('change', (event) => {
 			const value = event.target.value;
@@ -36,29 +38,29 @@ setInterval(() => {
 				element.innerHTML = multichoiceOption(1);
 				wrapper.appendChild(element);
 				option.innerHTML += wrapper.innerHTML;
-				inpCorrect.placeholder = "ex: 1";
+				inpCorrect.placeholder = "1";
 				document.querySelector('.addOption').parentElement.style.display = 'block';
 				document.querySelector('.correct-answer').parentElement.style.display = 'block';
 			}
 			else if (value == 2) {
-				element.innerHTML = checkboxesChoice(1);
-				wrapper.appendChild(element);
-				option.innerHTML += wrapper.innerHTML;
-				inpCorrect.placeholder = "ex: 1, 2 or all";
-				inpCorrect.style.width = "120px";
-				document.querySelector('.addOption').parentElement.style.display = 'block';
-				document.querySelector('.correct-answer').parentElement.style.display = 'block';
-			}
-			else if (value == 3) {
 				element.innerHTML = textChoice();
 				wrapper.appendChild(element);
 				option.innerHTML += wrapper.innerHTML;
 				document.querySelector('.addOption').parentElement.style.display = 'none';
 				document.querySelector('.correct-answer').parentElement.style.display = 'none';
 			}
+			else {
+				element.innerHTML = multichoiceOption(1);
+				wrapper.appendChild(element);
+				option.innerHTML += wrapper.innerHTML;
+				inpCorrect.placeholder = "1";
+				document.querySelector('.addOption').parentElement.style.display = 'block';
+				document.querySelector('.correct-answer').parentElement.style.display = 'block';
+			}
 		});
 	});
 }, 500);
+
 
 function multichoiceOption(idx, dataIdx) {
 	return  `
@@ -141,14 +143,13 @@ const addQuestion = (e) => {
 			</div>
 			<div class="col-md-1 col-sm-2 col-3">
 				<div class="form-group">
-					<input required type="text" class="form-control" name="score[]" class="scores" placeholder="Score">
+					<input type="number" class="form-control scores" name="score[]" placeholder="Score">
 				</div>
 			</div>
 			<div class="col-md-3 col-sm-12 col-9 question__type-selection">
-				<select name="quiz-type" class="form-control inputState">
+				<select name="quiz-type[]" class="form-control inputState">
 					<option value="1" selected> &#9673; Multiple choice</option>
-					<option value="2">&#9745; Checkboxes</option>
-					<option value="3">&#8230; Text answer</option>
+					<option value="2">&#8230; Text answer</option>
 				</select>
 			</div>
 		</div>
@@ -177,7 +178,7 @@ const addQuestion = (e) => {
 				<div class="row pl-2">
 					<div class="correct-answer d-flex">
 						<span class="pr-3">Correct answer <span class="correct-answer__instruction" style="font-size: 9px;">(number only)</span>: </span>
-						<input name="correct-ans[]" style="width: 50px" type="text" placeholder="ex: 1">
+						<input name="correct-ans[]" style="width: 50px" type="number" placeholder="1">
 					</div>
 				</div>
 			</div>
@@ -206,3 +207,27 @@ const removeQuestion = (element) => {
 	element.parentElement.remove();
 }
 
+const success = (id) => {
+	document.querySelector('#modal-here').innerHTML = `
+		<div class="modal" id="success" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>Your quiz has just been recorded!</p>
+					<p>Quiz ID: ${id}!</p>
+				</div>
+				<div class="modal-footer">
+					<a href="App.php?action=home"><button type="button" class="btn btn-primary">Back home</button></a>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Create one another</button>
+				</div>
+				</div>
+			</div>
+		</div>
+	`;
+	$('#success').modal('show');
+}
