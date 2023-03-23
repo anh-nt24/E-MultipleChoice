@@ -40,7 +40,7 @@
         if ($result->num_rows > 0) {
             $row = $result->fetch_array();
             $_SESSION['login'] = $row['username'];
-            $_SESSION['client_id'] = $row['id'];
+            $_SESSION['client_id'] = $row['User_id'];
 ?>
             <script>
                 window.location.replace('App.php?action=home');

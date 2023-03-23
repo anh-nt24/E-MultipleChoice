@@ -135,7 +135,6 @@
         $privacy = (int)$_POST['quiz-privacy'];
         $diff = (int)$_POST['quiz-level'];
 
-
         if ($diff < 0) {
             $diff = 0;
         }
