@@ -135,6 +135,7 @@
         $privacy = (int)$_POST['quiz-privacy'];
         $diff = (int)$_POST['quiz-level'];
 
+        $user = $_SESSION['client_id'];
         if ($diff < 0) {
             $diff = 0;
         }
@@ -150,7 +151,7 @@
                 break; 
             }
         }
-        $sql = "Insert into Quiz values('".$quiz_id."', '".$quizTitle."', '".$startDate."', ".$dueTo.", ".$inTime.", ".$diff.", ".$privacy.", ".$numQues.")";
+        $sql = "Insert into Quiz values('".$quiz_id."', '".$quizTitle."', '".$startDate."', ".$dueTo.", ".$inTime.", ".$diff.", ".$privacy.", ".$numQues.", '".$user."')";
         if ($conn->query($sql) == false) {
             echo "
                 <script>

@@ -8,9 +8,8 @@ const showResult = () => {
         url: 'model/SearchModel.php',
         type: 'post',
         dataType: 'json',
-        data: ({key: key}),
+        data: ({key}),
         success: (data) => {
-            console.log(data[0]);
             if (data == 1) {
                 document.querySelector('.search-result').innerHTML = `
                     <span class="col-12 res-not-found">
@@ -26,7 +25,7 @@ const showResult = () => {
                 `;
             }
             else {
-                document.querySelector('.search-result').innerHTML = `
+                html =  `
                     <div class="quiz-found col-12">
                         <div class="quiz-item">
                             <div class="d-flex align-items-center quiz-item__card px-3 py-2"  style="min-height: 70px">
@@ -34,10 +33,14 @@ const showResult = () => {
                                     <img src="asset/img/assignment.png" alt="">
                                 </div>
                                 <div class="ml-3 my-auto w-100">
-                                    <h5 style="margin: 0"><b>${data[1]}</b></h5>
+                                    <h5 style="margin: 0"><b>${data['content']}</b></h5>
                                     <div class="d-flex justify-content-between">
-                                        <span style="font-size: 14px">By author</span>
-                                        <span style="font-size: 14px">Date: ${data[2]}; Due to: ${data[3]}</span>
+                                        <span style="font-size: 14px">By ${data['author']}</span>
+                `;
+                if (data['duration']) html += `<span style="font-size: 14px">Duration ${data['duration']}</span>`;
+                if (data['dueTo']) html += `<span style="font-size: 14px">Exam date: ${data['examDate']}; Due to: ${data['dueTo']}</span>`;
+                else html += `<span style="font-size: 14px">Exam date: ${data['examDate']}</span>`;
+                html += `
                                     </div>
                                 </div>
                             </div>
@@ -48,6 +51,8 @@ const showResult = () => {
                         <button class="ml-3 btn btn-primary add-to-reminder">Add to reminder</button>
                     </div>
                 `;
+
+                document.querySelector('.search-result').innerHTML = html;
             }
         }
     });
