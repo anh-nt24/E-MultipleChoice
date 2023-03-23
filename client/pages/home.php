@@ -205,4 +205,4 @@
     </div>
 </div>
 <script src="asset/js/homepage.js"></script>
-<script src="asset/algorithm/search.js"></script>
+<script src="algorithm/search.js"></script>
