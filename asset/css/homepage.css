@@ -602,3 +602,9 @@ ul.library__content {
     border: 1.2px solid var(--main-bg-color);
     color: var(--main-bg-color);
 }
+
+.quiz-found, .quiz-found:hover {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

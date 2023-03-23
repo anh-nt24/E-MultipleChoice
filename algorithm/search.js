@@ -26,7 +26,7 @@ const showResult = () => {
             }
             else {
                 html =  `
-                    <div class="quiz-found col-12">
+                    <a class="zoom quiz-found col-12">
                         <div class="quiz-item">
                             <div class="d-flex align-items-center quiz-item__card px-3 py-2"  style="min-height: 70px">
                                 <div class="assignment__card__img d-flex justify-content-center align-items-center">
@@ -45,7 +45,7 @@ const showResult = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                     <div class="result-option d-flex mt-3">
                         <button class="btn btn-primary take-now">Take now</button>
                         <button class="ml-3 btn btn-primary add-to-reminder">Add to reminder</button>
