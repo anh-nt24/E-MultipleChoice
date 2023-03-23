@@ -573,3 +573,32 @@ ul.library__content {
     transform: scale(1.02);
     cursor: pointer;
 }
+
+.res-not-found {
+    font-size: 1.2rem;
+    color: red;
+    font-style: italic;
+}
+
+.assignment__card__img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    background-color: var(--sub-bg-color);
+}
+
+.assignment__card__img img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+}
+
+.take-now {
+    background-color: var(--main-bg-color);
+}
+
+.add-to-reminder {
+    background-color: transparent;
+    border: 1.2px solid var(--main-bg-color);
+    color: var(--main-bg-color);
+}

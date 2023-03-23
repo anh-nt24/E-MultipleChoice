@@ -27,7 +27,6 @@ document.getElementById('achiev-tab').addEventListener('click', () => {
 
 window.addEventListener('hashchange', () => {
     var url = window.location.href.split('#');
-    console.log(url)
     if (url[url.length-1] == 'achievements') {
         document.querySelector('#achievements').style.display = 'block';
         document.querySelector('#homepage').style.display = 'none';

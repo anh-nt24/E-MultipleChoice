@@ -59,7 +59,7 @@
                 <div id="homepage">
                     <div class="row d-flex align-items-center">
                         <div class="col-lg-9 col-12">
-                            <div class="homepage__search-area">
+                            <form class="homepage__search-area">
                                 <div class="search-area__search-box">
                                     <input class="search-box__input"
                                             name="testkey" 
@@ -67,8 +67,8 @@
                                             placeholder=" ">
                                     <label class="search-box__label">Test key</label>
                                 </div>
-                                <button class="search-area__search-btn btn btn-primary">Search</button>
-                            </div>
+                                <button type="button" onclick="showResult()" class="search-area__search-btn btn btn-primary">Search</button>
+                            </form>
                         </div>
                         <div class="col-lg-3 col-12">
                             <div class="homepage__quiz-create">
@@ -80,11 +80,7 @@
                         </div>
                     </div>
 
-                    <div class="row search-result">
-                        <div class="col-8 quiz-found">
-                        </div>
-                        <div class="col-4 result-option">
-                        </div>
+                    <div class="search-result d-flex flex-column justify-content-center align-items-center">
                     </div>
 
                     <div class="homepage__recommend-area mt-3">
@@ -209,3 +205,4 @@
     </div>
 </div>
 <script src="asset/js/homepage.js"></script>
+<script src="asset/algorithm/search.js"></script>
