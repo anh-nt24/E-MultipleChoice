@@ -26,7 +26,7 @@ const showResult = () => {
             }
             else {
                 html =  `
-                    <a class="zoom quiz-found col-12">
+                    <div onclick="openQuiz('${data['Quiz_id']}')" class="zoom quiz-found col-12">
                         <div class="quiz-item">
                             <div class="d-flex align-items-center quiz-item__card px-3 py-2"  style="min-height: 70px">
                                 <div class="assignment__card__img d-flex justify-content-center align-items-center">
@@ -45,9 +45,9 @@ const showResult = () => {
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                     <div class="result-option d-flex mt-3">
-                        <button class="btn btn-primary take-now">Take now</button>
+                        <button onclick="openQuiz('${data['Quiz_id']}')" class="btn btn-primary take-now">Take now</button>
                         <button class="ml-3 btn btn-primary add-to-reminder">Add to reminder</button>
                     </div>
                 `;
@@ -57,3 +57,8 @@ const showResult = () => {
         }
     });
 }
+
+const openQuiz = (id) => {
+    window.location.replace(`App.php?action=quiz&token=${window.btoa(id)}`);
+}
+

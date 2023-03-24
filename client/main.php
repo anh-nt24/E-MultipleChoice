@@ -12,6 +12,7 @@
         if (isset($_SESSION['login'])) {
             include('components/header.php');
             include('pages/home.php');
+            include('components/footer.php');
         }
         else {
             echo "
@@ -23,6 +24,11 @@
     }
     if ($dist == 'create') {
         include('pages/create.php');
+        include('components/footer.php');
+    }
+    if ($dist == 'quiz') {
+        include('pages/quiz.php');
+        include('components/footer.php');
     }
     if ($dist == '') {
         if (empty($_COOKIE)) {
