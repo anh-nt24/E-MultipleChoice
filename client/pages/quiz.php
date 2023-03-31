@@ -4,17 +4,20 @@
 
 <?php
     if (isset($_GET['token'])) {
-        $id = base64_decode($_GET['token']);
-        $sql1 = "select * from Quiz where Quiz_id='".$id."'";
+        $Quiz_id = base64_decode($_GET['token']);
+        $sql1 = "select * from Quiz where Quiz_id='".$Quiz_id."'";
         $result = $conn->query($sql1);
         $quizData = $result->fetch_array();
-        $sql2 = "select Question_id, question, score, type from Question where Quiz_id='".$id."'";
+        $sql2 = "select Question_id, question, score, type from Question where Quiz_id='".$Quiz_id."'";
         $result = $conn->query($sql2);
         $questionData = [];
         if($result) {
             while($row = $result->fetch_array()){
                 array_push($questionData, $row);
             }
+        }
+        if (!isset($_SESSION['start'])) {
+            $_SESSION['start'] = time();
         }
 ?>
 <div id="page-container">
@@ -26,7 +29,7 @@
         </div>
     </div>
     <div class="row nopadding">
-        <form method="post" class="col-lg-10 col-12 m-auto">
+        <form method="post" onsubmit="return confirm('Are you sure you want to submit this form?');" class="col-lg-10 col-12 m-auto">
             <div class="quiz-content">
                 <div class="quiz-header pt-0">
                     <div class="form-group">
@@ -85,9 +88,11 @@
 
 <?php
     $qsOrder = 1;
+    $qsId = [];
     $correctAnswer = [];
     foreach($questionData as $qs) {
-        $queryCorr = "select * from Answer where Question_id = '".$qs['Question_id']."' and isCorrect = 1";
+        array_push($qsId, $qs['Question_id']);
+        $queryCorr = "select * from Option where Question_id = '".$qs['Question_id']."' and isCorrect = 1";
         $result = $conn->query($queryCorr);
         while($row = $result->fetch_array()){
             array_push($correctAnswer, $row['orderNum']);
@@ -106,7 +111,7 @@
                         </div>
                         <div class="col-md-1 col-sm-2 col-1">
                             <div class="form-group">
-                                <span class="form-control scores" name="score[]">
+                                <span class="form-control text-center scores" name="score[]">
 <?php
                                     echo $qs['score'];
 ?>
@@ -133,7 +138,7 @@
 <?php
         }
         else {
-            $sql = "select * from Answer where Question_id = '".$qs['Question_id']."'";
+            $sql = "select * from Option where Question_id = '".$qs['Question_id']."'";
             $result = $conn->query($sql);
             $ansData = [];
             if($result) {
@@ -173,7 +178,7 @@
 <?php
     }
 ?>
-                <div class="quiz-footer px-2 d-flex">
+                <div class="quiz-footer px-2 pb-5 d-flex">
                     <button type="submit" name="turn-in" class="btn">Turn in</button>
                     <input class="ml-auto btn" type="reset" value="Clear form">
                 </div>
@@ -181,16 +186,15 @@
         </form>
     </div>
     <div id="modal-here">
-
     </div>
 </div>
 <script src="algorithm/countdown.js"></script>
 <?php
-    // echo "
-    //     <script>
-    //         countdown(".$quizData['duration'].");
-    //     </script>
-    // ";
+    echo "
+        <script>
+            countdown(".$quizData['duration'].");
+        </script>
+    ";
 ?>
 
 <?php
@@ -199,16 +203,73 @@
 
 <?php
     if (isset($_POST['turn-in'])) {
+        $_SESSION['end'] = time();
+        $inTime = ($_SESSION['end'] - $_SESSION['start']);
+        unset($_SESSION['start']);
+        unset($_SESSION['end']);
         $userAnswer = [];
+        $opsId = [];
+        $isCorr = [];
         for ($i=1; $i<=count($questionData); $i++) {
-            array_push($userAnswer, $_POST['ans'.$i]);
+            $ops = $_POST['ans'.$i];
+            array_push($userAnswer, $ops);
+            $sql = "select * from Option where orderNum = '".$ops."' and Question_id = '".$qsId[$i-1]."'";
+            $result = $conn->query($sql);
+            $row = $result->fetch_array();
+            array_push($opsId, $row['Option_id']);
         }
         $totalGrade = 0;
         for ($i=0;$i<count($correctAnswer);$i++) {
             $score = $questionData[$i]['score'];
             if ($correctAnswer[$i] == $userAnswer[$i]) {
-                $totalGrade += $score;
+                $totalGrade = $totalGrade + $score;
+                array_push($isCorr, 1);
+            }
+            else {
+                array_push($isCorr, 0);
             }
         }
+        // Save to response table
+        $sql = "Select * from Response";
+        $row = $conn->query($sql);
+        $response_id = $row -> num_rows; 
+        $sql = "insert into Response values('".$response_id."', '".$Quiz_id."', '".$_SESSION['client_id']."', ".$totalGrade.", ".$inTime.")";
+        if (!$conn->query($sql)) {
+            echo "
+                <script>
+                    alert('Error: ".$conn->error.".\nTry again!');
+                </script>
+            ";
+        }
+        else {
+            $success = true;
+            for($i=0;$i<count($opsId); $i++) {
+                $sql = "Select * from ResponseDetails";
+                $row = $conn->query($sql);
+                $detail_id = $row -> num_rows;
+                
+                $sql = "insert into ResponseDetails values('".$detail_id."', '".$response_id."', '".$qsId[$i]."', '".$opsId[$i]."', ".$isCorr[$i].")";
+                if (!$conn->query($sql)) {
+                    $success = false;
+                    break;
+                }
+            }
+            if ($success) {
+                echo "
+                    <script>
+                        window.location.replace('App.php?action=review&result=".base64_encode($response_id)."')
+                    </script>
+                ";
+            }
+            else {
+                echo "
+                    <script>
+                        alert('Error: ".$conn->error.".\nTry again!');
+                    </script>
+                ";
+            }
+        }
+
+        // Save to Response Details table
     }
 ?>

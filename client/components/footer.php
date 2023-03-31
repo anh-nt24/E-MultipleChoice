@@ -4,9 +4,15 @@
         border-top: 1px solid #dee2e6;
         color: #869099;
         padding: 1rem;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
     }
     footer.main-footer {
         padding: 6px;
+    }
+    footer > * {
+        padding: 0 15px;
     }
 </style>
 <footer class="main-footer" data-original-title="" title="">

@@ -65,7 +65,7 @@
                         </div>
                         <div class="col-md-1 col-sm-2 col-3">
                             <div class="form-group">
-                                <input type="number" class="form-control scores" name="score[]" placeholder="Score">
+                                <input type="number" class="form-control scores" name="scores[]" placeholder="Score">
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-12 col-9 question__type-selection">
@@ -112,7 +112,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="quiz-footer px-2 d-flex">
+                <div class="quiz-footer px-2 pb-5 d-flex">
                     <button type="submit" name="create-quiz" class="btn">Submit</button>
                     <input required class="ml-auto btn" type="reset" value="Clear form">
                 </div>
@@ -190,11 +190,11 @@
                         $corr = max((int)$_POST['correct-ans'][$i], 1);
                         $order = 1;
                         foreach ($quesOps as $val) {
-                            $sql = "Select * from Answer";
+                            $sql = "Select * from Option";
                             $row = $conn->query($sql);
                             $answer_id = $row -> num_rows;
                             $isCorr = ($corr == $order) ? 1 : 0;
-                            $sql = "Insert into Answer values('".$answer_id."', '".$val."', ".$order.", ".$isCorr.", '".$question_id."')";
+                            $sql = "Insert into Option values('".$answer_id."', '".$val."', ".$order.", ".$isCorr.", '".$question_id."')";
                             $order +=1;
 
                             if (!$conn->query($sql)) {

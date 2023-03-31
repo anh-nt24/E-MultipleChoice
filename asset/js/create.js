@@ -143,7 +143,7 @@ const addQuestion = (e) => {
 			</div>
 			<div class="col-md-1 col-sm-2 col-3">
 				<div class="form-group">
-					<input type="number" class="form-control scores" name="score[]" placeholder="Score">
+					<input type="number" class="form-control scores" name="scores[]" placeholder="Score">
 				</div>
 			</div>
 			<div class="col-md-3 col-sm-12 col-9 question__type-selection">
