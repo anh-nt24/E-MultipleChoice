@@ -40,52 +40,6 @@
                         </span>
                     </div>
                 </div>
-                <!-- <div class="quiz-form">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-6 col-12">
-                                <label class="w-100" for="stating-date">
-                                    Starting date: 
-                                    <input id="stating-date" name="stating-date" class="w-100 form-control" type="datetime-local">
-                                </label>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <label class="w-100" for="ending-date">
-                                    Due to:
-                                    <input id="ending-date" name="ending-date" class="w-100 form-control" type="datetime-local">
-                                </label>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <label class="w-100" for="in-time">
-                                    Time: 
-                                    <input id="in-time" name="in-time" class="w-100 form-control" type="number" placeholder="  min(s)">
-                                </label>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <label class="w-100" for="num-ques">
-                                    Number of questions: 
-                                    <input readonly id="num-ques" name="num-ques" class="w-100 form-control" type="text" onkeyup="generateQues(this)">
-                                </label>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <label class="w-100" for="quiz-level">
-                                    Difficulty:
-                                    <input id="quiz-level" name="quiz-level" class="w-100 form-control" placeholder="0" type="number">
-                                </label>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <label class="w-100" for="quiz-privacy">
-                                    Privacy:
-                                    <select name="quiz-privacy" class="form-control">
-                                        <option value="1" selected> Public </option>
-                                        <option value="2"> Private </option>
-                                    </select>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
 <?php
     $qsOrder = 1;
     $qsId = [];
@@ -131,7 +85,7 @@
                                         <div class="options">
                                             <div class="form-group d-flex align-items-center">
                                                 <i class="fa fa-pencil-square-o pr-3"></i>
-                                                <input required type="text" class="form-control" name="ans">
+                                                <input required type="text" class="form-control" name="ans[]">
                                             </div>
                                         </div>
                                     </div>
@@ -178,10 +132,13 @@
 <?php
     }
 ?>
-                <div class="quiz-footer px-2 pb-5 d-flex">
-                    <button type="submit" name="turn-in" class="btn">Turn in</button>
-                    <input class="ml-auto btn" type="reset" value="Clear form">
-                </div>
+            </div>
+</div>
+</div>
+</div>
+            <div class="quiz-footer px-2 pb-5 d-flex">
+                <button type="submit" name="turn-in" class="btn">Turn in</button>
+                <input class="ml-auto btn" type="reset" value="Clear form">
             </div>
         </form>
     </div>
@@ -210,16 +167,20 @@
         $userAnswer = [];
         $opsId = [];
         $isCorr = [];
+        $textAns = $_POST['ans'];
         for ($i=1; $i<=count($questionData); $i++) {
             $ops = $_POST['ans'.$i];
             array_push($userAnswer, $ops);
-            $sql = "select * from Option where orderNum = '".$ops."' and Question_id = '".$qsId[$i-1]."'";
-            $result = $conn->query($sql);
+            if ($questionData[$i]['type'] == 1)
+                $sql = "select * from Option where orderNum = '".$ops."' and Question_id = '".$qsId[$i-1]."'";
+            else
+                $sql = "select * from Option where orderNum = '1' and Question_id = '".$qsId[$i-1]."'";
+                $result = $conn->query($sql);
             $row = $result->fetch_array();
             array_push($opsId, $row['Option_id']);
         }
         $totalGrade = 0;
-        for ($i=0;$i<count($correctAnswer);$i++) {
+        for ($i=0;$i<count($questionData);$i++) {
             $score = $questionData[$i]['score'];
             if ($correctAnswer[$i] == $userAnswer[$i]) {
                 $totalGrade = $totalGrade + $score;
@@ -243,12 +204,17 @@
         }
         else {
             $success = true;
-            for($i=0;$i<count($opsId); $i++) {
+            for($i=0;$i<count($questionData); $i++) {
                 $sql = "Select * from ResponseDetails";
                 $row = $conn->query($sql);
                 $detail_id = $row -> num_rows;
-                
-                $sql = "insert into ResponseDetails values('".$detail_id."', '".$response_id."', '".$qsId[$i]."', '".$opsId[$i]."', ".$isCorr[$i].")";
+                if ($questionData[$i]['type'] == 1) {
+                    $sql = "insert into ResponseDetails values('".$detail_id."', NULL, '".$response_id."', '".$qsId[$i]."', '".$opsId[$i]."', ".$isCorr[$i].")";
+                }
+                else {
+                    $sql = "insert into ResponseDetails values('".$detail_id."', '".$textAns[$i]."', '".$response_id."', '".$qsId[$i]."', '".$opsId[$i]."', ".$isCorr[$i].")";
+                }
+                print_r($sql);
                 if (!$conn->query($sql)) {
                     $success = false;
                     break;

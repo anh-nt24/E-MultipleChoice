@@ -7,6 +7,8 @@
         position: fixed;
         width: 100%;
         bottom: 0;
+        left: 0;
+        z-index: 1000;
     }
     footer.main-footer {
         padding: 6px;

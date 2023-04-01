@@ -40,8 +40,8 @@
                 <div class="row d-flex flex-row justify-content-between">
                     <div class="chart col-md-3 col-12">
                         <svg height="300" width="300" id="_cir_progress">
-                        <circle class="outer-cir" cx="150" cy="150" r="120" stroke="#377200" stroke-width="20" fill="none"></circle>
-                        <circle class="inner-cir" cx="150" cy="150" r="120" stroke="#968089" stroke-width="20"  stroke-dasharray="<?php echo 764 - (($numCorr*100)/count($questionData))*764/100;?>, 764" fill="none""></circle>
+                        <circle class="outer-cir" cx="150" cy="150" r="90" stroke="#377200" stroke-width="20" fill="none"></circle>
+                        <circle class="inner-cir" cx="150" cy="150" r="90" stroke="#968089" stroke-width="20"  stroke-dasharray="<?php echo 764 - (($numCorr*100)/count($questionData))*764/100;?>, 764" fill="none""></circle>
                         <text x="50%" y="50%" text-anchor="middle" stroke="none" stroke-width="1px" dy=".3em" style="font-size: 2rem;"><?php echo ($numCorr*100)/count($questionData) . "%";?></text>
                         </svg>
                     </div>
@@ -74,7 +74,7 @@
         </div>
     </div>
     <div class="row nopadding review">
-        <div class="col-lg-10 col-12 m-auto">
+        <div class="col-lg-10 col-12 m-auto pb-5">
             <div class="quiz-content">
                 <div class="quiz-header pt-0">
                     <div class="form-group">
@@ -98,6 +98,7 @@
         $sql = "select * from ResponseDetails where Response_id = '".$Response_id."' and Question_id = '".$qs['Question_id']."'";
         $result = $conn->query($sql);
         $row = $result->fetch_array();
+        $textAns = $row['text'];
         $isCorr = $row['isCorrect'];
         $thisScore = ($isCorr == 1) ? $qs['score'] : 0;
         $Option_id = $row['Option_id'];
@@ -145,7 +146,7 @@
                                             <div class="form-group d-flex align-items-center">
                                                 <i class="fa fa-pencil-square-o pr-3"></i>
                                                 <span class="form-control">
-                                                    not been saved yet
+                                                    <?php echo $textAns;?>
                                                 </span>
                                             </div>
                                         </div>
@@ -196,22 +197,10 @@
 <?php
     }
 ?>
-                <div class="quiz-footer p-2 d-flex">
-                </div>
             </div>
         </div>
     </div>
-    <div id="modal-here">
-    </div>
 </div>
-<script src="algorithm/countdown.js"></script>
-<?php
-    // echo "
-    //     <script>
-    //         countdown(".$quizData['duration'].");
-    //     </script>
-    // ";
-?>
 
 <?php
 }

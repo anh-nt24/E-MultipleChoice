@@ -9,12 +9,12 @@
         include('pages/login.php');
     }
     if ($dist == 'review') {
-        include('pages/result.php');
         include('components/footer.php');
+        include('pages/result.php');
     }
     if ($dist == 'quiz') {
         include('pages/quiz.php');
-        // include('components/footer.php');
+        include('components/footer.php');
     }
     if ($dist == 'home') {
         if (isset($_SESSION['login'])) {

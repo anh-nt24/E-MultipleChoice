@@ -185,29 +185,34 @@
                 $sql = "Insert into Question values('".$question_id."', '".$quesTitle."', ".$score.", ".$quesType.", '".$quiz_id."')";
 
                 if ($conn->query($sql)) {
-                    if ($quesType == 1) {
-                        $quesOps = $_POST['question-option'.($i+1)];
-                        $corr = max((int)$_POST['correct-ans'][$i], 1);
-                        $order = 1;
-                        foreach ($quesOps as $val) {
-                            $sql = "Select * from Option";
-                            $row = $conn->query($sql);
-                            $answer_id = $row -> num_rows;
-                            $isCorr = ($corr == $order) ? 1 : 0;
+                    
+                    $quesOps = $_POST['question-option'.($i+1)];
+                    $corr = max((int)$_POST['correct-ans'][$i], 1);
+                    $order = 1;
+                    foreach ($quesOps as $val) {
+                        $sql = "Select * from Option";
+                        $row = $conn->query($sql);
+                        $answer_id = $row -> num_rows;
+                        $isCorr = ($corr == $order) ? 1 : 0;
+                        if ($quesType == 1) {
                             $sql = "Insert into Option values('".$answer_id."', '".$val."', ".$order.", ".$isCorr.", '".$question_id."')";
-                            $order +=1;
+                        }
+                        else {
+                            $sql = "Insert into Option values('".$answer_id."', '', ".$order.", 0, '".$question_id."')";
+                        }
+                        $order +=1;
 
-                            if (!$conn->query($sql)) {
-                                echo "
-                                    <script>
-                                        alert('Error: ".$conn->error.".\nTry again!');
-                                    </script>
-                                ";
-                                $success = false;
-                                break;
-                            }
+                        if (!$conn->query($sql)) {
+                            echo "
+                                <script>
+                                    alert('Error: ".$conn->error.".\nTry again!');
+                                </script>
+                            ";
+                            $success = false;
+                            break;
                         }
                     }
+                    
                 }
                 else {
                     echo "
