@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <span class="form-control" style="font-size: 3rem;" name="quiz-title" id="quiz-title">
 <?php
-                            echo $quizData['content'];
+                            echo $quizData['title'];
 ?>
                         </span>
                     </div>

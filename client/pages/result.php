@@ -65,9 +65,10 @@
                     </div>
                 </div>
                 <div class="result-btn my-2 d-flex justify-content-around">
-                    <button type="button" class="btn view-answer">View Details</button>
+                    <button type="button" class="btn view-answer"><i class="fa fa-info-circle pr-2"></i>View Details</button>
                     <button type="button" onclick="replay('<?php echo $Quiz_id;?>')" class="btn btn-success replay"><i class="pr-2 fa fa-repeat" style="font-size:1em;"></i>Retry</button>
-                    <button type="button" class="btn btn-danger home">Return Home</button>
+                    <button type="button" class="btn btn-danger home"><i class="fa fa-home pr-2"></i>Return Home</button>
+                    <button type="button" onclick="report('<?php echo $Quiz_id;?>')" class="btn btn-warning report"><i class="fa fa-exclamation-triangle pr-2"></i>Report</button>
                 </div>
             </div>
             <hr>
@@ -80,7 +81,7 @@
                     <div class="form-group">
                         <span class="form-control" style="font-size: 3rem;" name="quiz-title" id="quiz-title">
 <?php
-                            echo $quizData['content'];
+                            echo $quizData['title'];
 ?>
                         </span>
                     </div>

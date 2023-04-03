@@ -11,3 +11,6 @@ function replay(id) {
     window.location.replace(`App.php?action=quiz&token=${window.btoa(id)}`);
 }
 
+function report(id) {
+    window.location.replace(`App.php?action=report&token=${window.btoa(id)}`);
+}

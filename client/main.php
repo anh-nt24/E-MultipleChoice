@@ -34,6 +34,10 @@
         include('pages/create.php');
         include('components/footer.php');
     }
+    if ($dist == 'report') {
+        include('pages/report.php');
+        // include('components/footer.php');
+    }
     if ($dist == '') {
         if (empty($_COOKIE)) {
             include('components/header.php');
