@@ -56,7 +56,7 @@
         <h2 class="content-title">Report a quiz</h2>
         <p>--Issues? Leave a message--</p>
         <div class="user-contact">
-            <form method="post" enctype="multipart/form-data">
+            <form action="" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="contact-usr-name" class="form-label">Your Name</label>
                     <input name="username"  type="text" class="form-control" id="contact-usr-name" placeholder="Nguyen Van A">
@@ -101,11 +101,14 @@
 <?php
     if (isset($_POST['submit'])) {
         $src = $_FILES["fileUpload"]["tmp_name"];
-        $uploadDir = '/home/theanh/Documents/Academic Fall/Web Programming and Applications/Final/Quiz/server/upload/proof_files/';
+        $uploadFile = basename($_FILES["fileUpload"]["name"]);
+        $dist = '../../server/upload/report/' . $uploadFile;
+        print_r($src."<br>");
 
-        $uploadFile = $uploadDir . basename($_FILES["fileUpload"]["name"]);
 
-        if ((move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $src . '/../../..' . $uploadFile))) {
+        print_r($dist);
+
+        if ((move_uploaded_file($src, $dist))) {
             // $cmd = "echo 123 | sudo -S mv '".$src."' '".$uploadFile."'";
             // $status = rename($src, $src . '/../../..' . $uploadFile);
             // print_r($status);
