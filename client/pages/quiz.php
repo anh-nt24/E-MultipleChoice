@@ -75,6 +75,17 @@
                     </div>
                     <div class="row px-2">
                         <div class="col-12">
+                            <style>
+                                .quiz-question__options > .option {
+                                    border-bottom: 0.7px solid #111;
+                                    padding-bottom: 1rem;
+                                }
+
+                                .quiz-questions:not(:first-child) {
+                                    margin-top: 1rem;
+                                    
+                                }
+                            </style>
                             <div class="quiz-question__options">
                                 <div class="row option">
 <?php
@@ -122,19 +133,21 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            </div>
+                        <!-- </div> -->
                     </div>
 <?php
             $qsOrder += 1;
         }
 ?>
                 </div>
+                </div>
 <?php
     }
 ?>
             </div>
-</div>
-</div>
+<!-- </div> -->
+<!-- </div> -->
 </div>
             <div class="quiz-footer px-2 pb-5 d-flex">
                 <button type="submit" name="turn-in" class="btn">Turn in</button>
@@ -168,74 +181,72 @@
         $opsId = [];
         $isCorr = [];
         $textAns = $_POST['ans'];
-        for ($i=1; $i<=count($questionData); $i++) {
-            $ops = $_POST['ans'.$i];
-            array_push($userAnswer, $ops);
-            if ($questionData[$i]['type'] == 1)
-                $sql = "select * from Option where orderNum = '".$ops."' and Question_id = '".$qsId[$i-1]."'";
-            else
-                $sql = "select * from Option where orderNum = '1' and Question_id = '".$qsId[$i-1]."'";
-                $result = $conn->query($sql);
-            $row = $result->fetch_array();
-            array_push($opsId, $row['Option_id']);
-        }
-        $totalGrade = 0;
-        for ($i=0;$i<count($questionData);$i++) {
-            $score = $questionData[$i]['score'];
-            if ($correctAnswer[$i] == $userAnswer[$i]) {
-                $totalGrade = $totalGrade + $score;
-                array_push($isCorr, 1);
-            }
-            else {
-                array_push($isCorr, 0);
-            }
-        }
-        // Save to response table
-        $sql = "Select * from Response";
-        $row = $conn->query($sql);
-        $response_id = $row -> num_rows; 
-        $sql = "insert into Response values('".$response_id."', '".$Quiz_id."', '".$_SESSION['client_id']."', ".$totalGrade.", ".$inTime.")";
-        if (!$conn->query($sql)) {
-            echo "
-                <script>
-                    alert('Error: ".$conn->error.".\nTry again!');
-                </script>
-            ";
-        }
-        else {
-            $success = true;
-            for($i=0;$i<count($questionData); $i++) {
-                $sql = "Select * from ResponseDetails";
-                $row = $conn->query($sql);
-                $detail_id = $row -> num_rows;
-                if ($questionData[$i]['type'] == 1) {
-                    $sql = "insert into ResponseDetails values('".$detail_id."', NULL, '".$response_id."', '".$qsId[$i]."', '".$opsId[$i]."', ".$isCorr[$i].")";
-                }
-                else {
-                    $sql = "insert into ResponseDetails values('".$detail_id."', '".$textAns[$i]."', '".$response_id."', '".$qsId[$i]."', '".$opsId[$i]."', ".$isCorr[$i].")";
-                }
-                print_r($sql);
-                if (!$conn->query($sql)) {
-                    $success = false;
-                    break;
-                }
-            }
-            if ($success) {
-                echo "
-                    <script>
-                        window.location.replace('App.php?action=review&result=".base64_encode($response_id)."')
-                    </script>
-                ";
-            }
-            else {
-                echo "
-                    <script>
-                        alert('Error: ".$conn->error.".\nTry again!');
-                    </script>
-                ";
-            }
-        }
-
-        // Save to Response Details table
+        // for ($i=1; $i<=count($questionData); $i++) {
+        //     $ops = $_POST['ans'.$i];
+        //     array_push($userAnswer, $ops);
+        //     if ($questionData[$i]['type'] == 1)
+        //         $sql = "select * from Option where orderNum = '".$ops."' and Question_id = '".$qsId[$i-1]."'";
+        //     else
+        //         $sql = "select * from Option where orderNum = '1' and Question_id = '".$qsId[$i-1]."'";
+        //         $result = $conn->query($sql);
+        //     $row = $result->fetch_array();
+        //     array_push($opsId, $row['Option_id']);
+        // }
+        // $totalGrade = 0;
+        // for ($i=0;$i<count($questionData);$i++) {
+        //     $score = $questionData[$i]['score'];
+        //     if ($correctAnswer[$i] == $userAnswer[$i]) {
+        //         $totalGrade = $totalGrade + $score;
+        //         array_push($isCorr, 1);
+        //     }
+        //     else {
+        //         array_push($isCorr, 0);
+        //     }
+        // }
+        // // Save to response table
+        // $sql = "Select * from Response";
+        // $row = $conn->query($sql);
+        // $response_id = $row -> num_rows; 
+        // $sql = "insert into Response values('".$response_id."', '".$Quiz_id."', '".$_SESSION['client_id']."', ".$totalGrade.", ".$inTime.")";
+        // if (!$conn->query($sql)) {
+        //     echo "
+        //         <script>
+        //             alert('Error: ".$conn->error.".\nTry again!');
+        //         </script>
+        //     ";
+        // }
+        // else {
+        //     $success = true;
+        //     for($i=0;$i<count($questionData); $i++) {
+        //         $sql = "Select * from ResponseDetails";
+        //         $row = $conn->query($sql);
+        //         $detail_id = $row -> num_rows;
+        //         if ($questionData[$i]['type'] == 1) {
+        //             $sql = "insert into ResponseDetails values('".$detail_id."', NULL, '".$response_id."', '".$qsId[$i]."', '".$opsId[$i]."', ".$isCorr[$i].")";
+        //         }
+        //         else {
+        //             $sql = "insert into ResponseDetails values('".$detail_id."', '".$textAns[$i]."', '".$response_id."', '".$qsId[$i]."', '".$opsId[$i]."', ".$isCorr[$i].")";
+        //         }
+        //         print_r($sql);
+        //         if (!$conn->query($sql)) {
+        //             $success = false;
+        //             break;
+        //         }
+        //     }
+        //     if ($success) {
+        //         echo "
+        //             <script>
+        //                 window.location.replace('App.php?action=review&result=".base64_encode($response_id)."')
+        //             </script>
+        //         ";
+        //     }
+        //     else {
+        //         echo "
+        //             <script>
+        //                 alert('Error: ".$conn->error.".\nTry again!');
+        //             </script>
+        //         ";
+        //     }
+        // }
     }
 ?>

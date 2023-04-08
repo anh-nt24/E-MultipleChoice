@@ -56,14 +56,14 @@
         <h2 class="content-title">Report a quiz</h2>
         <p>--Issues? Leave a message--</p>
         <div class="user-contact">
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="" method="post" enctype="multipart/form-data" onsubmit="return confirm('Are you sure you want to report this QUIZ?');">
                 <div class="mb-3">
                     <label for="contact-usr-name" class="form-label">Your Name</label>
                     <input name="username"  type="text" class="form-control" id="contact-usr-name" placeholder="Nguyen Van A">
                 </div>
                 <div class="mb-3">
                     <label for="contact-usr-phone" class="form-label">Quiz ID</label>
-                    <input readonly type="text" class="form-control" id="contact-usr-phone" placeholder="abc123" value="<?php echo $quizID?>">
+                    <input readonly type="text" class="form-control" name="quiz-id" id="contact-usr-phone" placeholder="abc123" value="<?php echo $quizID?>">
                 </div>
                 <div class="mb-3">
                     <label for="contact-usr-phone" class="form-label">Quiz title</label>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-12">
                     <div class="form-check">
-                        <input  class="form-check-input" type="checkbox" id="contact-usr-has-checked">
+                        <input required class="form-check-input" type="checkbox" id="contact-usr-has-checked">
                         <label class="form-check-label" for="contact-usr-has-checked">
                         I have carefully checked!
                         </label>
@@ -96,26 +96,46 @@
         </div>
     </div>
 </div>
+<style>
+    .alert{
+        max-width: 500px;
+        margin: auto;
+        position: absolute;
+        bottom: 100px;
+        right: 5px;
+        display: none;
+    }
+</style>
+<div class="alert alert-success alert-dismissable col-md-3 col-6 ml-auto">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong>
+</div>
 <script src="asset/js/report.js"></script>
 
 <?php
     if (isset($_POST['submit'])) {
+        $name = $_POST['username'];
+        $userId = $_SESSION['client_id'];
+        $quizId = $_POST['quiz-id'];
+        $id = time() . '_' . $userId . '_' . $quizId;
+        $reason = $_POST['reason'];
+        $description = $_POST['description'];
+
+        define ('SITE_ROOT', realpath(dirname(__FILE__)));
         $src = $_FILES["fileUpload"]["tmp_name"];
         $uploadFile = basename($_FILES["fileUpload"]["name"]);
-        $dist = '../../server/upload/report/' . $uploadFile;
-        print_r($src."<br>");
-
-
-        print_r($dist);
-
-        if ((move_uploaded_file($src, $dist))) {
-            // $cmd = "echo 123 | sudo -S mv '".$src."' '".$uploadFile."'";
-            // $status = rename($src, $src . '/../../..' . $uploadFile);
-            // print_r($status);
-            print_r('suc');
+        $dist = SITE_ROOT . '/../../server/upload/report/' . $uploadFile;
+        move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dist);
+        $sql = "insert into Report values('".$id."', '".date('d-m-y h:i:s')."', '$reason', '$description', '$dist', '$userId', '$quizId')";
+        if ($conn->query($sql)) {
+?>
+                <script>
+                    showSucess();
+                </script>
+<?php
         }
         else {
-            print_r('Failed');
+            print_r('No ok');
         }
     }
 ?>

@@ -11,3 +11,12 @@ setInterval(() => {
         submit.style.pointerEvents = 'auto';
     }
 }, 1000);
+
+const showSucess = () => {
+    $('.alert-success').show();
+    setTimeout(() => {
+        $('.alert-success').hide();
+        window.location.href = "http://localhost/Quiz/App.php?action=home";
+    }, 1000);
+
+}

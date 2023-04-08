@@ -14,7 +14,7 @@
     }
     if ($dist == 'quiz') {
         include('pages/quiz.php');
-        include('components/footer.php');
+        // include('components/footer.php');
     }
     if ($dist == 'home') {
         if (isset($_SESSION['login'])) {
@@ -45,6 +45,7 @@
         }
         else {
             unset($_SESSION['login']);
+            unset($_SESSION['client_id']);
             echo "
                 <script>
                     window.location.replace('App.php?action=login');

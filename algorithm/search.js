@@ -33,7 +33,7 @@ const showResult = () => {
                                     <img src="asset/img/assignment.png" alt="">
                                 </div>
                                 <div class="ml-3 my-auto w-100">
-                                    <h5 style="margin: 0"><b>${data['content']}</b></h5>
+                                    <h5 style="margin: 0"><b>${data['title']}</b></h5>
                                     <div class="d-flex justify-content-between">
                                         <span style="font-size: 14px">By ${data['author']}</span>
                 `;
