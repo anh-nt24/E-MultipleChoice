@@ -7,7 +7,7 @@ const showResult = () => {
         return ;
     }
     $.ajax({
-        url: 'model/SearchModel.php',
+        url: 'client/model/SearchModel.php',
         type: 'post',
         dataType: 'json',
         data: ({key}),
@@ -62,7 +62,7 @@ const showResult = () => {
 
 const openQuiz = (id) => {
     addToCookies(id);
-    // window.location.replace(`App.php?action=quiz&token=${window.btoa(id)}`);
+    window.location.replace(`App.php?action=quiz&token=${window.btoa(id)}`);
 }
 
 

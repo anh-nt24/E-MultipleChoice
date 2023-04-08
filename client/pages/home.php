@@ -111,21 +111,8 @@
                     </div>
 
                     <div class="homepage__history-area mt-3">
-                        <h5 class="history-area__title">Recently history</h5>
+                        <h5 class="history-area__title">Recently opened</h5>
                         <div id="homepage__history-area__slider" class="container pb-0">
-                            <div class="row">
-                                <div class="quiz-item col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4" qs="20" taken="Available" cor="20" time="30" intime="22">
-                                    <div class="zoom d-block quiz-item__card" data-toggle="modal" data-target="#history-area__modal">
-                                        <img class="quiz-item__card__img" src="asset/img/quiz-package.png" alt="">
-                                        <ul class="extra-info d-flex justify-content-between quiz-item__card__list">
-                                        </ul>
-                                        <h6 class="quiz-item__card__name">Multiply and Divide exponents review</h6>
-                                        <p class="quiz-item__card__complete-rate"> 100% </p>
-                                        <p class="pt-1"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <a id="loadmore">Load More</a>
                         </div>
                     </div>
 
@@ -160,8 +147,6 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary">Review</button>
-                                    <button type="button" class="btn btn-secondary">Redo</button>
                                 </div>
                             </div>
                         </div>
@@ -199,11 +184,13 @@
                 </div>
                 <div id="achievements" style="display:none">
                     <h1>This is achievements tab</h1>
+                    
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="algorithm/timeSince.js"></script>
+<script src="asset/js/cookies.js"></script>
 <script src="asset/js/homepage.js"></script>
-<script src="algorithm/cookies.js"></script>
 <script src="algorithm/search.js"></script>

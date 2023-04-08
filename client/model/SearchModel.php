@@ -1,6 +1,6 @@
 <?php
     if (isset($_POST['key'])) {
-        include('../connection.php');
+        include('../../connection.php');
         $sql = "select * from Quiz where Quiz_id='".$_POST['key']."'";
         if ($result = $conn->query($sql)) {
             if ($result->num_rows > 0) {
