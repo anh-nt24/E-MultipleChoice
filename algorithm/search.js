@@ -1,3 +1,5 @@
+// import Cookies from 'js-cookie';
+
 const showResult = () => {
     const key = document.querySelector('.search-box__input').value;
     if (key.length == 0) {
@@ -59,6 +61,8 @@ const showResult = () => {
 }
 
 const openQuiz = (id) => {
-    window.location.replace(`App.php?action=quiz&token=${window.btoa(id)}`);
+    addToCookies(id);
+    // window.location.replace(`App.php?action=quiz&token=${window.btoa(id)}`);
 }
+
 
