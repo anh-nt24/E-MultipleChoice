@@ -9,7 +9,8 @@
     background-color: var(--sub-bg-color);
 }
 
-.wrap-login {
+.wrap-login,
+.wrap-signin {
     width: 1000px;
     height: 450px;
     border-radius: 10px;
@@ -17,6 +18,11 @@
     background-color: #fff;
     overflow: hidden;
 }
+
+.wrap-signin {
+    height: 500px;
+}
+
 
 .wrap-login__img {
     border-radius: 0;
@@ -33,6 +39,11 @@
     padding-bottom: 4rem
 }
 
+.wrap-signin__form {
+    padding-top: 2rem;
+    padding-bottom: 2rem
+}
+
 .wrap-login__form-btn {
     font-size: 1.2rem;
     color: #fff;
@@ -42,6 +53,21 @@
     border: none;
     background-color: var(--main-bg-color);
     margin-top: 20px;
+}
+
+.wrap-login__form-btn--outline {
+    font-size: 1.2rem;
+    color: var(--main-bg-color);
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid var(--main-bg-color);
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+a:hover {
+    text-decoration: none;
 }
 
 .wrap-login__form-btn:hover {

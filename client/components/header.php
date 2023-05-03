@@ -7,16 +7,13 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
 ?>
 
 <?php
-    // Kiểm tra xem đã tồn tai sesion login hay chưa, nếu tồn tại thì truy vấn lấy Id
-    if (isset($_SESSION['login'])) {
-        $account = $_SESSION['login'];
-
-        $sql = "SELECT * FROM User WHERE username ='$account' LIMIT 1";
+    if ($_SESSION['client_id']) {
+        $id = $_SESSION['client_id'];
+        $sql = "select * from User where User_id='".$id."'";
         $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-
-            $row = $result->fetch_array();
+        $user = $result->fetch_array();
+        $username = $user['username'];
+        $avatar = $user['avatar'];
 ?>
 <link rel="stylesheet" href="asset/css/homepage.css">
 <div id="header" class="header">
@@ -37,21 +34,29 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
             </ul>
         </nav>
 
-        <div class="user__info d-flex align-items-center">
-            <img class="user__info__avatar" src="asset/img/avatar.jpg" alt="account">
-            <span class="sfont user__info__name d-flex align-items-center">The Anh<i class="fa fa-solid fa-angle-down"></i></span>
+        <a href="App.php?action=profile" class="btn user__info d-flex align-items-center">
+            <img class="user__info__avatar" src="<?php
+                if (isset($avatar)) {
+                    echo 'server/upload/user_avt/'.$avatar;
+                }
+                else {
+                    echo 'asset/img/avatar.jpg';
+                }
+            ?>" alt="account">
+            <span class="sfont user__info__name d-flex align-items-center"><?php 
+                if (isset($username)) {
+                    echo $username;
+                }
+                else {
+                    echo 'User';
+                }
+            ?><i class="fa fa-solid fa-angle-down"></i></span>
 
-            <ul class="user__info__menu">
-                <li>Change profile</li>
-                <li>Change password</li>
-                <li><a href="App.php?logout=1">Log out</a></li>
-            </ul>
-        </div>
+        </a>
     </nav>
 </div>
 
 <?php
-        }
     }
     else { 
         // neu chua ton tai

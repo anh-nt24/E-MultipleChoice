@@ -12,6 +12,9 @@
     if ($dist == 'login') {
         include('pages/login.php');
     }
+    elseif ($dist == 'register') {
+        include('pages/register.php');
+    }
     elseif ($dist == 'review') {
         include('components/footer.php');
         include('pages/result.php');
@@ -31,6 +34,10 @@
     }
     elseif ($dist == 'report') {
         include('pages/report.php');
+        // include('components/footer.php');
+    }
+    elseif ($dist == 'profile') {
+        include('pages/profile.php');
         // include('components/footer.php');
     }
     else {
