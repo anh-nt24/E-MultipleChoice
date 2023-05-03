@@ -4,28 +4,6 @@
     <div class="row nopadding">
         <div class="sidepanel">
             <div class="sidepanel__container container">
-                <div class="row incommings p-3">
-                    <h5 class="incommings__title">Incommings</h5>
-                    <ul class="incommings__content">
-                        <li>
-                            <a href="">
-                                <img src="asset/img/notif.webp" alt="">
-                                <div class="incommings__content__info zoom">
-                                    <span class="quiz-name">Applied Probability and Statistics for Information Technology</span>
-                                    <br>
-                                    <ul class="d-flex justify-content-between nopadding extra-info">
-                                        <li>
-                                            <span class="quiz-author">by Binh Quoc Nguyen</span>
-                                        </li>
-                                        <li>
-                                            <span class="quiz-time-start">after 1 day</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
                 <div class="row library px-3 pt-3">
                     <h5 class="library__title">Library</h5>
                     <ul class="library__content">
@@ -56,7 +34,7 @@
         </div>
         <div class="nopadding" id="main-content">
             <div class="container">
-                <div id="homepage">
+                <div id="homepage" >
                     <div class="row d-flex align-items-center">
                         <div class="col-lg-9 col-12">
                             <form class="homepage__search-area">
@@ -65,7 +43,7 @@
                                             name="testkey" 
                                             type="text" 
                                             placeholder=" ">
-                                    <label class="search-box__label">Test key</label>
+                                    <label class="search-box__label">#0101</label>
                                 </div>
                                 <button type="button" onclick="showResult()" class="search-area__search-btn btn btn-primary">Search</button>
                             </form>
@@ -182,9 +160,36 @@
                         </div>
                     </div>
                 </div>
-                <div id="achievements" style="display:none">
-                    <h1>This is achievements tab</h1>
-                    
+                <div id="achievements" style="display: none">
+                    <div class="row">
+<?php
+    $sql = "select * from Quiz where author_id = '".$_SESSION['client_id']."'";
+    $result = $conn->query($sql);
+    if ($result->num_rows <= 0) {
+?>
+                        <h3><i>You have not created any quiz</i></h3>
+<?php
+    }
+    else {
+        while ($data = mysqli_fetch_assoc($result)) {
+?>
+                        <div class="quiz-item col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4">
+                            <div class="zoom d-block quiz-item__card">
+                                <img class="quiz-item__card__img" src="asset/img/quiz-package.png" alt="">
+                                <ul class="extra-info d-flex justify-content-between quiz-item__card__list-manage">
+                                    <li><?php echo $data['isPublic'] == 1 ? 'Public' : 'Private';?></li>
+                                    <li><?php echo $data['examDate'];?></li>
+                                </ul>
+                                <h6 class="quiz-item__card__name"><?php echo $data['title']?></h6>
+                                <button type="button" onclick="update('<?php echo $data['Quiz_id'];?>')" class="btn btn-primary update-quiz">Update</button>
+                                <p class="pt-1"></p>
+                            </div>
+                        </div>
+<?php
+        }
+    }
+?>
+                    </div>
                 </div>
             </div>
         </div>

@@ -197,10 +197,9 @@
     margin-left:5px;
 }
 
-.incommings, 
 .library {
     display: block;
-    height: 50%;
+    height: 100%;
 }
 
 .incommings {
@@ -607,4 +606,13 @@ ul.library__content {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.update-quiz {
+    height: 25px;
+    margin: auto;
+    font-size: 13px;
+    display: flex;
+    align-self: center;
+    padding-top: 2px;
 }

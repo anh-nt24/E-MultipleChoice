@@ -159,6 +159,7 @@
     </div>
 </div>
 <script src="algorithm/countdown.js"></script>
+<script src="asset/js/cookies.js"></script>
 <?php
     echo "
         <script>
@@ -173,14 +174,14 @@
 
 <?php
     if (isset($_POST['turn-in'])) {
-        $_SESSION['end'] = time();
-        $inTime = ($_SESSION['end'] - $_SESSION['start']);
-        unset($_SESSION['start']);
-        unset($_SESSION['end']);
-        $userAnswer = [];
-        $opsId = [];
-        $isCorr = [];
-        $textAns = $_POST['ans'];
+        // $_SESSION['end'] = time();
+        // $inTime = ($_SESSION['end'] - $_SESSION['start']);
+        // unset($_SESSION['start']);
+        // unset($_SESSION['end']);
+        // $userAnswer = [];
+        // $opsId = [];
+        // $isCorr = [];
+        // $textAns = $_POST['ans'];
         // for ($i=1; $i<=count($questionData); $i++) {
         //     $ops = $_POST['ans'.$i];
         //     array_push($userAnswer, $ops);
@@ -248,5 +249,10 @@
         //         ";
         //     }
         // }
+?>
+    <script>
+            addToCookies('<?php echo $Quiz_id;?>');
+    </script>
+<?php
     }
 ?>

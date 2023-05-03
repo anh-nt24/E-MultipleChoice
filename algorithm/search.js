@@ -27,32 +27,36 @@ const showResult = () => {
                 `;
             }
             else {
-                html =  `
-                    <div onclick="openQuiz('${data['Quiz_id']}')" class="zoom quiz-found col-12">
-                        <div class="quiz-item">
-                            <div class="d-flex align-items-center quiz-item__card px-3 py-2"  style="min-height: 70px">
-                                <div class="assignment__card__img d-flex justify-content-center align-items-center">
-                                    <img src="asset/img/assignment.png" alt="">
-                                </div>
-                                <div class="ml-3 my-auto w-100">
-                                    <h5 style="margin: 0"><b>${data['title']}</b></h5>
-                                    <div class="d-flex justify-content-between">
-                                        <span style="font-size: 14px">By ${data['author']}</span>
-                `;
-                if (data['duration']) html += `<span style="font-size: 14px">Duration ${data['duration']}</span>`;
-                if (data['dueTo']) html += `<span style="font-size: 14px">Exam date: ${data['examDate']}; Due to: ${data['dueTo']}</span>`;
-                else html += `<span style="font-size: 14px">Exam date: ${data['examDate']}</span>`;
-                html += `
+                html = '';
+                console.log(data);
+                data.forEach(dt => {
+                    html +=  `
+                        <div onclick="openQuiz('${dt['Quiz_id']}')" class="zoom quiz-found col-12">
+                            <div class="quiz-item">
+                                <div class="d-flex align-items-center quiz-item__card px-3 py-2"  style="min-height: 70px">
+                                    <div class="assignment__card__img d-flex justify-content-center align-items-center">
+                                        <img src="asset/img/assignment.png" alt="">
+                                    </div>
+                                    <div class="ml-3 my-auto w-100">
+                                        <h5 style="margin: 0"><b>${dt['title']}</b></h5>
+                                        <div class="d-flex justify-content-between">
+                                            <span style="font-size: 14px">By ${dt['author']}</span>
+                    `;
+                    if (dt['duration']) html += `<span style="font-size: 14px">Duration ${dt['duration']}</span>`;
+                    if (dt['dueTo']) html += `<span style="font-size: 14px">Exam date: ${dt['examDate']}; Due to: ${dt['dueTo']}</span>`;
+                    else html += `<span style="font-size: 14px">Exam date: ${dt['examDate']}</span>`;
+                    html += `
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="result-option d-flex mt-3">
-                        <button onclick="openQuiz('${data['Quiz_id']}')" class="btn btn-primary take-now">Take now</button>
-                        <button class="ml-3 btn btn-primary add-to-reminder">Add to reminder</button>
-                    </div>
-                `;
+                        <div class="result-option d-flex mt-3">
+                            <button onclick="openQuiz('${dt['Quiz_id']}')" class="btn btn-primary take-now">Take now</button>
+                            <button class="ml-3 btn btn-primary add-to-reminder">Add to reminder</button>
+                        </div>
+                    `;
+                });
 
                 document.querySelector('.search-result').innerHTML = html;
             }
@@ -61,7 +65,6 @@ const showResult = () => {
 }
 
 const openQuiz = (id) => {
-    addToCookies(id);
     window.location.replace(`App.php?action=quiz&token=${window.btoa(id)}`);
 }
 

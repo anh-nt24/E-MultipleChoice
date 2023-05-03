@@ -15,7 +15,7 @@
             if ($result->num_rows > 0) {
                 $data = $result->fetch_array();
                 array_push($quizName, $data['title']);
-                if (date("Y/m/d") > $data['dueDate']) {
+                if (date("Y/m/d") > $data['dueDate'] && $data['dueDate'] != null) {
                     array_push($isVailable, 'Unavailable');
                 }
                 else {

@@ -103,7 +103,7 @@ const loadHistory = () => {
     const history = document.querySelector('#homepage__history-area__slider');
     var c = document.cookie;
     var html = '';
-    if (!c.includes('Quiz') || c.includes('Quiz=;')) {
+    if (!c.includes('history') || c.includes('history=;')) {
         html = `
         <div class="row">
             <h5><i>You have not opened any quiz recently</i></h5>
@@ -112,7 +112,7 @@ const loadHistory = () => {
         history.innerHTML = html;
     }
     else {
-        const c = getCookie('Quiz');
+        const c = getCookie('history');
         $.ajax({
             url: 'client/model/HistoryModel.php',
             type: 'get',
@@ -133,16 +133,18 @@ const loadHistory = () => {
                 
                 for (let i=0;i<c.length;++i) {
                     html += `
-                    <div class="quiz-item col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4" qs="${qs}" taken="${isAv[i]}" cor="${corNum[i]}" time="${dur[i] || inTime[i]}" intime="${inTime[i]}">
-                        <div class="zoom d-block quiz-item__card" data-toggle="modal" data-target="#history-area__modal">
-                            <img class="quiz-item__card__img" src="asset/img/quiz-package.png" alt="">
-                            <ul class="extra-info d-flex justify-content-between quiz-item__card__list">
-                            </ul>
-                            <h6 class="quiz-item__card__name">${names[i]}</h6>
-                            <p class="quiz-item__card__complete-rate"> 100% </p>
-                            <p class="pt-1"></p>
+                        <div class="quiz-item col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4" qs="${qs}" taken="${isAv[i]}" cor="${corNum[i]}" time="${dur[i] || inTime[i]}" intime="${inTime[i]}">
+                            <div class="zoom d-block quiz-item__card" data-toggle="modal" data-target="#history-area__modal">
+                                <img class="quiz-item__card__img" src="asset/img/quiz-package.png" alt="">
+                                <ul class="extra-info d-flex justify-content-between quiz-item__card__list">
+                                    <li>hehe${isPub[i] == 1 ? 'Public' : 'Private'}</li>
+                                    <li>${c[i][1]}</li>
+                                </ul>
+                                <h6 class="quiz-item__card__name">${names[i]}</h6>
+                                <p class="quiz-item__card__complete-rate"> 100% </p>
+                                <p class="pt-1"></p>
+                            </div>
                         </div>
-                    </div>
                     `;
                 }
                 html += `
@@ -161,9 +163,10 @@ const loadHistory = () => {
                 });
 
                 var histCardList = document.querySelectorAll('.quiz-item__card__list');
-                histCardList.forEach((item, idx) => {
-                    item.innerHTML = `<li>${qsHist[idx]} Qs</li><li>${stateHist[idx]}</li>`;
-                });
+                // histCardList.forEach((item, idx) => {
+                //     console.log(typeof c[idx][1]);
+                //     item.innerHTML = `<li>${isPub[idx] == 1 ? 'Public' : 'Private'}</li><li>${c[idx][1]}</li>`;
+                // });
 
                 quizItemHist.forEach((item, idx) => {
                     item.addEventListener('click', () => {
@@ -211,38 +214,40 @@ const loadHistory = () => {
 
 loadHistory();
 
-const kFormatter = (num) => Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
+const rcmSys = () => {
+    const kFormatter = (num) => Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
 
-var quizItemRcm = document.querySelectorAll('.homepage__recommend-area .rcm-item');
-var qsRcm = [], takenRcm = [], timeRcm = [], diffRcm = [];
-quizItemRcm.forEach((item) => {
-    qsRcm.push(parseInt(item.getAttribute('qs')));
-    takenRcm.push(parseInt(item.getAttribute('taken')));
-    timeRcm.push(parseInt(item.getAttribute('time')));
-    diffRcm.push(item.getAttribute('diff'));
-});
+    var quizItemRcm = document.querySelectorAll('.homepage__recommend-area .rcm-item');
+    var qsRcm = [], takenRcm = [], timeRcm = [], diffRcm = [];
+    quizItemRcm.forEach((item) => {
+        qsRcm.push(parseInt(item.getAttribute('qs')));
+        takenRcm.push(parseInt(item.getAttribute('taken')));
+        timeRcm.push(parseInt(item.getAttribute('time')));
+        diffRcm.push(item.getAttribute('diff'));
+    });
 
-var rcmCardList = document.querySelectorAll('.rcm-item__card__list');
-rcmCardList.forEach((item, idx) => {
-    item.innerHTML = `<li>${qsRcm[idx]} Qs</li><li>${kFormatter(takenRcm[idx])} taken</li>`;
-});
+    var rcmCardList = document.querySelectorAll('.rcm-item__card__list');
+    rcmCardList.forEach((item, idx) => {
+        item.innerHTML = `<li>${qsRcm[idx]} Qs</li><li>${kFormatter(takenRcm[idx])} taken</li>`;
+    });
 
-quizItemRcm.forEach((item, idx) => {
-    item.addEventListener('click', () => {
-        const name = document.querySelectorAll('.rcm-item__card__name')[idx].textContent;
+    quizItemRcm.forEach((item, idx) => {
+        item.addEventListener('click', () => {
+            const name = document.querySelectorAll('.rcm-item__card__name')[idx].textContent;
 
-        document.querySelector('#recommend-area__modal .modal-body__quiz-name').innerHTML = name;
+            document.querySelector('#recommend-area__modal .modal-body__quiz-name').innerHTML = name;
 
-        $('#recommend-area__modal .modal-body__ques-num').text('Question: ' + qsRcm[idx]);
+            $('#recommend-area__modal .modal-body__ques-num').text('Question: ' + qsRcm[idx]);
 
-        $('#recommend-area__modal .modal-body__time').text('Time: ' + timeRcm[idx] + 'min(s)');
+            $('#recommend-area__modal .modal-body__time').text('Time: ' + timeRcm[idx] + 'min(s)');
 
-        const diff = $('#recommend-area__modal .modal-body__quiz-difficult .progress-bar');
-        diff.attr('style', `width: ${diffRcm[idx]}%`);
-        diff.text(diffRcm[idx]+'%');
-    })
-});
+            const diff = $('#recommend-area__modal .modal-body__quiz-difficult .progress-bar');
+            diff.attr('style', `width: ${diffRcm[idx]}%`);
+            diff.text(diffRcm[idx]+'%');
+        })
+    });
 
+}
 
 
 
