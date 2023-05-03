@@ -43,7 +43,7 @@
                                             name="testkey" 
                                             type="text" 
                                             placeholder=" ">
-                                    <label class="search-box__label">#0101</label>
+                                    <label class="search-box__label">Type here</label>
                                 </div>
                                 <button type="button" onclick="showResult()" class="search-area__search-btn btn btn-primary">Search</button>
                             </form>

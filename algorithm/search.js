@@ -65,7 +65,7 @@ const showResult = () => {
 }
 
 const openQuiz = (id) => {
-    window.location.replace(`App.php?action=quiz&token=${window.btoa(id)}`);
+    window.location.href = `App.php?action=quiz&token=${window.btoa(id)}`;
 }
 
 

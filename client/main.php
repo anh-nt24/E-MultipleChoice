@@ -5,52 +5,34 @@
     else {
         $dist = '';
     }
+    if (empty($_COOKIE)) {
+        include('components/header.php');
+        include('pages/launch.php');
+    }
     if ($dist == 'login') {
         include('pages/login.php');
     }
-    if ($dist == 'review') {
+    elseif ($dist == 'review') {
         include('components/footer.php');
         include('pages/result.php');
     }
-    if ($dist == 'quiz') {
+    elseif ($dist == 'home') {
+        include('components/header.php');
+        include('pages/home.php');
+        include('components/footer.php');
+    }
+    elseif ($dist == 'quiz') {
         include('pages/quiz.php');
         // include('components/footer.php');
     }
-    if ($dist == 'home') {
-        if (isset($_SESSION['login'])) {
-            include('components/header.php');
-            include('pages/home.php');
-            include('components/footer.php');
-        }
-        else {
-            echo "
-                <script>
-                    window.location.replace('App.php?action=login');
-                </script>
-            ";
-        }
-    }
-    if ($dist == 'create') {
+    elseif ($dist == 'create') {
         include('pages/create.php');
         include('components/footer.php');
     }
-    if ($dist == 'report') {
+    elseif ($dist == 'report') {
         include('pages/report.php');
         // include('components/footer.php');
     }
-    if ($dist == '') {
-        if (empty($_COOKIE)) {
-            include('components/header.php');
-            include('pages/launch.php');
-        }
-        else {
-            unset($_SESSION['login']);
-            unset($_SESSION['client_id']);
-            echo "
-                <script>
-                    window.location.replace('App.php?action=login');
-                </script>
-            ";
-        }
+    else {
     }
 ?>
