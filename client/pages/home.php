@@ -161,7 +161,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="achievements" style="display: none">
+                <div id="manage" style="display: none">
                     <div class="row">
 <?php
     $sql = "select * from Quiz where author_id = '".$_SESSION['client_id']."'";

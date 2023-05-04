@@ -29,7 +29,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
                     <a href="#homepage" class="nav-link sfont"> HomePage <span class="sr-only">(current)</span></a>
                 </li>
                 <li id="achiev-tab" class="nav-item">
-                    <a href="#achievements" class="nav-link sfont"> Quiz Management </a>
+                    <a href="#manage" class="nav-link sfont"> Quiz Management </a>
                 </li>
             </ul>
         </nav>

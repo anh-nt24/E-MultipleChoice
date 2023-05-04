@@ -61,7 +61,7 @@ error_reporting(E_ALL);
         define('SITE_ROOT', realpath(dirname(__FILE__)));
         $src = $_FILES['avt']["tmp_name"];
         $ext = explode('.', basename($_FILES["avt"]["name"]));
-        $avatar = $name . '.' . end($ext);
+        $avatar = $id . '.' . end($ext);
         $dist = SITE_ROOT . '/../../server/upload/user_avt/' . $avatar;
         move_uploaded_file($_FILES['avt']['tmp_name'], $dist);
         $sql = "insert into User values('$id', '$email', '$name', '$password', '$avatar')";

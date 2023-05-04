@@ -40,7 +40,6 @@
         }
         elseif ($dist == 'profile') {
             include('pages/profile.php');
-            // include('components/footer.php');
         }
     }
 ?>

@@ -27,12 +27,12 @@ document.getElementById('achiev-tab').addEventListener('click', () => {
 
 window.addEventListener('hashchange', () => {
     var url = window.location.href.split('#');
-    if (url[url.length-1] == 'achievements') {
-        document.querySelector('#achievements').style.display = 'block';
+    if (url[url.length-1] == 'manage') {
+        document.querySelector('#manage').style.display = 'block';
         document.querySelector('#homepage').style.display = 'none';
     }
     else {
-        document.querySelector('#achievements').style.display = 'none';
+        document.querySelector('#manage').style.display = 'none';
         document.querySelector('#homepage').style.display = 'block';
     }
 })
