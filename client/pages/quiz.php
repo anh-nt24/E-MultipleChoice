@@ -233,7 +233,7 @@
             if ($success) {
                 echo "
                     <script>
-                        window.location.replace('/?action=review&result=".base64_encode($response_id)."')
+                        window.location.replace('?action=review&id=".base64_encode($response_id)."')
                     </script>
                 ";
             }

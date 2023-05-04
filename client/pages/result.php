@@ -4,8 +4,8 @@
 <link rel="stylesheet" href="./asset/css/responsive.css">
 
 <?php
-    if (isset($_GET['result'])) {
-        $Response_id = base64_decode($_GET['result']);
+    if (isset($_GET['id'])) {
+        $Response_id = base64_decode($_GET['id']);
         $sql = "select totalScore, Quiz_id, inTime from Response where Response_id='".$Response_id."'";
         $result = $conn->query($sql);
         $data = $result->fetch_array();

@@ -4,13 +4,13 @@ document.querySelector('.view-answer').addEventListener('click', () => {
 });
 
 document.querySelector('.home').addEventListener('click', () => {
-    window.location.replace(`/?action=home`);
+    window.location.replace(`?action=home`);
 })
 
 function replay(id) {
-    window.location.replace(`/?action=quiz&token=${window.btoa(id)}`);
+    window.location.replace(`?action=quiz&token=${window.btoa(id)}`);
 }
 
 function report(id) {
-    window.location.replace(`/?action=report&token=${window.btoa(id)}`);
+    window.location.replace(`?action=report&token=${window.btoa(id)}`);
 }

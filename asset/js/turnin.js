@@ -14,7 +14,7 @@ const success = (score) => {
 						<p>Quiz ID: !</p>
 					</div>
 					<div class="modal-footer">
-						<a href="/?action=home"><button type="button" class="btn btn-primary">OK</button></a>
+						<a href="?action=home"><button type="button" class="btn btn-primary">OK</button></a>
 					</div>
 				</div>
 			</div>

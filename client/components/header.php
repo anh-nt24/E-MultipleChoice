@@ -34,7 +34,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
             </ul>
         </nav>
 
-        <a href="/?action=profile" class="btn user__info d-flex align-items-center">
+        <a href="?action=profile" class="btn user__info d-flex align-items-center">
             <img class="user__info__avatar" src="<?php
                 if (isset($avatar)) {
                     echo 'server/upload/user_avt/'.$avatar;

@@ -44,7 +44,7 @@
             $_SESSION['client_id'] = $row['User_id'];
 ?>
             <script>
-                window.location.replace('/?action=home');
+                window.location.replace('?action=home');
             </script>
 <?php
         }

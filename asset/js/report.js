@@ -16,7 +16,7 @@ const showSucess = () => {
     $('.alert-success').show();
     setTimeout(() => {
         $('.alert-success').hide();
-        window.location.href = "http://localhost/Quiz/?action=home";
+        window.location.href = "http://localhost/Quiz?action=home";
     }, 1000);
 
 }
