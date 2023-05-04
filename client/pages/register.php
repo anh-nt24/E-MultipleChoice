@@ -34,6 +34,10 @@
                             <label for="inputAvtSignIn" class="form-label sign-form-label">Avatar</label>
                             <input required type="file" name="avt" class="form-control" id="inputAvtSignIn">
                         </div>
+                        <div class="col-md-12 py-1">
+                            <input type="checkbox" name="remember" id="rememberme">
+                            <label for="rememberme" class="form-label sign-form-label">Remember me</label>
+                        </div>
                         <div class="w100 d-flex flex-wrap justify-content-between pt-2">
                             <button type="submit" name="signup" class="wrap-login__form-btn d-flex justify-content-center align-items-center" id="btnLogin"> <b>Sign Up</b> </button>
                             <a href="?action=login" type="button" name="login" class="wrap-login__form-btn--outline d-flex justify-content-center align-items-center"> <b>Log in</b> </a>
@@ -49,6 +53,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
     if (isset($_POST['signup'])) {
+        
         $name = $_POST['username'];
         $id = uniqid();
         $email = $_POST['email'];
@@ -60,7 +65,10 @@ error_reporting(E_ALL);
         $dist = SITE_ROOT . '/../../server/upload/user_avt/' . $avatar;
         move_uploaded_file($_FILES['avt']['tmp_name'], $dist);
         $sql = "insert into User values('$id', '$email', '$name', '$password', '$avatar')";
-
+        if (isset($_POST['remember'])) {
+            $cookie_name = "me";
+            setcookie($cookie_name, $name, time() + (86400 * 10), "/");
+        }
         if ($conn->query($sql)) {
             $_SESSION['login'] = $name;
             $_SESSION['client_id'] = $id;
