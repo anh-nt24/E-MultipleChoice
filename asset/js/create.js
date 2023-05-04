@@ -222,7 +222,7 @@ const success = (id) => {
 					<p>Quiz ID: ${id}!</p>
 				</div>
 				<div class="modal-footer">
-					<a href="App.php?action=home"><button type="button" class="btn btn-primary">Back home</button></a>
+					<a href="index.php?action=home"><button type="button" class="btn btn-primary">Back home</button></a>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Create one another</button>
 				</div>
 				</div>

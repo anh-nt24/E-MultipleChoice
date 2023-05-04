@@ -64,7 +64,7 @@ sidePanelToggler.addEventListener('click', function() {
 });
 
 document.querySelector('.quiz-create__btn').addEventListener('click', () => {
-    window.location.href = 'App.php?action=create';
+    window.location.href = '/?action=create';
 })
 
 var carouselWidth = $('.carousel-inner')[0].scrollWidth;
@@ -282,9 +282,9 @@ const slide = () => {
 }
 
 const review = (id) => {
-    window.location.replace(`App.php?action=review&result=${id}`);
+    window.location.replace(`/?action=review&result=${id}`);
 }
 
 const redo = (id) => {
-    window.location.replace(`App.php?action=quiz&token=${id}`);
+    window.location.replace(`/?action=quiz&token=${id}`);
 }

@@ -36,7 +36,7 @@
                         </div>
                         <div class="w100 d-flex flex-wrap justify-content-between pt-2">
                             <button type="submit" name="signup" class="wrap-login__form-btn d-flex justify-content-center align-items-center" id="btnLogin"> <b>Sign Up</b> </button>
-                            <a href="App.php?action=login" type="button" name="login" class="wrap-login__form-btn--outline d-flex justify-content-center align-items-center"> <b>Log in</b> </a>
+                            <a href="/?action=login" type="button" name="login" class="wrap-login__form-btn--outline d-flex justify-content-center align-items-center"> <b>Log in</b> </a>
                         </div>
                     </form>
                 </div>
@@ -66,7 +66,7 @@ error_reporting(E_ALL);
             $_SESSION['client_id'] = $id;
 ?>
             <script>
-                window.location.replace('App.php?action=home');
+                window.location.replace('/?action=home');
             </script>
 <?php
         }

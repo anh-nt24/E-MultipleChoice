@@ -25,9 +25,8 @@ window.onscroll = function() {
     const {scrollY} = window;
     up = scrollY < prevScrollY;
     down = !up;
-    // const timelineRect = timeline.getBoundingClientRect();
-    // const dist = targetY - timelineRect.top ;
-    const dist = 0;
+    const timelineRect = timeline.getBoundingClientRect();
+    const dist = targetY - timelineRect.top;
 
     if (down && !full || down && empty) {
         point = Math.max(point, dist);
