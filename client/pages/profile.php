@@ -37,7 +37,7 @@ if ($_SESSION['client_id']) {
     <section class="section">
         <div class="container">
             <div class="card-profile shadow mt--300 card">
-                <div class="px-4">
+                <form method="post" class="px-4">
                     <div class="justify-content-center row">
                         <div class="order-lg-2 col-lg-3">
                             <div class="card-profile-image">
@@ -78,23 +78,23 @@ if ($_SESSION['client_id']) {
                         <div class="row mt-4">
                             <div class="col-9 m-auto">
                                 <h3><i class='fa fas fa-edit pr-1'></i>Personal info</h3>
-                                <form class="form-horizontal px-3" role="form">
+                                <div class="form-horizontal px-3" role="form">
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label"><b>Your name</b></label>
                                         <div class="col-sm-9">
-                                            <input type="text" value="<?php echo $username?>" class="form-control" required placeholder="Your name">
+                                            <input name="name" onchange="ableBtn()" type="text" value="<?php echo $username?>" class="form-control" required placeholder="Your name">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label"><b>Your email</b></label>
                                         <div class="col-sm-9">
-                                            <input type="email" value="<?php echo $email?>" class="form-control" required placeholder="Email">
+                                            <input name="email" onchange="ableBtn()" type="email" value="<?php echo $email?>" class="form-control" required placeholder="Email">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label"><b>Grade</b></label>
                                         <div class="col-sm-9">
-                                            <select class="form-control">
+                                            <select name="grade" onchange="ableBtn()" class="form-control">
                                                 <option <?php if ($user['gradeLevel'] == "1") echo "selected"; else echo '';?> value="1">1</option>
                                                 <option <?php if ($user['gradeLevel'] == "2") echo "selected"; else echo '';?> value="2">2</option>
                                                 <option <?php if ($user['gradeLevel'] == "3") echo "selected"; else echo '';?> value="3">3</option>
@@ -114,7 +114,7 @@ if ($_SESSION['client_id']) {
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label"><b>Role</b></label>
                                         <div class="col-sm-9">
-                                            <select class="form-control">
+                                            <select name="role" onchange="ableBtn()" class="form-control">
                                                 <option <?php if ($user['role'] == "Student") echo "selected"; else echo '';?> value="Student">Student</option>
                                                 <option <?php if ($user['role'] == "Teacher") echo "selected"; else echo '';?> value="Teacher">Teacher</option>
                                             </select>
@@ -123,29 +123,26 @@ if ($_SESSION['client_id']) {
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label"><b>Organization</b></label>
                                         <div class="col-sm-9">
-                                            <input type="text" value="<?php echo $organization?>" require class="form-control" placeholder="Role">
+                                            <input name="ogn" onchange="ableBtn()" type="text" value="<?php echo $organization?>" require class="form-control" placeholder="Organization">
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                        
                     </div>
                     <div class="container pb-4">
                         <div class="row">
                             <div class="col-9 m-auto d-flex justify-content-around">
-                                <button id="save" class="btn btn-primary" type="button" disabled>
+                                <button onclick="saveChange()" id="save" class="btn btn-primary" type="button" disabled>
                                     Save changes
                                 </button>
-                                <button id="changepass" class="btn btn-warning" type="button">
+                                <button onclick="openCP()" id="changepass" class="btn btn-warning" type="button">
                                     Change password
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <section class="container mt-4 show-password" style="display: none">
-                        <div class="row">
-                            <div class="col">
+                        <div class="row mt-2 cfm-pass" style="display: none">
+                            <div class="col-9 m-auto">
                                 <label for="">
                                     <span style="color: red">Confirm your password: </span>
                                     <input name="password" type="password" required>
@@ -155,85 +152,45 @@ if ($_SESSION['client_id']) {
                                 </button>
                             </div>
                         </div>
-                        <div class="row" id="cfm-pas"></div>
-                    </section>
-                    <!-- <div class="container border-top mt-5 changepass" >
-                        <div class="row mt-4">
-                            <div class="col-9 m-auto">
-                                <div class="d-flex justify-content-between">
-                                    <h3><i class='fa fas fa-edit pr-1'></i>Change password</h3>
-                                    <button class="btn btn-light">Close</button>
-                                </div>
-                                <form class="form-horizontal px-3 pt-3">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label"><b>Old password</b></label>
-                                        <div class="col-sm-9">
-                                            <input type="password" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label"><b>New password</b></label>
-                                        <div class="col-sm-9">
-                                            <input type="password" class="form-control" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label"><b>Confirm password</b></label>
-                                        <div class="col-sm-9">
-                                            <input type="password" class="form-control" required>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
 
-    <div class="container" style="margin-top: 450px; margin-bottom: 50px">
+    <div style="margin-top: 490px"></div>
+
+    <div class="container changepass" style="margin-top: 490px; margin-bottom: 50px; display: none">
         <div class="shadow card">
             <div class="px-4">
-                <section class="container mt-4 show-password" style="display: none">
-                    <div class="row">
-                        <div class="col">
-                            <label for="">
-                                <span style="color: red">Confirm your password: </span>
-                                <input name="password" type="password" required>
-                            </label>
-                            <button id="confirm" name="confirm" class="btn btn-primary" type="submit">
-                                Confirm
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row" id="cfm-pas"></div>
-                </section>
-                <div class="container border-top mt-5 changepass" >
+                <div class="container border-top mt-5">
                     <div class="row mt-4">
                         <div class="col-9 m-auto">
                             <div class="d-flex justify-content-between">
                                 <h3><i class='fa fas fa-edit pr-1'></i>Change password</h3>
-                                <button class="btn btn-light">Close</button>
+                                <button onclick="closeCP()" class="btn btn-light">Close</button>
                             </div>
-                            <form class="form-horizontal px-3 pt-3">
+                            <form method="post" class="form-horizontal px-3 pt-3">
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><b>Old password</b></label>
                                     <div class="col-sm-9">
-                                        <input type="password" class="form-control" required>
+                                        <input type="password" name="old-pass" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><b>New password</b></label>
                                     <div class="col-sm-9">
-                                        <input type="password" class="form-control" required>
+                                        <input type="password" name="new-pass" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><b>Confirm password</b></label>
                                     <div class="col-sm-9">
-                                        <input type="password" class="form-control" required>
+                                        <input type="password" name="cfm-pass" class="form-control" required>
                                     </div>
+                                </div>
+                                <div class="form-group row mb-2">
+                                    <button name="udt-password" type="submit" class="btn btn-danger text-center m-auto">Change password</button>
                                 </div>
                             </form>
                         </div>
@@ -243,3 +200,67 @@ if ($_SESSION['client_id']) {
         </div>
     </section>
 </main>
+
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+    if (isset($_POST['confirm'])) {
+        $password = md5($_POST['password']);
+        $sql = "select * from User where User_id='$id'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_array();
+        if ($password != $row['password']) {
+    ?>
+            <script>
+                alert('Password is incorrect;');
+            </script>
+    <?php
+        }
+        else {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $grade = $_POST['grade'];
+            $role = $_POST['role'];
+            $ogn = $_POST['ogn'];
+            $sql = "update User set username='$name', email='$email', gradeLevel='$grade', role='$role', organization='$ogn'  where User_id='$id'";
+            $result = $conn->query($sql);
+    ?>
+            <script>
+                alert('Successfully updated');
+                window.location.replace('/Quiz/?action=profile');
+            </script>
+    <?php
+        }
+    }
+
+
+    if (isset($_POST['udt-password'])) {
+        $old = md5($_POST['old-pass']);
+        $new = md5($_POST['new-pass']);
+        $cfm = $_POST['cfm-pass'];
+        $sql = "select * from User where User_id='$id'";
+        $result = $conn->query($sql);
+        $row = $result->fetch_array();
+        if ($old != $row['password']) {
+    ?>
+            <script>
+                alert('Password is incorrect;');
+            </script>
+    <?php
+        }
+        else {
+            $sql = "update User set password='$new' where User_id='$id'";
+            $result = $conn->query($sql);
+        ?>
+            <script>
+                alert('Password has changed successfully');
+                window.location.replace('/Quiz/?action=profile');
+            </script>
+
+    <?php
+        }
+    }
+?>
+
+
+<script src="asset/js/profile.js"></script>
