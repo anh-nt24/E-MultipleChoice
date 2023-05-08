@@ -102,9 +102,8 @@ $('#homepage__recommend-area__slider .carousel-control-prev').on('click', () => 
 const loadHistory = () => {
     const history = document.querySelector('#homepage__history-area__slider');
     var c = document.cookie;
-    var html = '';
     if (!c.includes('history') || c.includes('history=;')) {
-        html = `
+        let html = `
         <div class="row">
             <h5><i>You have not opened any quiz recently</i></h5>
         </div>
@@ -112,103 +111,49 @@ const loadHistory = () => {
         history.innerHTML = html;
     }
     else {
-        const c = getCookie('history');
-        $.ajax({
-            url: 'client/model/HistoryModel.php',
-            type: 'get',
-            dataType: 'json',
-            data: {'ID': c},
-            success: (data) => {
-                html = `
-                    <div class="row">
-                `;
-                // $quizName, $isPublic, $isVailable, $corNum, $time, $inTime
-                names = data[0];
-                isPub = data[1];
-                isAv = data[2];
-                inTime = data[5];
-                dur = data[4];
-                corNum = data[3];
-                qs = data[6];
-                
-                for (let i=0;i<c.length;++i) {
-                    html += `
-                        <div class="quiz-item col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4" qs="${qs}" taken="${isAv[i]}" cor="${corNum[i]}" time="${dur[i] || inTime[i]}" intime="${inTime[i]}">
-                            <div class="zoom d-block quiz-item__card" data-toggle="modal" data-target="#history-area__modal">
-                                <img class="quiz-item__card__img" src="asset/img/quiz-package.png" alt="">
-                                <ul class="extra-info d-flex justify-content-between quiz-item__card__list">
-                                    <li>hehe${isPub[i] == 1 ? 'Public' : 'Private'}</li>
-                                    <li>${c[i][1]}</li>
-                                </ul>
-                                <h6 class="quiz-item__card__name">${names[i]}</h6>
-                                <p class="quiz-item__card__complete-rate"> 100% </p>
-                                <p class="pt-1"></p>
-                            </div>
-                        </div>
-                    `;
-                }
+
+        const history_cookies = getCookie('history');
+        const renderHistory = async () => {
+            let html = `
+                <div class="row">
+            `;
+            const id = history_cookies.map(e => e[0]);
+
+            const data = await $.ajax({
+                url: 'client/model/HistoryModel.php',
+                type: 'post',
+                dataType: 'json',
+                data: ({id})
+            });
+            // $quizName, $isPublic, $isVailable, $corNum, $numques
+            for (let i=0;i<data[0].length; ++i) {
+                const rate = Math.round(data[3][i]*100/data[4][i]);
+                let class_item = 'rate-100';
+                if (rate == 0) class_item = 'rate-0';
+                else if (rate != 100) class_item = 'rate-99';
                 html += `
+                    <div onclick="review('${data[5][i]}', '${data[2][i]}')" style="cursor: pointer" class="no-link quiz-item col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4">
+                        <div class="zoom d-block quiz-item__card">
+                            <img class="quiz-item__card__img" src="asset/img/quiz-package.png" alt="">
+                            <ul class="extra-info d-flex justify-content-between quiz-item__card__list">
+                                <li>${data[1][i] == 1 ? 'Public' : 'Private'}</li>
+                                <li>${data[2][i]}</li>
+                            </ul>
+                            <h6 class="quiz-item__card__name">${data[0][i]}</h6>
+                            <p class="quiz-item__card__complete-rate ${class_item}"> ${rate}%</p>
+                            <p class="pt-1"></p>
+                        </div>
                     </div>
-                    <a id="loadmore">Load More</a>
-                `;
-                history.innerHTML = html;
-                var quizItemHist = document.querySelectorAll('.homepage__history-area .quiz-item');
-                var qsHist = [], stateHist = [], timeHist = [], inTime = [], corHist = [];
-                quizItemHist.forEach((item) => {
-                    qsHist.push(parseInt(item.getAttribute('qs')));
-                    stateHist.push(item.getAttribute('taken'));
-                    timeHist.push(parseInt(item.getAttribute('time')));
-                    inTime.push(parseInt(item.getAttribute('intime')));
-                    corHist.push(parseInt(item.getAttribute('cor')));
-                });
-
-                var histCardList = document.querySelectorAll('.quiz-item__card__list');
-                // histCardList.forEach((item, idx) => {
-                //     console.log(typeof c[idx][1]);
-                //     item.innerHTML = `<li>${isPub[idx] == 1 ? 'Public' : 'Private'}</li><li>${c[idx][1]}</li>`;
-                // });
-
-                quizItemHist.forEach((item, idx) => {
-                    item.addEventListener('click', () => {
-                        const name = document.querySelectorAll('.quiz-item__card__name')[idx].textContent;
-
-                        document.querySelector('#history-area__modal .modal-body__quiz-name').innerHTML = name;
-
-                        const corElement = $('#history-area__modal .modal-body__correct-num .progress-bar');
-                        corElement.attr('style', `width: ${corHist[idx]*100/qsHist[idx]}%`);
-                        corElement.text(corHist[idx] + '/' + qsHist[idx]);
-
-                        const inCorElement = $('#history-area__modal .modal-body__incorrect-num .progress-bar');
-                        inCorElement.attr('style', `width: ${(qsHist[idx]-corHist[idx])*100/qsHist[idx]}%`);
-                        inCorElement.text((qsHist[idx]-corHist[idx]) + '/' + qsHist[idx]);
-
-                        const timeQuiz = $('#history-area__modal .modal-body__quiz-time .progress-bar');
-                        timeQuiz.attr('style', `width: ${(inTime[idx])*100/timeHist[idx]}%`);
-                        timeQuiz.text(inTime[idx] + '/' + timeHist[idx] + ' min(s)');
-
-                        const footer = $('#history-area__modal .modal-footer');
-                        footer.html(`
-                            <button type="button" onclick="review('${window.btoa(c[idx][0])}')" class="btn btn-primary">Review</button>
-                            <button type="button" onclick="redo('${window.btoa(c[idx][0])}')" class="btn btn-secondary">Redo</button>
-                        `);
-                    })
-                });
-
-                var quizCardHist = document.querySelectorAll('.homepage__history-area .quiz-item__card__list');
-                quizCardHist.forEach((item, idx) => {
-                    item.innerHTML = `<li>${qsHist[idx]} Qs</li><li>${stateHist[idx]}</li>`;
-                });
-
-                const completeRate = document.querySelectorAll('.quiz-item__card__complete-rate');
-                completeRate.forEach((item, idx) => {
-                    const rate = corHist[idx]*100/qsHist[idx];
-                    item.innerHTML = Math.round(rate*100)/100 + '%';
-                    if (rate == 100) item.classList.add('rate-100');
-                    else if (rate == 0) item.classList.add('rate-0');
-                    else item.classList.add('rate-99');
-                });
+                `
             }
-        });
+            html += `
+                </div>
+                <a id="loadmore">Load More</a>
+            `
+            history.innerHTML = html;
+            slide();
+        }
+        renderHistory();
     }
 }
 
@@ -252,20 +197,19 @@ const rcmSys = () => {
 
 
 
-var slideNum = 4;
+
 $(window).resize(() => {
-    var screen =$(window).width();
-    if (screen < 1200) {
-        slideNum = 3;
-    }
-    else {
-        slideNum = 4;
-    }
-    slide()
+    slide();
 });
 
 const slide = () => {
-    const slideItem = $("#homepage__history-area__slider .quiz-item")
+    var screen =$(window).width();
+    var slideNum = 4;
+    if (screen < 1200) {
+        slideNum = 3;
+    }
+    const slideItem = $("#homepage__history-area__slider .quiz-item");
+    console.log(slideItem);
     slideItem.hide();
     slideItem.slice(0,slideNum).show();
     $("#loadmore").on("click", function(e) {
@@ -281,8 +225,14 @@ const slide = () => {
     });
 }
 
-const review = (id) => {
-    window.location.replace(`?action=review&result=${id}`);
+
+const review = (id, av) => {
+    if (av == 'Available') {
+        window.location.href = `?action=review&id=${window.btoa(id)}`;
+    }
+    else {
+        alert('This quiz is not available!');
+    }
 }
 
 const redo = (id) => {

@@ -161,12 +161,13 @@
                         <div class="quiz-item col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4">
                             <div class="zoom d-block quiz-item__card">
                                 <img class="quiz-item__card__img" src="asset/img/quiz-package.png" alt="">
-                                <ul class="extra-info d-flex justify-content-between quiz-item__card__list-manage">
+                                <!-- <ul class="extra-info d-flex justify-content-between quiz-item__card__list-manage">
                                     <li><?php echo $data['isPublic'] == 1 ? 'Public' : 'Private';?></li>
                                     <li><?php echo $data['examDate'];?></li>
-                                </ul>
-                                <h6 class="quiz-item__card__name"><?php echo $data['title']?></h6>
-                                <button type="button" onclick="update('<?php echo $data['Quiz_id'];?>')" class="btn btn-primary update-quiz">Update</button>
+                                </ul> -->
+                                <h5 class="quiz-item__card__name"><?php echo $data['title']?></h5>
+                                <!-- <span>Created at: </span> -->
+                                <button type="button" onclick="viewdetails('<?php echo $data['Quiz_id'];?>')" class="btn btn-primary update-quiz">View</button>
                                 <p class="pt-1"></p>
                             </div>
                         </div>

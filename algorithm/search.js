@@ -64,7 +64,7 @@ const showResult = () => {
 }
 
 const openQuiz = (id) => {
-    window.location.href = `App.php?action=quiz&token=${window.btoa(id)}`;
+    window.location.href = `?action=quiz&token=${window.btoa(id)}`;
 }
 
 const saveQuiz = (id) => {
