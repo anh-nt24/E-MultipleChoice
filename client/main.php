@@ -11,15 +11,19 @@
         include('pages/launch.php');
     }
     else {
-        if (!isset($_SESSION['login']) && $dist != 'login') {
+        if ((!isset($_SESSION['login']) && $dist != 'login') ||
+            (($dist == 'login' || $dist == '') && !isset($_SESSION['login']))
+        ) {
             echo "
                 <script>window.location.replace('?action=login')</script>
             ";
         }
         else {
             // need to authorize to access
-            if ($dist == 'login' || $dist == '') {
-                include('pages/login.php');
+            if (($dist == 'login' || $dist == '') && isset($_SESSION['login'])) {
+                echo "
+                <script>window.location.replace('?action=home')</script>
+            ";
             }
             elseif ($dist == 'register') {
                 include('pages/register.php');
