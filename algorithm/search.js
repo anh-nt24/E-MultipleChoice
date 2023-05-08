@@ -28,7 +28,6 @@ const showResult = () => {
             }
             else {
                 html = '';
-                console.log(data);
                 data.forEach(dt => {
                     html +=  `
                         <div onclick="openQuiz('${dt['Quiz_id']}')" class="zoom quiz-found col-12">
@@ -53,7 +52,7 @@ const showResult = () => {
                         </div>
                         <div class="result-option d-flex mt-3">
                             <button onclick="openQuiz('${dt['Quiz_id']}')" class="btn btn-primary take-now">Take now</button>
-                            <button class="ml-3 btn btn-primary add-to-reminder">Add to reminder</button>
+                            <button onclick="saveQuiz('${dt['Quiz_id']}')" class="ml-3 btn btn-primary add-to-reminder">Add to reminder</button>
                         </div>
                     `;
                 });
@@ -67,5 +66,45 @@ const showResult = () => {
 const openQuiz = (id) => {
     window.location.href = `App.php?action=quiz&token=${window.btoa(id)}`;
 }
+
+const saveQuiz = (id) => {
+    addToCookies('library', id);
+
+    $.ajax({
+        url: 'client/model/LibraryModel.php',
+        type: 'post',
+        dataType: 'json',
+        data: ({id}),
+        success: (data) => {
+            const name = data[0];
+            const duration = data[1];
+            const level = data[2];
+            const element = document.querySelector('ul.library__content');
+            var html = element.innerHTML;
+            var newhtml = ''
+            newhtml += `
+                    <li>
+                            <a href="?action=quiz&token=${window.btoa(id)}">
+                                <img src="asset/img/lib.png" alt="">
+                                <div class="library__content__info zoom">
+                                    <span class="quiz-name">${name}</span>
+                                    <br>
+                                    <ul class="d-flex justify-content-between nopadding extra-info">
+                                        <li>
+                                            <span class="quiz-time">Duration: ${duration}</span>
+                                        </li>
+                                        <li>
+                                            <span class="quiz-level">Difficulty: ${level}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </a>
+                    </li>
+            `;
+            element.innerHTML = newhtml + html;
+        }
+    })
+}
+
 
 

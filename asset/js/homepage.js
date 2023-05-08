@@ -288,3 +288,47 @@ const review = (id) => {
 const redo = (id) => {
     window.location.replace(`?action=quiz&token=${id}`);
 }
+
+
+
+// LOAD LIBRARY
+const library = document.querySelector('ul.library__content');
+const library_cookies = getCookie('library');
+
+const renderLibrary = async () => {
+    let html = '';
+    for (const e of library_cookies) {
+        const id = e[0];
+        const data = await $.ajax({
+            url: 'client/model/LibraryModel.php',
+            type: 'post',
+            dataType: 'json',
+            data: ({id})
+        });
+        const name = data[0];
+        const duration = data[1];
+        const level = data[2];
+        html += `
+                <li>
+                    <a href="?action=quiz&token=${window.btoa(id)}">
+                        <img src="asset/img/lib.png" alt="">
+                        <div class="library__content__info zoom">
+                            <span class="quiz-name">${name}</span>
+                            <br>
+                            <ul class="d-flex justify-content-between nopadding extra-info">
+                                <li>
+                                    <span class="quiz-time">Duration: ${duration}</span>
+                                </li>
+                                <li>
+                                    <span class="quiz-level">Difficulty: ${level}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </a>
+                </li>
+        `;
+    }
+    library.innerHTML = html;
+}
+
+renderLibrary();

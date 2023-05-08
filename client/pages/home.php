@@ -8,23 +8,7 @@
                 <div class="row library px-3 pt-3">
                     <h5 class="library__title">Library</h5>
                     <ul class="library__content">
-                        <li>
-                            <a href="">
-                                <img src="asset/img/lib.png" alt="">
-                                <div class="library__content__info zoom">
-                                    <span class="quiz-name">Calculus 1</span>
-                                    <br>
-                                    <ul class="d-flex justify-content-between nopadding extra-info">
-                                        <li>
-                                            <span class="quiz-time">Time: 15 mins</span>
-                                        </li>
-                                        <li>
-                                            <span class="quiz-level">Level: difficulty</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>

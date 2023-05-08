@@ -1,11 +1,11 @@
 
-const addToCookies = (id) => {
-    setCookie('history', id);
+const addToCookies = (name, id) => {
+    setCookie(name, id);
 }
 
 const getCookie = (name) => {
     var c = document.cookie;
-    console.log(c);
+    // console.log(c);
     if (!c.includes(name) || c.includes(name+'=;')) {
         return [];
     }

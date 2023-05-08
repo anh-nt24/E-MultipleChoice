@@ -247,7 +247,7 @@
         }
 ?>
     <script>
-            addToCookies('<?php echo $Quiz_id;?>');
+            addToCookies('history', '<?php echo $Quiz_id;?>');
     </script>
 <?php
     }
