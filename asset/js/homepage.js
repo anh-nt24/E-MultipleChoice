@@ -282,3 +282,8 @@ const renderLibrary = async () => {
 }
 
 renderLibrary();
+
+
+const viewdetails = (id) => {
+    window.location.href = `?action=udtq&id=${window.btoa(id)}`;
+}

@@ -52,6 +52,9 @@
             elseif ($dist == 'profile') {
                 include('pages/profile.php');
             }
+            elseif ($dist == 'udtq') {
+                include('pages/update.php');
+            }
         }
     }
 ?>
