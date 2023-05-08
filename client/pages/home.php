@@ -148,7 +148,7 @@
                 <div id="manage" style="display: none">
                     <div class="row">
 <?php
-    $sql = "select * from Quiz where author_id = '".$_SESSION['client_id']."'";
+    $sql = "select * from Quiz where author_id = '".$_SESSION['client_id']."' and active=1";
     $result = $conn->query($sql);
     if ($result->num_rows <= 0) {
 ?>
@@ -162,7 +162,10 @@
                             <div class="zoom d-block quiz-item__card">
                                 <img class="quiz-item__card__img" src="asset/img/quiz-package.png" alt="">
                                 <h5 class="quiz-item__card__name"><?php echo $data['title']?></h5>
-                                <button type="button" onclick="viewdetails('<?php echo $data['Quiz_id'];?>')" class="btn btn-primary update-quiz">View</button>
+                                <div class="d-flex">
+                                    <button type="button" onclick="viewdetails('<?php echo $data['Quiz_id'];?>')" class="btn btn-primary update-quiz">View</button>
+                                    <button type="button" onclick="deleteQuiz('<?php echo $data['Quiz_id'];?>')" class="btn btn-danger update-quiz">Delete</button>
+                                </div>
                                 <p class="pt-1"></p>
                             </div>
                         </div>

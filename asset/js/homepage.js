@@ -209,7 +209,6 @@ const slide = () => {
         slideNum = 3;
     }
     const slideItem = $("#homepage__history-area__slider .quiz-item");
-    console.log(slideItem);
     slideItem.hide();
     slideItem.slice(0,slideNum).show();
     $("#loadmore").on("click", function(e) {
@@ -286,4 +285,31 @@ renderLibrary();
 
 const viewdetails = (id) => {
     window.location.href = `?action=udtq&id=${window.btoa(id)}`;
+}
+
+const deleteQuiz = (id) => {
+    if (confirm("Do you really want to delete this quiz?")) {
+        $.ajax({
+            url: 'client/model/Delete.php',
+            type: 'post',
+            dataType: 'json',
+            data: ({id}),
+            success: (status) => {
+                if (status == 200) {
+                    alert('Deleted');
+                    window.location.reload();
+                }
+            }
+        })
+    }
+}
+
+const url = window.location.href.split('#');
+if (url[url.length-1] == 'manage') {
+    document.querySelector('#manage').style.display = 'block';
+    document.querySelector('#homepage').style.display = 'none';
+}
+else {
+    document.querySelector('#manage').style.display = 'none';
+    document.querySelector('#homepage').style.display = 'block';
 }
