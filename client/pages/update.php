@@ -246,6 +246,7 @@ ini_set('display_errors', '1');
         $inTime = ($_POST['in-time'] == "") ? 'NULL' : $_POST['in-time'];
         $privacy = (int)$_POST['quiz-privacy'];
         $diff = (int)$_POST['quiz-level'];
+        $cfg = isset($_POST['quiz-category']) ? $_POST['quiz-category'] : '0';
 
         $user = $_SESSION['client_id'];
         if ($diff < 0) {
@@ -254,7 +255,7 @@ ini_set('display_errors', '1');
         else if ($diff > 100) {
             $diff = 100;
         }
-        $sql = "update Quiz set title='$quizTitle', examDate='$startDate', dueDate=$dueTo, duration=$inTime, level=$diff, isPublic=$privacy, quizNum='$numQues' where Quiz_id='$Quiz_id'";
+        $sql = "update Quiz set title='$quizTitle', examDate='$startDate', dueDate=$dueTo, duration=$inTime, level=$diff, isPublic=$privacy, quizNum='$numQues', Category_id='$cfg' where Quiz_id='$Quiz_id'";
         print_r($sql);
         if ($conn->query($sql) == false) {
             echo "
