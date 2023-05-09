@@ -183,7 +183,6 @@ if (isset($_POST['turn-in'])) {
     $opsId = [];
     $isCorr = [];
     $textAns = $_POST['text-ans'];
-    print_r($questionData);
     for ($i = 1; $i <= count($questionData); $i++) {
         if ($questionData[$i-1]['type'] == 1) {
             $ops = $_POST['ans' . $i];
@@ -230,6 +229,11 @@ if (isset($_POST['turn-in'])) {
             }
         }
         if ($success) {
+        ?>
+            <script>
+                addToCookies('history', '<?php echo $Quiz_id; ?>');
+            </script>
+        <?php
             echo "
                     <script>
                         window.location.replace('?action=review&id=" . base64_encode($response_id) . "')
@@ -243,10 +247,5 @@ if (isset($_POST['turn-in'])) {
                 ";
         }
     }
-?>
-    <script>
-        addToCookies('history', '<?php echo $Quiz_id; ?>');
-    </script>
-<?php
 }
 ?>

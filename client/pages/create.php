@@ -1,6 +1,15 @@
 <link rel="stylesheet" href="./asset/css/create.css">
 <link rel="stylesheet" href="./asset/css/responsive.css">
 
+<?php
+    $sql = "select * from Category";
+    $result = $conn->query($sql);
+    $category = [];
+    while ($row = $result->fetch_array()) {
+        array_push($category, $row);
+    }
+?>
+
 <div id="page-container">
     <div class="row nopadding">
         <form method="post" class="col-lg-10 col-12 m-auto">
@@ -50,6 +59,21 @@
                                     <select name="quiz-privacy" class="form-control">
                                         <option value="1" selected> Public </option>
                                         <option value="2"> Private </option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label class="w-100" for="quiz-category">
+                                    Category:
+                                    <select name="quiz-category" class="form-control">
+                                        <?php
+                                        foreach($category as $ct) {
+                                        ?>
+                                            <option <?php echo "value='".$ct[0]."'"; if ($ct[0] == 0) echo "selected"
+                                            ?>> <?php echo $ct[1];?> </option>
+                                        <?php
+                                        }
+                                        ?>
                                     </select>
                                 </label>
                             </div>
@@ -120,12 +144,13 @@
         </form>
     </div>
     <div id="modal-here">
-
     </div>
 </div>
 <script src="asset/js/create.js"></script>
 
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
     if (isset($_POST['create-quiz'])) {
         $quizTitle = $_POST['quiz-title'];
         $startDate = ($_POST['stating-date'] == "") ? date("Y-m-d H:i:s") : $_POST['stating-date'];
@@ -134,6 +159,7 @@
         $inTime = ($_POST['in-time'] == "") ? 'NULL' : $_POST['in-time'];
         $privacy = (int)$_POST['quiz-privacy'];
         $diff = (int)$_POST['quiz-level'];
+        $ctg = $_POST['quiz-category'];
 
         $user = $_SESSION['client_id'];
         if ($diff < 0) {
@@ -151,11 +177,11 @@
                 break; 
             }
         }
-        $sql = "Insert into Quiz values('".$quiz_id."', '".$quizTitle."', '".$startDate."', ".$dueTo.", ".$inTime.", ".$diff.", ".$privacy.", ".$numQues.", '".$user."')";
+        $sql = "Insert into Quiz values('".$quiz_id."', '".$quizTitle."', '".$startDate."', ".$dueTo.", ".$inTime.", ".$diff.", ".$privacy.", ".$numQues.", 1, '$ctg', '".$user."')";
         if ($conn->query($sql) == false) {
             echo "
                 <script>
-                    console.log('Error: ".$conn->error.". Try again!'); 
+                    console.log(`Error 1: ".$conn->error.". Try again!`); 
                 </script>
             "; 
         }
@@ -205,7 +231,7 @@
                         if (!$conn->query($sql)) {
                             echo "
                                 <script>
-                                    alert('Error: ".$conn->error.".\nTry again!');
+                                    alert(`Error: ".$conn->error.".\nTry again!`);
                                 </script>
                             ";
                             $success = false;
@@ -217,7 +243,7 @@
                 else {
                     echo "
                         <script>
-                            alert('Error: ".$conn->error.".\nTry again!');
+                            alert(`Error: ".$conn->error.".\nTry again!`);
                         </script>
                     ";
                 }

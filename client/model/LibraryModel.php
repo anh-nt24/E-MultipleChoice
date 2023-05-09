@@ -2,7 +2,7 @@
     if (isset($_POST['id'])) {
         include('../../connection.php');
         $id = $_POST['id'];
-        $sql = "select * from Quiz where Quiz_id='".$id."'";
+        $sql = "select * from Quiz where Quiz_id='".$id."' and active=1";
         $result = $conn->query($sql);
         $data = $result->fetch_array();
         $name = $data['title'];
