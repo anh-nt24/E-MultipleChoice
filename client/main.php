@@ -11,24 +11,27 @@
         include('pages/launch.php');
     }
     else {
-        if ((!isset($_SESSION['login']) && $dist != 'login') ||
-            (($dist == 'login' || $dist == '') && !isset($_SESSION['login']))
-        ) {
+        if ((!isset($_SESSION['login']) && $dist != 'login')) {
             echo "
                 <script>window.location.replace('?action=login')</script>
             ";
         }
-        else {
-            // need to authorize to access
-            if (($dist == 'login' || $dist == '') && isset($_SESSION['login'])) {
-                echo "
-                <script>window.location.replace('?action=home')</script>
-            ";
+        elseif (!isset($_SESSION['login'])) {
+            if ($dist == 'login' ) {
+                include('pages/login.php');
             }
             elseif ($dist == 'register') {
                 include('pages/register.php');
             }
-            elseif ($dist == 'review') {
+        }
+        else {
+            // need to authorize to access
+            if (($dist == 'login' || $dist == '')) {
+                echo "
+                <script>window.location.replace('?action=home')</script>
+            ";
+            }
+            if ($dist == 'review') {
                 include('components/footer.php');
                 include('pages/result.php');
             }
