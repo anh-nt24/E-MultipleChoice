@@ -15,6 +15,12 @@
                 array_push($questionData, $row);
             }
         }
+        $sql = "select * from Category";
+        $result = $conn->query($sql);
+        $category = [];
+        while ($row = $result->fetch_array()) {
+            array_push($category, $row);
+        }
     }
 ?>
 
@@ -83,6 +89,21 @@
                                     <select name="quiz-privacy" class="form-control">
                                         <option value="1" <?php if ($quizData['isPublic'] == 1) echo "selected";?>> Public </option>
                                         <option value="2" <?php if ($quizData['isPublic'] == 0) echo "selected";?>> Private </option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label class="w-100" for="quiz-category">
+                                    Category:
+                                    <select name="quiz-category" class="form-control">
+                                    <?php
+                                        foreach($category as $ct) {
+                                        ?>
+                                            <option <?php echo "value='".$ct[0]."'"; if ($ct[0] == $quizData['Category_id']) echo "selected";
+                                            ?>> <?php echo $ct[1];?> </option>
+                                        <?php
+                                        }
+                                    ?>
                                     </select>
                                 </label>
                             </div>
