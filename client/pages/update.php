@@ -236,8 +236,6 @@
 <script src="asset/js/create.js"></script>
 
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
     if (isset($_POST['create-quiz'])) {
         $quizTitle = $_POST['quiz-title'];
         $startDate = ($_POST['stating-date'] == "") ? date("Y-m-d H:i:s") : $_POST['stating-date'];

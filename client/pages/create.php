@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="./asset/css/create.css">
 <link rel="stylesheet" href="./asset/css/responsive.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+
 
 <?php
     $sql = "select * from Category where status=1";
@@ -149,8 +151,6 @@
 <script src="asset/js/create.js"></script>
 
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
     if (isset($_POST['create-quiz'])) {
         $quizTitle = $_POST['quiz-title'];
         $startDate = ($_POST['stating-date'] == "") ? date("Y-m-d H:i:s") : $_POST['stating-date'];

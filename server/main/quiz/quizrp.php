@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
 $sql = "select * from Report where status=1";
 $result = mysqli_query($conn, $sql);
 ?>

@@ -213,13 +213,15 @@ const success = (id) => {
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 				<div class="modal-header">
+					<h4>Your quiz has just been recorded!</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-					<p>Your quiz has just been recorded!</p>
-					<p>Quiz ID: ${id}!</p>
+					<p class='d-flex justify-content-between align-items-center'><span>Quiz ID: <span class='ml-2 py-2 px-3' style="background-color: #f1f2f7; border-radius: 5px" id="quiz-id">#${id}</span></span>
+					<button class="btn btn-light" id="copy-id-button" data-clipboard-target="#quiz-id"><i class='fas fa fa-clipboard'></i></button>
+					</p>
 				</div>
 				<div class="modal-footer">
 					<a href="index.php?action=home"><button type="button" class="btn btn-primary">Back home</button></a>
@@ -229,5 +231,17 @@ const success = (id) => {
 			</div>
 		</div>
 	`;
+	
+	const copyButton = document.getElementById('copy-id-button');
+
+	copyButton.addEventListener('click', function () {
+		const clipboard = new ClipboardJS('#copy-id-button');
+
+		clipboard.on('success', function () {
+			// Optional: show a message/modal to the user
+			alert('ID copied to clipboard!');
+		});
+	});
 	$('#success').modal('show');
 }
+

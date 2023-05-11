@@ -113,8 +113,6 @@
 <script src="asset/js/report.js"></script>
 
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
     if (isset($_POST['submit'])) {
         $name = $_POST['username'];
         $userId = $_SESSION['client_id'];

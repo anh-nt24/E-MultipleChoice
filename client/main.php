@@ -56,7 +56,7 @@
                 }
                 elseif ($dist == 'quiz') {
                     include('pages/quiz.php');
-                    // include('components/footer.php');
+                    include('components/footer.php');
                 }
                 elseif ($dist == 'create') {
                     include('pages/create.php');
@@ -64,7 +64,7 @@
                 }
                 elseif ($dist == 'report') {
                     include('pages/report.php');
-                    // include('components/footer.php');
+                    include('components/footer.php');
                 }
                 elseif ($dist == 'profile') {
                     include('pages/profile.php');

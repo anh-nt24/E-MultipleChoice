@@ -172,8 +172,6 @@ if (isset($_GET['token'])) {
 ?>
 
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
 if (isset($_POST['turn-in'])) {
     $_SESSION['end'] = time();
     $inTime = ($_SESSION['end'] - $_SESSION['start']);
