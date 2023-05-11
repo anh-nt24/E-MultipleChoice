@@ -113,6 +113,8 @@
 <script src="asset/js/report.js"></script>
 
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
     if (isset($_POST['submit'])) {
         $name = $_POST['username'];
         $userId = $_SESSION['client_id'];
@@ -123,10 +125,12 @@
 
         define ('SITE_ROOT', realpath(dirname(__FILE__)));
         $src = $_FILES["fileUpload"]["tmp_name"];
+        $ext = explode('.', basename($_FILES["fileUpload"]["name"]));
         $uploadFile = basename($_FILES["fileUpload"]["name"]);
-        $dist = SITE_ROOT . '/../../server/upload/report/' . $uploadFile;
+        $fileName = $id . '.' . end($ext);
+        $dist = SITE_ROOT . '/../../server/upload/report/' . $fileName;
         move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dist);
-        $sql = "insert into Report values('".$id."', '".date('d-m-y h:i:s')."', '$reason', '$description', '$dist', '$userId', '$quizId')";
+        $sql = "insert into Report values('".$id."', '".date('Y-m-d h:i:s')."', '$reason', '$description', '$fileName', 1, '$userId', '$quizId')";
         if ($conn->query($sql)) {
 ?>
                 <script>

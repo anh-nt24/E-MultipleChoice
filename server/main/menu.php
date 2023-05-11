@@ -17,8 +17,9 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
+              <a id="menu-profile" href="index.php?action=quiz&query=quizrp" class="nav-link">QUIZZES</a>
                 <a id="menu-profile" href="index.php?action=users&query=usersrp" class="nav-link">ACCOUNTS</a>
-                <a id="menu-profile" href="index.php?action=category&query=add" class="nav-link" aria-current="page">QUIZZES</a>
+                <a id="menu-profile" href="index.php?action=category&query=add" class="nav-link" aria-current="page">CATEGORIES</a>
             </div>
         </div>
         <a id="menu-profile" href="index.php?logout=1" class="navbar-nav mx-2 nav-link"><i class="fa fa-sign-out"></i></a>

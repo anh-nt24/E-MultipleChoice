@@ -1,3 +1,9 @@
+<style>
+    #table-body > tr:nth-child(even) {
+        background-color: rgba(0,0,0,0.03);
+    }
+</style>
+
 <?php
 // Lock user
 if (isset($_GET['reassign'])) {
@@ -15,48 +21,38 @@ else if (isset($_GET['ignore'])) {
 ?>
 
 <div class="col-12 my-5">
-    <h6 class="text-uppercase text-center">list of reported quiz</h6>
+    <h3 class="text-uppercase text-center"><b>List of deactivated accounts</b></h3>
     <div style="background-color: #FDF0F1;" class="bg-white rounded mt-3">
     <table class="table mt-2 table-borderless w-100">
         <thead class="text-center thead-light">
             <tr>
-                <th class="align-middle w-25">Quiz id</th>
+                <th class="align-middle w-25">Username</th>
+                <th class="align-middle w-25">Email</th>
                 <th class="align-middle w-50">Reason</th>
-                <th class="align-middle w-25">Solution</th>
             </tr>
         </thead>
-        <tbody class="text-center">
+        <tbody id="table-body" class="text-center">
 <?php 
-        $sql = "SELECT DISTINCT * FROM usersrp WHERE status = 0";
+        $sql = "select distinct * from User where active=0";
         $result = $conn->query($sql);
-        
         if ($result->num_rows > 0) {
-            // output data of each row
             while($row = $result->fetch_array()) {
-
-                $sql_user = "SELECT * FROM users WHERE userId = $row[userId] LIMIT 1";
-                // echo $sql_user;
-                $result_user = $conn->query($sql_user);
-                
-                if ($result_user->num_rows > 0) {
-                // output data of each row
-                $row_user = $result_user->fetch_array();
-
 ?>
         <tr>
-            <td><?php echo $row_user['username']; ?></td>
-            <td>
+            <td><?php echo $row['username'];?></td>
+            <td><?php echo $row['email'];?></td>
+            <td><?php echo $row['reason'];?></td>
+            <!-- <td>
                 <div class="d-flex justify-content-center">
                     <a id="menu-profile" class="mx-5 nav-link text-danger" href="index.php?action=users&query=usersrp&reassign=<?php echo $row['userId']; ?>" class="nav-link">Reassign</a>
                     <a id="menu-profile" class="mx-5 nav-link text-success" href="index.php?action=users&query=usersrp&ignore=<?php echo $row['userId']; ?>" class="nav-link">Ignore</a>
                 </div>
-            </td>
+            </td> -->
         </tr>
         
 <?php
-                }
-            } 
-        }
+            }
+        } 
 ?>
         </table>
     </div>

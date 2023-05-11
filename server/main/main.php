@@ -19,11 +19,11 @@
     </div>
 <?php
                 }
-                else if ($tmp == 'category' && $query == 'repair') {
-                    include("main/category/repair.php");
-                }
                 else if ($tmp == 'users' && $query == 'usersrp') {
                     include("main/users/usersrp.php");
+                }
+                else if ($tmp == 'quiz' && $query == 'quizrp') {
+                    include("main/quiz/quizrp.php");
                 }
                 else {
                     include("main/home.php");

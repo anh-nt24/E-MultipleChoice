@@ -15,7 +15,7 @@
                 array_push($questionData, $row);
             }
         }
-        $sql = "select * from Category";
+        $sql = "select * from Category where status=1";
         $result = $conn->query($sql);
         $category = [];
         while ($row = $result->fetch_array()) {

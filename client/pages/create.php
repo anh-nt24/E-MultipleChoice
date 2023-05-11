@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="./asset/css/responsive.css">
 
 <?php
-    $sql = "select * from Category";
+    $sql = "select * from Category where status=1";
     $result = $conn->query($sql);
     $category = [];
     while ($row = $result->fetch_array()) {

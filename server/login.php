@@ -30,7 +30,7 @@
                                 </h2>
                             </div>
                             <div class="col-md-12 py-2">
-                                <label for="inputEmailSignIn" class="form-label sign-form-label">Email or Username</label>
+                                <label for="inputEmailSignIn" class="form-label sign-form-label">Username</label>
                                 <input required type="text" name="username" class="form-control" id="inputEmailSignIn" autofocus>
                             </div>
                             <div class="col-md-12 py-2">
@@ -48,9 +48,7 @@
             $username = $_POST['username'];
             $password = md5($_POST['password']);
 
-            echo $password;
-
-            $sql = "SELECT * FROM Admin WHERE username='$username' AND password='$password' LIMIT 1";
+            $sql = "select * from Admin where username='$username' and password='$password' limit 1";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
@@ -59,7 +57,7 @@
                 
     ?>
                 <script>
-                    window.location.replace("index.php?action=users&query=usersrp");
+                    window.location.replace("index.php?action=quiz&query=quizrp");
                 </script>
     <?php
             
