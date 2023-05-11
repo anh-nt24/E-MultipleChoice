@@ -14,7 +14,7 @@
             <div class="introduction-title hidden-ani">
                 <h2 class="content-title">Creating multiple choice online tests and validation</h2>
             </div>
-            <button type="button" class="btn btn-primary hidden-ani" data-toggle="modal" data-target="#sign-in-form">Join now</button>
+            <button type="button" onclick="window.location.href='?action=login'" class="btn btn-primary hidden-ani">Join now</button>
             
             <div class="container list-brief mt-4 mb-3 ml-auto mr-auto hidden-ani">
                 <div class="row">
@@ -94,7 +94,7 @@
                         <p class="method-content">
                             (+84) 123131245
                         </p>
-                    </li>
+                    </li
 
                     <li class="contact-method">
                         <h6 class="method-name"><i class="fa fa-solid fa-envelope" style="margin-right: 10px"></i>Email</h6>
@@ -165,125 +165,5 @@
     </div>
 </div>
 
-<div class="modal fade" id="sign-in-form" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" style="font-weight: 570;">Welcome back!</h4>
-                    <button class="sign-form-close close" type="button" data-dismiss="modal" aria-label="Close">
-                        <img src="./asset/img/Xclose.png" alt="X">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class="row g-3 sign-form-content">
-                        <div class="col-md-12">
-                            <label for="inputEmailSignIn" class="form-label sign-form-label">Email or Username</label>
-                            <input type="email" class="form-control" id="inputEmailSignIn">
-                        </div>
-                        <div class="col-md-12">
-                            <label for="inputPasswordSignIn" class="form-label sign-form-label">
-                                <span class="row d-flex align-items-center">
-                                    <span class="col-6">Password</span>
-                                    <span class="col-6">
-                                        <span class="form-check d-flex justify-content-end mr-3">
-                                            <span class="row check-to-show-password d-flex align-items-center">
-                                                <label class="form-check-label" for="show-password-in">
-                                                    <input class="form-check-input" type="checkbox" id="show-password-in" style="margin-top: -2px">
-                                                    Show
-                                                </label>
-                                            </span>
-                                        </span>
-                                    </span>
-                                </span>
-                            </label>
-                            <input type="password" class="form-control demo-show-password" id="inputPasswordSignIn" style="background-image: url('./asset/img/hide-password.webp');">
-                        </div>
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
-                            <div class="or-container">
-                                <div class="line-separator"></div> 
-                                <span class="ml-2 mr-2">or</span>
-                                <div class="line-separator"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <a class="btn btn-lg with-google-btn btn-block btn-outline" href=""><img src="./asset/img/gg-logo.png" alt="G" style="width: 7%;"> Sign in with Google</a>
-                                </div>
-                            </div>
-                            <br>
-                            <p class="text-inverse text-center" style="font-size: 13px; opacity: 0.8; margin-bottom:0">Don't have an account yet? <a id="switch-to-sign-up" href="" data-toggle="modal" data-target="#sign-up-form">Sign up</a></p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-</div>
 
-<div class="modal fade" id="sign-up-form" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" style="font-weight: 570;">Hello, create an account!</h4>
-                <button class="sign-form-close close" type="button" data-dismiss="modal" aria-label="Close">
-                    <img src="./asset/img/Xclose.png" alt="X">
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="row g-3 sign-form-content">
-                    <div class="col-md-6">
-                        <label for="account-name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="account-name">
-                    </div>
-                    <div class="col-md-6">
-                    <label for="account-usrname" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="account-usrname">
-                    </div>
-                    <div class="col-md-12">
-                        <label for="inputEmailSignUp" class="form-label sign-form-label">Email</label>
-                        <input type="email" class="form-control" id="inputEmailSignUp">
-                    </div>
-                    <div class="col-md-12">
-                        <label for="inputPasswordSignUp" class="form-label sign-form-label">
-                            Password
-                        </label>
-                        <input type="password" class="form-control" id="inputPasswordSignUp" style="background-image: url('./asset/img/hide-password.webp');">
-                    </div>
-                    <div class="col-md-12">
-                        <label for="inputConfirmPasswordSignUp" class="form-label sign-form-label">
-                            <span class="row d-flex align-items-center">
-                                <span class="col-6">Confirm password</span>
-                                <span class="col-6">
-                                    <span class="form-check d-flex justify-content-end mr-3">
-                                        <span class="row check-to-show-password d-flex align-items-center">
-                                            <label class="form-check-label" for="show-password-up">
-                                                <input class="form-check-input" type="checkbox" id="show-password-up" style="margin-top: -2px">
-                                                Show
-                                            </label>
-                                        </span>
-                                    </span>
-                                </span>
-                            </span>
-                        </label>
-                        <input type="password" class="form-control demo-show-password" id="inputConfirmPasswordSignUp" style="background-image: url('./asset/img/hide-password.webp');">
-                    </div>
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary">Create account</button>
-                        <div class="or-container">
-                            <div class="line-separator"></div> 
-                            <span class="ml-2 mr-2">or</span>
-                            <div class="line-separator"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <a class="btn btn-lg with-google-btn btn-block btn-outline" href=""><img src="./asset/img/gg-logo.png" alt="G" style="width: 7%;"> Sign up with Google</a>
-                            </div>
-                        </div>
-                        <br>
-                        <p class="text-inverse text-center" style="font-size: 13px; opacity: 0.8; margin-bottom:0">Already have an account? <a id="switch-to-sign-in" href="" data-toggle="modal" data-target="#sign-in-form">Sign in</a></p>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <script src="./asset/js/launchpage.js"></script>

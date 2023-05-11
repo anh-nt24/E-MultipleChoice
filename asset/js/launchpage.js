@@ -163,14 +163,10 @@ openFormReset('.sign-up');
 
 
 // SWITCH BETWEEN SIGN IN AND SIGN UP
-const signUp = document.querySelector("#switch-to-sign-up");
-signUp.addEventListener('click', function() {
-    const btn = document.getElementsByClassName('sign-form-close');
-    btn[0].click();
-})
+const signIn = () => {
+    window.location.href = '?action=login';
+}
 
-const signIn = document.querySelector("#switch-to-sign-in");
-signIn.addEventListener('click', function() {
-    const btn = document.getElementsByClassName('sign-form-close');
-    btn[1].click();
-})
+const signUp = () => {
+    window.location.href = '?action=register';
+}

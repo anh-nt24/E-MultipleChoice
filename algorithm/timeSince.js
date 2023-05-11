@@ -1,26 +1,22 @@
-function timeSince(date) {
-    var seconds = Math.floor((new Date() - date) / 1000);
-  
-    var interval = seconds / 31536000;
-  
-    if (interval > 1) {
-      return Math.floor(interval) + " years";
-    }
-    interval = seconds / 2592000;
-    if (interval > 1) {
-      return Math.floor(interval) + " months";
-    }
-    interval = seconds / 86400;
-    if (interval > 1) {
-      return Math.floor(interval) + " days";
-    }
-    interval = seconds / 3600;
-    if (interval > 1) {
-      return Math.floor(interval) + " hours";
-    }
-    interval = seconds / 60;
-    if (interval > 1) {
-      return Math.floor(interval) + " minutes";
-    }
-    return Math.floor(seconds) + " seconds";
-}
+const timeSince = (date) => {
+	const diff = Date.now() - new Date(date).getTime();
+	const minute = 60 * 1000;
+	const hour = minute * 60;
+	const day = hour * 24;
+
+	if (diff < minute) {
+		return `Just now`;
+	} else if (diff < hour) {
+		const t = Math.floor(diff / minute)
+		if (t == 1) return `1 min ago`;
+		return `${t} mins ago`;
+	} else if (diff < day) {
+		const t = Math.floor(diff / hour);
+		if (t == 1) return '1 hour ago';
+		return `${t} hours ago`;
+	} else if (diff < 2 * day) {
+		return "Yesterday";
+	} else {
+		return date;
+	}
+};

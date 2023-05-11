@@ -231,13 +231,13 @@ if (isset($_POST['turn-in'])) {
         if ($success) {
         ?>
             <script>
-                addToCookies('history', '<?php echo $Quiz_id; ?>');
-            </script>
+                addToCookies('history', '<?php echo $response_id; ?>');
+                </script>
         <?php
             echo "
-                    <script>
-                        window.location.replace('?action=review&id=" . base64_encode($response_id) . "')
-                    </script>
+            <script>
+                window.location.replace('?action=review&id=" . base64_encode($response_id) . "')
+            </script>
                 ";
         } else {
             echo "

@@ -67,36 +67,6 @@ document.querySelector('.quiz-create__btn').addEventListener('click', () => {
     window.location.href = '?action=create';
 })
 
-var carouselWidth = $('.carousel-inner')[0].scrollWidth;
-var cardWidth = $('.carousel-item').width();
-var scrollPos = 0;
-
-function slideNext(id) {
-    scrollPos = (scrollPos < carouselWidth-cardWidth*4 - 70) ? scrollPos + cardWidth + 15: 0;
-    $(`#${id} .carousel-inner`).animate({scrollLeft: scrollPos}, 600);
-};
-
-function slidePrev(id) {
-    scrollPos = (scrollPos > 0 ) ? scrollPos - cardWidth - 15 : carouselWidth-cardWidth*4-70;
-    $(`#${id} .carousel-inner`).animate({scrollLeft: scrollPos}, 600);
-}
-
-$('#homepage__history-area__slider .carousel-control-next').on('click', () => {
-    slideNext('homepage__history-area__slider');
-});
-
-$('#homepage__history-area__slider .carousel-control-prev').on('click', () => {
-    slidePrev('homepage__history-area__slider');
-});
-
-$('#homepage__recommend-area__slider .carousel-control-next').on('click', () => {
-    slideNext('homepage__recommend-area__slider');
-});
-
-$('#homepage__recommend-area__slider .carousel-control-prev').on('click', () => {
-    slidePrev('homepage__recommend-area__slider');
-})
-
 
 
 const loadHistory = () => {
@@ -118,6 +88,7 @@ const loadHistory = () => {
                 <div class="row">
             `;
             const id = history_cookies.map(e => e[0]);
+            const time = history_cookies.map(e => e[1]);
 
             const data = await $.ajax({
                 url: 'client/model/HistoryModel.php',
@@ -137,7 +108,7 @@ const loadHistory = () => {
                             <img class="quiz-item__card__img" src="asset/img/quiz-package.png" alt="">
                             <ul class="extra-info d-flex justify-content-between quiz-item__card__list">
                                 <li>${data[1][i] == 1 ? 'Public' : 'Private'}</li>
-                                <li>${data[2][i]}</li>
+                                <li></li>
                             </ul>
                             <h6 class="quiz-item__card__name">${data[0][i]}</h6>
                             <p class="quiz-item__card__complete-rate ${class_item}"> ${rate}%</p>
@@ -152,12 +123,24 @@ const loadHistory = () => {
             `
             history.innerHTML = html;
             slide();
+            const timeElements = document.querySelectorAll('.quiz-item__card__list li:last-child');
+            Array.from(timeElements).forEach((element, idx) => {
+                element.innerHTML = timeSince(time[idx]);
+            });
+            setInterval(() => {
+                Array.from(timeElements).forEach((element, idx)=> {
+                    element.innerHTML = timeSince(time[idx]);
+                });
+            }, 60000);
+
         }
         renderHistory();
     }
 }
 
 loadHistory();
+
+
 
 const rcmSys = () => {
     const kFormatter = (num) => Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
@@ -254,6 +237,9 @@ const renderLibrary = async () => {
             dataType: 'json',
             data: ({id})
         });
+        if (data[0] == null) {
+            continue;
+        }
         const name = data[0];
         const duration = data[1];
         const level = data[2];

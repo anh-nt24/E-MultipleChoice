@@ -94,36 +94,11 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
 
             <div class="right-header">
                 <div class="form-inline my-2 my-lg-0 mr-2 sign-in">
-                    <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#sign-in-form">Sign in</button>
+                    <button type="button" onclick="window.location.href='?action=login'" class="btn btn-primary my-2 my-sm-0">Sign in</button>
                 </div>
                 <div class="form-inline my-2 my-lg-0 sign-up">
-                    <button class="btn btn-outline-secondary my-2 my-sm-0" data-toggle="modal" data-target="#sign-up-form">Sign up</button>
+                    <button type="button" onclick="window.location.href='?action=register'" class="btn btn-outline-secondary my-2 my-sm-0">Sign up</button>
                 </div>
-
-                <!-- <div>
-                    <div class="my-2 my-lg-0 language">
-                        <div class="dropdown">
-                            <div class="nav-link nav-lang">
-                                <img src="../../static/img/eng.png" alt="" style="width:20px">
-                                <br>
-                                <span>ENG</span>
-                            </div>
-                            <div class="dropdown-menu language list-lang">
-                                <a class="dropdown-item" href="#vie">
-                                    <img src="../../static/img/vie.png" alt="" style="width:10px">
-                                    <span>VIE</span>
-                                </a>
-    
-                                <div class="dropdown-divider"></div>
-    
-                                <a class="dropdown-item" href="#eng">
-                                    <img src="../../static/img/eng.png" alt="" style="width:10px">
-                                    <span>ENG</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
     </nav>

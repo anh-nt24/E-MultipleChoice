@@ -4,10 +4,10 @@
         $search = $_POST['key'];
         $res = [];
         if (str_starts_with($search, '#')) {
-            $sql = "select * from Quiz where Quiz_id='".substr($search, 1)."'";
+            $sql = "select * from Quiz where Quiz_id='".substr($search, 1)."' and active=1";
         }
         else {
-            $sql = "select * FROM Quiz where title LIKE '%".$search."%' and isPublic=1";
+            $sql = "select * FROM Quiz where title LIKE '%".$search."%' and isPublic=1 and active=1";
         }
         if ($result = $conn->query($sql)) {
             if ($result->num_rows > 0) {

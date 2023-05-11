@@ -35,18 +35,25 @@
     if (isset($_POST['login'])) {
         $username = $_POST['username'];
         $password = md5($_POST['password']);
-        $sql = "Select * FROM User WHERE user_id='$username' AND password='$password' LIMIT 1";
+        $sql = "Select * FROM User WHERE email='$username' AND password='$password' LIMIT 1";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_array();
-            $_SESSION['login'] = $row['username'];
-            $_SESSION['client_id'] = $row['User_id'];
+            if ($row['active'] == 0) {
+                echo '<div style="color: red; text-align: center; font-size: .875rem;">
+                        <span>This account has been deactivated!</span>
+                    </div>';
+            }
+            else{
+                $_SESSION['login'] = $row['username'];
+                $_SESSION['client_id'] = $row['User_id'];
 ?>
-            <script>
-                window.location.replace('?action=home');
-            </script>
+                <script>
+                    window.location.replace('?action=home');
+                </script>
 <?php
+            }
         }
         else {
             echo '<div style="color: red; text-align: center; font-size: .875rem;">

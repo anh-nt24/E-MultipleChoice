@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="./asset/css/profile.css">
 
 <?php
-if ($_SESSION['client_id']) {
+if (isset($_SESSION['client_id'])) {
     $id = $_SESSION['client_id'];
     $sql = "select * from User where User_id='" . $id . "'";
     $result = $conn->query($sql);
@@ -37,7 +37,7 @@ if ($_SESSION['client_id']) {
     <section class="section">
         <div class="container">
             <div class="card-profile shadow mt--300 card">
-                <form method="post" class="px-4">
+                <div class="px-4 pb-4">
                     <div class="justify-content-center row">
                         <div class="order-lg-2 col-lg-3">
                             <div class="card-profile-image">
@@ -74,103 +74,122 @@ if ($_SESSION['client_id']) {
                         </div>
                         <div><i class="ni education_hat mr-2"></i><b><?php echo $organization; ?></b></div>
                     </div>
-                    <div class="container border-top mt-5">
-                        <div class="row mt-4">
-                            <div class="col-9 m-auto">
-                                <h3><i class='fa fas fa-edit pr-1'></i>Personal info</h3>
-                                <div class="form-horizontal px-3" role="form">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label"><b>Your name</b></label>
-                                        <div class="col-sm-9">
-                                            <input name="name" onchange="ableBtn()" type="text" value="<?php echo $username?>" class="form-control" required placeholder="Your name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label"><b>Your email</b></label>
-                                        <div class="col-sm-9">
-                                            <input name="email" onchange="ableBtn()" type="email" value="<?php echo $email?>" class="form-control" required placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label"><b>Grade</b></label>
-                                        <div class="col-sm-9">
-                                            <select name="grade" onchange="ableBtn()" class="form-control">
-                                                <option <?php if ($user['gradeLevel'] == "1") echo "selected"; else echo '';?> value="1">1</option>
-                                                <option <?php if ($user['gradeLevel'] == "2") echo "selected"; else echo '';?> value="2">2</option>
-                                                <option <?php if ($user['gradeLevel'] == "3") echo "selected"; else echo '';?> value="3">3</option>
-                                                <option <?php if ($user['gradeLevel'] == "4") echo "selected"; else echo '';?> value="4">4</option>
-                                                <option <?php if ($user['gradeLevel'] == "5") echo "selected"; else echo '';?> value="5">5</option>
-                                                <option <?php if ($user['gradeLevel'] == "6") echo "selected"; else echo '';?> value="6">6</option>
-                                                <option <?php if ($user['gradeLevel'] == "7") echo "selected"; else echo '';?> value="7">7</option>
-                                                <option <?php if ($user['gradeLevel'] == "8") echo "selected"; else echo '';?> value="8">8</option>
-                                                <option <?php if ($user['gradeLevel'] == "9") echo "selected"; else echo '';?> value="9">9</option>
-                                                <option <?php if ($user['gradeLevel'] == "10") echo "selected"; else echo '';?> value="10">10</option>
-                                                <option <?php if ($user['gradeLevel'] == "11") echo "selected"; else echo '';?> value="11">11</option>
-                                                <option <?php if ($user['gradeLevel'] == "12") echo "selected"; else echo '';?> value="12">12</option>
-                                                <option <?php if ($user['gradeLevel'] == "Higher education") echo "selected"; else echo '';?> value="Higher education">Higher education</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label"><b>Role</b></label>
-                                        <div class="col-sm-9">
-                                            <select name="role" onchange="ableBtn()" class="form-control">
-                                                <option <?php if ($user['role'] == "Student") echo "selected"; else echo '';?> value="Student">Student</option>
-                                                <option <?php if ($user['role'] == "Teacher") echo "selected"; else echo '';?> value="Teacher">Teacher</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label"><b>Organization</b></label>
-                                        <div class="col-sm-9">
-                                            <input name="ogn" onchange="ableBtn()" type="text" value="<?php echo $organization?>" require class="form-control" placeholder="Organization">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="d-flex justify-content-around align-items-center row mt-3">
+                        <button type="button" onclick="showInfo()" class="btn btn-info">Change Info</button>
+                        <button type="button" onclick="showCP()" class="btn btn-warning">Change Password</button>
+                        <button type="button" onclick="showDA()" class="btn btn-danger">Deactive account</button>
+                        <label for="">
+                            <input type="checkbox" onchange="rememberme(this, '<?php echo $username?>');" <?php if (isset($_COOKIE['me'])) echo 'checked' ?>>
+                            Remember me
+                        </label>
                     </div>
-                    <div class="container pb-4">
-                        <div class="row">
-                            <div class="col-9 m-auto d-flex justify-content-around">
-                                <button onclick="saveChange()" id="save" class="btn btn-primary" type="button" disabled>
-                                    Save changes
-                                </button>
-                                <button onclick="openCP()" id="changepass" class="btn btn-warning" type="button">
-                                    Change password
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row mt-2 cfm-pass" style="display: none">
-                            <div class="col-9 m-auto">
-                                <label for="">
-                                    <span style="color: red">Confirm your password: </span>
-                                    <input name="password" type="password" required>
-                                </label>
-                                <button id="confirm" name="confirm" class="btn btn-primary" type="submit">
-                                    Confirm
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </section>
 
-    <div style="margin-top: 490px"></div>
+    <div class="container changeinfo" style="margin-top: 50px; margin-bottom: 50px; display: none">
+        <div class="shadow card">
+            <div class="px-4 pb-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-9 m-auto">
+                            <div class="d-flex justify-content-between py-3">
+                                <h3><i class='fa fas fa-edit pr-1'></i>Personal information</h3>
+                                <button onclick="closeDiv(1)" class="btn btn-light">Close</button>
+                            </div>
+                            <form method="post" class="border-top form-horizontal px-3" role="form">
+                                <div class="form-group row mt-3">
+                                    <label class="col-sm-3 col-form-label"><b>Your name</b></label>
+                                    <div class="col-sm-9">
+                                        <input name="name" type="text" value="<?php echo $username ?>" class="form-control" required placeholder="Your name">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label"><b>Your email</b></label>
+                                    <div class="col-sm-9">
+                                        <input name="email" type="email" value="<?php echo $email ?>" class="form-control" required placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label"><b>Role</b></label>
+                                    <div class="col-sm-9">
+                                        <select name="role" class="form-control">
+                                            <option <?php if ($user['role'] == "Student") echo "selected";
+                                                    else echo ''; ?> value="Student">Student</option>
+                                            <option <?php if ($user['role'] == "Teacher") echo "selected";
+                                                    else echo ''; ?> value="Teacher">Teacher</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label"><b>Grade</b></label>
+                                    <div class="col-sm-9">
+                                        <select name="grade" class="form-control">
+                                            <option <?php if ($user['gradeLevel'] == "1") echo "selected";
+                                                    else echo ''; ?> value="1">1</option>
+                                            <option <?php if ($user['gradeLevel'] == "2") echo "selected";
+                                                    else echo ''; ?> value="2">2</option>
+                                            <option <?php if ($user['gradeLevel'] == "3") echo "selected";
+                                                    else echo ''; ?> value="3">3</option>
+                                            <option <?php if ($user['gradeLevel'] == "4") echo "selected";
+                                                    else echo ''; ?> value="4">4</option>
+                                            <option <?php if ($user['gradeLevel'] == "5") echo "selected";
+                                                    else echo ''; ?> value="5">5</option>
+                                            <option <?php if ($user['gradeLevel'] == "6") echo "selected";
+                                                    else echo ''; ?> value="6">6</option>
+                                            <option <?php if ($user['gradeLevel'] == "7") echo "selected";
+                                                    else echo ''; ?> value="7">7</option>
+                                            <option <?php if ($user['gradeLevel'] == "8") echo "selected";
+                                                    else echo ''; ?> value="8">8</option>
+                                            <option <?php if ($user['gradeLevel'] == "9") echo "selected";
+                                                    else echo ''; ?> value="9">9</option>
+                                            <option <?php if ($user['gradeLevel'] == "10") echo "selected";
+                                                    else echo ''; ?> value="10">10</option>
+                                            <option <?php if ($user['gradeLevel'] == "11") echo "selected";
+                                                    else echo ''; ?> value="11">11</option>
+                                            <option <?php if ($user['gradeLevel'] == "12") echo "selected";
+                                                    else echo ''; ?> value="12">12</option>
+                                            <option <?php if ($user['gradeLevel'] == "Higher education") echo "selected";
+                                                    else echo ''; ?> value="Higher education">Higher education</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label"><b>Organization</b></label>
+                                    <div class="col-sm-9">
+                                        <input name="ogn" type="text" value="<?php echo $organization ?>" require class="form-control" placeholder="Organization">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label"><b>Confirm Password</b></label>
+                                    <div class="col-sm-9">
+                                        <input name="confirm-pass" type="password" required class="form-control" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-around row mt-3">
+                                    <button type="submit" name="confirm" class="btn btn-info">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
-    <div class="container changepass" style="margin-top: 490px; margin-bottom: 50px; display: none">
+    <div class="container changepass" style="margin-top: 50px; margin-bottom: 50px; display: none">
         <div class="shadow card">
             <div class="px-4">
-                <div class="container border-top mt-5">
+                <div class="container">
                     <div class="row mt-4">
                         <div class="col-9 m-auto">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between pb-3">
                                 <h3><i class='fa fas fa-edit pr-1'></i>Change password</h3>
-                                <button onclick="closeCP()" class="btn btn-light">Close</button>
+                                <button onclick="closeDiv(0)" class="btn btn-light">Close</button>
                             </div>
-                            <form method="post" class="form-horizontal px-3 pt-3">
+                            <form method="post" class=" border-top form-horizontal px-3 pt-3">
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label"><b>Old password</b></label>
                                     <div class="col-sm-9">
@@ -198,68 +217,131 @@ if ($_SESSION['client_id']) {
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container deactive" style="margin-top: 50px; margin-bottom: 50px; display: none">
+        <div class="shadow card">
+            <div class="px-4">
+                <div class="container">
+                    <div class="row mt-4">
+                        <div class="col-9 m-auto">
+                            <div class="d-flex justify-content-between pb-2">
+                                <h3><i class='fa fas fa-edit pr-1'></i>Deactive account</h3>
+                                <button onclick="closeDiv(2)" class="btn btn-light">Close</button>
+                            </div>
+                            <form method="post" class="form-horizontal border-top px-3 pt-3">
+                            <div class="form-group mt-2 row">
+                                    <label class="col-sm-4 col-form-label"><b>Reason</b></label>
+                                    <div class="col-sm-8">
+                                        <textarea rows=5 name="deactive-reason" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-2 row">
+                                    <label class="col-sm-4 col-form-label"><b>Confirm your password</b></label>
+                                    <div class="col-sm-8">
+                                        <input type="password" name="deactive-pass" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3">
+                                    <button name="deactive" type="submit" class="btn btn-danger text-center m-auto">Deactive my account</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </section>
 </main>
 
+<script>
+    const logout = () => {
+        window.location.replace('?logout=1');
+    }
+</script>
+
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-    if (isset($_POST['confirm'])) {
-        $password = md5($_POST['password']);
-        $sql = "select * from User where User_id='$id'";
+
+if (isset($_POST['confirm'])) {
+    $password = md5($_POST['confirm-pass']);
+    $sql = "select * from User where User_id='$id'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_array();
+    if ($password != $row['password']) {
+?>
+        <script>
+            alert('Password is incorrect;');
+        </script>
+    <?php
+    } else {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $grade = $_POST['grade'];
+        $role = $_POST['role'];
+        $ogn = $_POST['ogn'];
+        $sql = "update User set username='$name', email='$email', gradeLevel='$grade', role='$role', organization='$ogn'  where User_id='$id'";
+        print_r($sql);
         $result = $conn->query($sql);
-        $row = $result->fetch_array();
-        if ($password != $row['password']) {
     ?>
-            <script>
-                alert('Password is incorrect;');
-            </script>
+        <script>
+            alert('Successfully updated');
+            window.location.replace('/Quiz/?action=profile');
+        </script>
     <?php
-        }
-        else {
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $grade = $_POST['grade'];
-            $role = $_POST['role'];
-            $ogn = $_POST['ogn'];
-            $sql = "update User set username='$name', email='$email', gradeLevel='$grade', role='$role', organization='$ogn'  where User_id='$id'";
-            $result = $conn->query($sql);
+    }
+}
+
+
+if (isset($_POST['udt-password'])) {
+    $old = md5($_POST['old-pass']);
+    $new = md5($_POST['new-pass']);
+    $cfm = $_POST['cfm-pass'];
+    $sql = "select * from User where User_id='$id'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_array();
+    if ($old != $row['password']) {
     ?>
-            <script>
-                alert('Successfully updated');
-                window.location.replace('/Quiz/?action=profile');
-            </script>
+        <script>
+            alert('Password is incorrect;');
+        </script>
     <?php
+    } else {
+        $sql = "update User set password='$new' where User_id='$id'";
+        $result = $conn->query($sql);
+    ?>
+        <script>
+            alert('Password has changed successfully');
+            window.location.replace('/Quiz/?action=profile');
+        </script>
+
+<?php
+    }
+}
+
+if (isset($_POST['deactive'])) {
+    $pass = md5($_POST['deactive-pass']);
+    $reason = $_POST['deactive-reason'];
+    $sql = "select * from User where User_id='$id'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_array();
+    if ($pass != $row['password']) {
+    ?>
+        <script>
+            alert('Password is incorrect;');
+        </script>
+    <?php
+    } else {
+        $sql = "update User set active=0, reason='$reason' where User_id='$id'";
+        if ($result = $conn->query($sql)) {
+?>
+            <script>
+                alert('Your account was deactivated');
+                window.location.replace("?logout=1");
+            </script>
+<?php
         }
     }
-
-
-    if (isset($_POST['udt-password'])) {
-        $old = md5($_POST['old-pass']);
-        $new = md5($_POST['new-pass']);
-        $cfm = $_POST['cfm-pass'];
-        $sql = "select * from User where User_id='$id'";
-        $result = $conn->query($sql);
-        $row = $result->fetch_array();
-        if ($old != $row['password']) {
-    ?>
-            <script>
-                alert('Password is incorrect;');
-            </script>
-    <?php
-        }
-        else {
-            $sql = "update User set password='$new' where User_id='$id'";
-            $result = $conn->query($sql);
-        ?>
-            <script>
-                alert('Password has changed successfully');
-                window.location.replace('/Quiz/?action=profile');
-            </script>
-
-    <?php
-        }
-    }
+}
 ?>
 
 

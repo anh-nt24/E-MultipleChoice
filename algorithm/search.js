@@ -41,7 +41,7 @@ const showResult = () => {
                                         <div class="d-flex justify-content-between">
                                             <span style="font-size: 14px">By ${dt['author']}</span>
                     `;
-                    if (dt['duration']) html += `<span style="font-size: 14px">Duration ${dt['duration']}</span>`;
+                    if (dt['duration']) html += `<span style="font-size: 14px">Duration: ${dt['duration']} mins</span>`;
                     if (dt['dueTo']) html += `<span style="font-size: 14px">Exam date: ${dt['examDate']}; Due to: ${dt['dueTo']}</span>`;
                     else html += `<span style="font-size: 14px">Exam date: ${dt['examDate']}</span>`;
                     html += `
