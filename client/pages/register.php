@@ -91,7 +91,7 @@
                             </div>
                             <div class="col-md-12 py-1">
                                 <label for="inputAvtSignIn" class="form-label sign-form-label">Avatar</label>
-                                <input required type="file" name="avt" class="form-control" id="inputAvtSignIn">
+                                <input type="file" name="avt" class="form-control" id="inputAvtSignIn">
                             </div>
                             <div class="col-md-12 py-1">
                                 <input type="checkbox" name="remember" id="rememberme">
@@ -144,12 +144,18 @@ if (isset($_POST['signup'])) {
         $grade = 'NULL';
     }
     $ogn = $_POST['ogn'];
-    define('SITE_ROOT', realpath(dirname(__FILE__)));
-    $src = $_FILES['avt']["tmp_name"];
-    $ext = explode('.', basename($_FILES["avt"]["name"]));
-    $avatar = $id . '.' . end($ext);
-    $dist = SITE_ROOT . '/../../server/upload/user_avt/' . $avatar;
-    move_uploaded_file($_FILES['avt']['tmp_name'], $dist);
+    if (!file_exists($_FILES['avt']['tmp_name']) || !is_uploaded_file($_FILES['avt']['tmp_name'])) {
+        $avatar = 'NULL';
+    }
+    else {
+        define('SITE_ROOT', realpath(dirname(__FILE__)));
+        $src = $_FILES['avt']["tmp_name"];
+        $ext = explode('.', basename($_FILES["avt"]["name"]));
+        $avatar = $id . '.' . end($ext);
+        $dist = SITE_ROOT . '/../../server/upload/user_avt/' . $avatar;
+        move_uploaded_file($_FILES['avt']['tmp_name'], $dist);
+        
+    }
     $sql = "insert into User values('$id', '$email', '$name', '$password', '$avatar', '$grade', '$role', '$ogn', 1, '')";
     if (isset($_POST['remember'])) {
         $cookie_name = "me";
@@ -158,8 +164,14 @@ if (isset($_POST['signup'])) {
     if ($conn->query($sql)) {
         $_SESSION['login'] = $name;
         $_SESSION['client_id'] = $id;
+        foreach ($_COOKIE as $key => $value) {
+            setcookie($key, '', time() - 3600, '/');
+        }
 ?>
-        <script>
+?>
+    <script>
+            document.cookie = 'library=; Max-Age=0;'
+            document.cookie = 'history=; Max-Age=0;'
             window.location.replace('?action=home');
         </script>
 <?php

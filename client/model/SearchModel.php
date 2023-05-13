@@ -7,7 +7,7 @@
             $sql = "select * from Quiz where Quiz_id='".substr($search, 1)."' and active=1";
         }
         else {
-            $sql = "select * FROM Quiz where title LIKE '%".$search."%' and isPublic=1 and active=1";
+            $sql = "select * from Quiz where title LIKE '%" . $search . "%' AND isPublic = 1 AND active = 1 AND examDate <= NOW()";
         }
         if ($result = $conn->query($sql)) {
             if ($result->num_rows > 0) {

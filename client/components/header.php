@@ -36,11 +36,11 @@ if (isset($_GET['logout']) && $_GET['logout'] == 1) {
 
         <a href="?action=profile" class="btn user__info d-flex align-items-center">
             <img class="user__info__avatar" src="<?php
-                if (isset($avatar)) {
+                if ($avatar != 'NULL') {
                     echo 'server/upload/user_avt/'.$avatar;
                 }
                 else {
-                    echo 'asset/img/avatar.jpg';
+                    echo 'server/img/user-df.jpg';
                 }
             ?>" alt="account">
             <span class="sfont user__info__name d-flex align-items-center"><?php 

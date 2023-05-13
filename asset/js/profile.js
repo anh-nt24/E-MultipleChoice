@@ -1,3 +1,4 @@
+
 const closeDiv = (idx) => {
     let element;
     console.log(idx);

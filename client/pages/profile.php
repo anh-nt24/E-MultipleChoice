@@ -23,6 +23,10 @@ if (isset($_SESSION['client_id'])) {
 }
 ?>
 
+<script>
+    document.title = "Profile - <?php echo $username?>" 
+</script>
+
 <main class="profile-page">
     <section class="section-profile-cover section-shaped my-0">
         <div class="shape shape-style-1 shape-default alpha-4">
@@ -43,10 +47,10 @@ if (isset($_SESSION['client_id'])) {
                             <div class="card-profile-image">
                                 <img alt="..." class="rounded-circle" src="
                                     <?php
-                                    if (isset($avatar)) {
+                                    if ($avatar != 'NULL') {
                                         echo 'server/upload/user_avt/' . $avatar;
                                     } else {
-                                        echo 'asset/img/avatar.jpg';
+                                        echo 'server/img/user-df.jpg';
                                     }
                                     ?>
                                 ">
@@ -285,7 +289,7 @@ if (isset($_POST['confirm'])) {
     ?>
         <script>
             alert('Successfully updated');
-            window.location.replace('/Quiz/?action=profile');
+            window.location.replace('?action=profile');
         </script>
     <?php
     }
@@ -311,7 +315,7 @@ if (isset($_POST['udt-password'])) {
     ?>
         <script>
             alert('Password has changed successfully');
-            window.location.replace('/Quiz/?action=profile');
+            window.location.replace('/?action=profile');
         </script>
 
 <?php

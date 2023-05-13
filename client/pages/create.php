@@ -86,18 +86,17 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-md-8 col-sm-10 col-12 question__title">
                             <div class="form-group">
-                                <input required type="text" class="form-control" name="ques-title[]" id="ques-title" placeholder="Untitled question">
+                                <textarea required type="text" class="form-control txt" name="ques-title[]" id="ques-title" placeholder="Untitled question"></textarea>
                             </div>
                         </div>
                         <div class="col-md-1 col-sm-2 col-3">
                             <div class="form-group">
-                                <input type="number" class="form-control scores" name="scores[]" placeholder="Score">
+                                <input type="number" step="0.01" class="form-control scores" name="scores[]" placeholder="Score">
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-12 col-9 question__type-selection">
                             <select name="quiz-type[]" class="form-control inputState">
                                 <option value="1" selected> &#9673; Multiple choice</option>
-                                <option value="2">&#8230; Text answer</option>
                             </select>
                         </div>
                     </div>
@@ -181,7 +180,7 @@
         if ($conn->query($sql) == false) {
             echo "
                 <script>
-                    console.log(`Error 1: ".$conn->error.". Try again!`); 
+                    alert(`Error 1: ".$conn->error.". Try again!`); 
                 </script>
             "; 
         }
@@ -198,40 +197,32 @@
                     }
                 }
                 $quesTitle = $_POST['ques-title'][$i];
-                $quesType = $_POST['quiz-type'][$i];
 
-                if ($quesType == 1) {
-                    $score = ($_POST['scores'][$j] == "") ? 0 : $_POST['scores'][$j];
-                    $j += 1;
-                }
-                else {
-                    $score = 0;
-                }
+                $score = ($_POST['scores'][$j] == "") ? 0 : $_POST['scores'][$j];
+                $j += 1;
     
-                $sql = "Insert into Question values('".$question_id."', '".$quesTitle."', ".$score.", ".$quesType.", '".$quiz_id."')";
+                $sql = "Insert into Question values('".$question_id."', '".$quesTitle."', ".$score.", 1, '".$quiz_id."')";
 
                 if ($conn->query($sql)) {
-                    
                     $quesOps = $_POST['question-option'.($i+1)];
                     $corr = max((int)$_POST['correct-ans'][$i], 1);
                     $order = 1;
                     foreach ($quesOps as $val) {
-                        $sql = "Select * from Option";
-                        $row = $conn->query($sql);
-                        $answer_id = $row -> num_rows;
+                        while (true) {
+                            $answer_id = uniqid();
+                            $sql = "Select * from Option where Option_id='" . $$answer_id . "'";
+                            $result = $conn->query($sql); 
+                            if ($result->num_rows <= 0) {
+                                break;
+                            }
+                        }
                         $isCorr = ($corr == $order) ? 1 : 0;
-                        if ($quesType == 1) {
-                            $sql = "Insert into Option values('".$answer_id."', '".$val."', ".$order.", ".$isCorr.", '".$question_id."')";
-                        }
-                        else {
-                            $sql = "Insert into Option values('".$answer_id."', '', ".$order.", 0, '".$question_id."')";
-                        }
+                        $sql = "Insert into Option values('".$answer_id."', '".$val."', ".$order.", ".$isCorr.", '".$question_id."')";
                         $order +=1;
-
                         if (!$conn->query($sql)) {
                             echo "
                                 <script>
-                                    alert(`Error: ".$conn->error.".\nTry again!`);
+                                    alert(`Error 2: ".$conn->error.".\nTry again!`);
                                 </script>
                             ";
                             $success = false;
@@ -243,7 +234,7 @@
                 else {
                     echo "
                         <script>
-                            alert(`Error: ".$conn->error.".\nTry again!`);
+                            alert(`Error 3: ".$conn->error.".\nTry again!`);
                         </script>
                     ";
                 }

@@ -42,13 +42,13 @@
                         <svg height="300" width="300" id="_cir_progress">
                         <circle class="outer-cir" cx="150" cy="150" r="90" stroke="#377200" stroke-width="20" fill="none"></circle>
                         <circle class="inner-cir" cx="150" cy="150" r="90" stroke="#968089" stroke-width="20"  stroke-dasharray="<?php echo 764 - (($numCorr*100)/count($questionData))*764/100;?>, 764" fill="none""></circle>
-                        <text x="50%" y="50%" text-anchor="middle" stroke="none" stroke-width="1px" dy=".3em" style="font-size: 2rem;"><?php echo ($numCorr*100)/count($questionData) . "%";?></text>
+                        <text x="50%" y="50%" text-anchor="middle" stroke="none" stroke-width="1px" dy=".3em" style="font-size: 2rem;"><?php echo round(($numCorr*100)/count($questionData), 2) . "%";?></text>
                         </svg>
                     </div>
                     <div class="info col-md-5 col-12 d-flex flex-column justify-content-center">
                         <p>
                             <i class="pr-2 fa fa-clock-o" style="font-size:24px"></i>
-                            <span>In time: <?php echo $inTime . "s";?>  </span>
+                            <span>In time: <?php echo round($inTime / 60, 2) . " min(s)";?>  </span>
                         </p>
                         <p>
                             <i class="pr-2 fa fa-check-square-o" style="font-size:20px;color:green"></i>

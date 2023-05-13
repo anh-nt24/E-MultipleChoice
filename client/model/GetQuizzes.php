@@ -10,7 +10,7 @@
         array_push($id, $data['Quiz_id']);
         array_push($name, $data['title']);
         array_push($diff, $data['level']);
-        array_push($category, isset($data['category']) ? $data['category'] : 0);
+        array_push($category, $data['Category_id']);
     }
     echo json_encode([$id, $name, $diff, $category]);
 ?>

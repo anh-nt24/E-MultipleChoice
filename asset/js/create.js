@@ -1,6 +1,4 @@
-var inputState;
-
-
+document.title = "MultiA - Create New Quiz"
 setInterval(() => {
 	const boxes = document.querySelectorAll('.quiz-content > div');
 	boxes.forEach(box => {
@@ -14,6 +12,15 @@ setInterval(() => {
 		})
 	});
 
+	const textarea = document.querySelectorAll(".txt");
+	textarea.forEach(element => {
+		element.addEventListener("input", function (e) {
+			this.style.height = "auto";
+			this.style.height = this.scrollHeight + "px";
+		});
+	})
+
+
 	const elements = document.querySelectorAll('.quiz-questions');
 	elements.forEach((e, i) => {
 		e.setAttribute('data-idx', i+1);
@@ -23,7 +30,7 @@ setInterval(() => {
 			inp.setAttribute('name', `question-option${i+1}[]`);
 		})
 	});
-	inputState = document.querySelectorAll('.inputState');
+	var inputState = document.querySelectorAll('.inputState');
 	inputState.forEach((e,i) => {
 		e.addEventListener('change', (event) => {
 			const value = event.target.value;
@@ -39,15 +46,15 @@ setInterval(() => {
 				wrapper.appendChild(element);
 				option.innerHTML += wrapper.innerHTML;
 				inpCorrect.placeholder = "1";
-				document.querySelector('.addOption').parentElement.style.display = 'block';
-				document.querySelector('.correct-answer').parentElement.style.display = 'block';
+				document.querySelectorAll('.addOption')[i].parentElement.style.display = 'block';
+				document.querySelectorAll('.correct-answer')[i].parentElement.style.display = 'block';
 			}
 			else if (value == 2) {
 				element.innerHTML = textChoice();
 				wrapper.appendChild(element);
 				option.innerHTML += wrapper.innerHTML;
-				document.querySelector('.addOption').parentElement.style.display = 'none';
-				document.querySelector('.correct-answer').parentElement.style.display = 'none';
+				document.querySelectorAll('.addOption')[i].parentElement.parentElement.style.display = 'none';
+				document.querySelectorAll('.correct-answer')[i].parentElement.style.display = 'none';
 			}
 			else {
 				element.innerHTML = multichoiceOption(1);
@@ -100,7 +107,7 @@ function textChoice() {
 			<div class="options">
 				<div class="form-group d-flex align-items-center">
 					<i class="fa fa-pencil-square-o pr-3"></i>
-					<input type="text" class="form-control" name="question-option">
+					<input type="text" class="form-control" readonly>
 				</div>
 			</div>
 		</div>
@@ -138,18 +145,17 @@ const addQuestion = (e) => {
 		<div class="row d-flex align-items-center">
 			<div class="col-md-8 col-sm-10 col-12 question__title">
 				<div class="form-group">
-					<input type="text" class="form-control" name="ques-title[]" id="ques-title" placeholder="Untitled question">
+					<textarea type="text" class="form-control txt" name="ques-title[]" id="ques-title" placeholder="Untitled question"></textarea>
 				</div>
 			</div>
 			<div class="col-md-1 col-sm-2 col-3">
 				<div class="form-group">
-					<input type="number" class="form-control scores" name="scores[]" placeholder="Score">
+					<input type="number" step="0.01" class="form-control scores" name="scores[]" placeholder="Score">
 				</div>
 			</div>
 			<div class="col-md-3 col-sm-12 col-9 question__type-selection">
 				<select name="quiz-type[]" class="form-control inputState">
 					<option value="1" selected> &#9673; Multiple choice</option>
-					<option value="2">&#8230; Text answer</option>
 				</select>
 			</div>
 		</div>
@@ -244,4 +250,5 @@ const success = (id) => {
 	});
 	$('#success').modal('show');
 }
+
 

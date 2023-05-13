@@ -1,3 +1,4 @@
+document.title = "MultiA - Homepage"
 function addActiveClass(id) {
     const classesToRemove = document.querySelectorAll('.sr-only');
     classesToRemove.forEach(cls => {
@@ -104,13 +105,13 @@ const loadHistory = () => {
                 else if (rate != 100) class_item = 'rate-99';
                 html += `
                     <div onclick="review('${data[5][i]}', '${data[2][i]}')" style="cursor: pointer" class="no-link quiz-item col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4">
-                        <div class="zoom d-block quiz-item__card">
+                        <div class="zoom d-block quiz-item__card" style="min-height: 150px">
                             <img class="quiz-item__card__img" src="asset/img/quiz-package.png" alt="">
                             <ul class="extra-info d-flex justify-content-between quiz-item__card__list">
                                 <li>${data[1][i] == 1 ? 'Public' : 'Private'}</li>
                                 <li></li>
                             </ul>
-                            <h6 class="quiz-item__card__name">${data[0][i]}</h6>
+                            <h6 class="quiz-item__card__name" style="min-height: 40px">${data[0][i]}</h6>
                             <p class="quiz-item__card__complete-rate ${class_item}"> ${rate}%</p>
                             <p class="pt-1"></p>
                         </div>
@@ -289,6 +290,7 @@ const deleteQuiz = (id) => {
         })
     }
 }
+
 
 const url = window.location.href.split('#');
 if (url[url.length-1] == 'manage') {

@@ -71,6 +71,11 @@
                 }
                 elseif ($dist == 'udtq') {
                     include('pages/update.php');
+                    include('components/footer.php');
+                }
+                elseif ($dist == 'rvres') {
+                    include('pages/response.php');
+                    include('components/footer.php');
                 }
             }
         }

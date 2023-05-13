@@ -88,7 +88,7 @@
                                     Privacy:
                                     <select name="quiz-privacy" class="form-control">
                                         <option value="1" <?php if ($quizData['isPublic'] == 1) echo "selected";?>> Public </option>
-                                        <option value="2" <?php if ($quizData['isPublic'] == 0) echo "selected";?>> Private </option>
+                                        <option value="2" <?php if ($quizData['isPublic'] == 2) echo "selected";?>> Private </option>
                                     </select>
                                 </label>
                             </div>
@@ -120,18 +120,17 @@
                             <div class="row d-flex align-items-center">
                                 <div class="col-md-8 col-sm-10 col-12 question__title">
                                     <div class="form-group">
-                                        <input required type="text" class="form-control" name="ques-title[]" id="ques-title" placeholder="Untitled question" value="<?php echo $qs['question'];?>">
+                                        <textarea required type="text" class="form-control txt" name="ques-title[]" id="ques-title" placeholder="Untitled question"><?php echo $qs['question'];?></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-1 col-sm-2 col-3">
                                     <div class="form-group">
-                                        <input type="number" class="form-control scores" name="scores[]" placeholder="Score" value="<?php echo $qs['score'];?>">
+                                        <input type="number" step="0.01" class="form-control scores" name="scores[]" placeholder="Score" value="<?php echo $qs['score'];?>">
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-12 col-9 question__type-selection">
                                     <select name="quiz-type[]" class="form-control inputState">
-                                        <option value="1" <?php if ($qs['type'] == 1) echo "selected";?>> &#9673; Multiple choice</option>
-                                        <option value="2" <?php if ($qs['type'] == 2) echo "selected";?>>&#8230; Text answer</option>
+                                        <option value="1" selected> &#9673; Multiple choice</option>
                                     </select>
                                 </div>
                             </div>
@@ -140,18 +139,7 @@
                                     <div class="quiz-question__options">
                                         <?php
                                             if ($qs['type'] == '2') {
-                                        ?>
-                                            <div class="row option">
-                                                <div class="col-12">
-                                                    <div class="options">
-                                                        <div class="form-group d-flex align-items-center">
-                                                            <i class="fa fa-pencil-square-o pr-3"></i>
-                                                            <input type="text" class="form-control" name="question-option">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <?php
+                                                continue;
                                             }
                                             else {
                                                 $sql = "select * from Option where Question_id = '" . $qs['Question_id'] . "'";
@@ -267,17 +255,11 @@
             $success = true;
             for ($i = 0; $i < $numQues; $i++) {
                 $quesTitle = $_POST['ques-title'][$i];
-                $quesType = $_POST['quiz-type'][$i];
                 $quesId = $question_id[$i];
 
-                if ($quesType == 1) {
-                    $score = ($_POST['scores'][$j] == "") ? 0 : $_POST['scores'][$j];
-                    $j += 1;
-                }
-                else {
-                    $score = 0;
-                }
-                $sql = "update Question set question='$quesTitle', score=$score, type=$quesType where Question_id='$quesId'";
+                $score = ($_POST['scores'][$j] == "") ? 0 : $_POST['scores'][$j];
+                $j += 1;
+                $sql = "update Question set question='$quesTitle', score=$score where Question_id='$quesId'";
                 if ($conn->query($sql)) {
                     $quesOps = $_POST['question-option'.($i+1)];
                     $corr = max((int)$_POST['correct-ans'][$i], 1);
@@ -285,12 +267,7 @@
                     foreach ($quesOps as $val) {
                         $answerId = $options_id[$i][$order-1];
                         $isCorr = ($corr == $order) ? 1 : 0;
-                        if ($quesType == 1) {
-                            $sql = "update Option set content='$val', orderNum=$order, isCorrect=$isCorr where Option_id='$answerId'";
-                        }
-                        else {
-                            $sql = "update Option set content='', orderNum=$order, isCorrect=0 where Option_id='$answerId'";
-                        }
+                        $sql = "update Option set content='$val', orderNum=$order, isCorrect=$isCorr where Option_id='$answerId'";
                         $order +=1;
 
                         if (!$conn->query($sql)) {
@@ -302,8 +279,11 @@
                             $success = false;
                             break;
                         }
+                        else {
+                            $sql = "update ResponseDetails set isCorrect=$isCorr where Option_id='$answerId'";
+                            $conn->query($sql);
+                        }
                     }
-                    
                 }
                 else {
                     echo "
@@ -316,7 +296,8 @@
             if ($success) {
                 echo "
                     <script>
-                        success('".$Quiz_id."');
+                        alert('Quiz updated');
+                        window.location.href = '?action=home#manage';
                     </script>
                 ";
             }

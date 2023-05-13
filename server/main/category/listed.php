@@ -10,13 +10,14 @@
 </style>
 
 <div class="col-lg-9 my-5">
-    <h6 class="text-uppercase text-center">Categories</h6>
+    <h6 class="text-uppercase text-center"><b>Categories</b></h6>
     <div style="background-color: #FDF0F1;" class="bg-white rounded mt-3">
         <table class="table mt-2 table-borderless">
             <thead class="text-center thead-light">
                 <tr>
-                    <th class="align-middle">Category name</th>
-                    <th class="align-middle">Action</th>
+                    <th class="align-middle w-50">Category name</th>
+                    <th class="align-middle w-15">In use</th>
+                    <th class="align-middle w-35">Action</th>
                 </tr>
             </thead>
             <tbody id="table-body" class="text-center">
@@ -27,9 +28,14 @@
                 if ($result->num_rows > 0) {
                     // output data of each row
                     while ($row = $result->fetch_array()) {
+                        $ctid = $row['Category_id'];
+                        $sql = "select count(*) as amount from Quiz where Category_id='$ctid' and active=1";
+                        $result2 = $conn->query($sql);
+                        $amount = $result2->fetch_array()['amount'];
                 ?>
                         <tr>
                             <td><?php echo $row['name'] ?></td>
+                            <td><?php echo $amount ?></td>
                             <td>
                                 <button class="btn btn-sm btn-primary" onclick="displayEdit('<?php echo $row['Category_id'] ?>', '<?php echo $row['name'] ?>')">Edit</button>
                                 <button class="btn btn-sm btn-danger" onclick="confirmRemoval(this, '<?php echo $row['Category_id'] ?>')">Delete</button>

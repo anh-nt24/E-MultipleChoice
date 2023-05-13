@@ -25,7 +25,7 @@ var submit = () => {
             url: 'main/category/new.php',
             type: 'post',
             dataType: 'json',
-            data: ({name}),
+            data: ({name: name}),
             success: (status) => {
                 if (status == 201) {
                     window.location.reload();

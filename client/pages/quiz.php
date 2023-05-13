@@ -8,6 +8,14 @@ if (isset($_GET['token'])) {
     $sql1 = "select * from Quiz where Quiz_id='" . $Quiz_id . "'";
     $result = $conn->query($sql1);
     $quizData = $result->fetch_array();
+    if (new DateTime(date("Y/m/d H:i:s")) < new DateTime($quizData['examDate'])) {
+?>
+        <script>
+            alert('Quiz has not opened yet. Come back later');
+            window.location.href = '?action=home';
+        </script>
+<?php
+    }
     $sql2 = "select Question_id, question, score, type from Question where Quiz_id='" . $Quiz_id . "'";
     $result = $conn->query($sql2);
     $questionData = [];
@@ -20,6 +28,9 @@ if (isset($_GET['token'])) {
         $_SESSION['start'] = time();
     }
     ?>
+<script>
+    document.title = "MultiA - <?php echo $quizData['title']?>"
+</script>
     <div id="page-container">
         <div class="row nopadding">
             <div class="quiz-timer w-100 fixed-top d-flex justify-content-center align-items-center">
@@ -56,13 +67,13 @@ if (isset($_GET['token'])) {
                             <div class="row d-flex align-items-center">
                                 <div class="col-md-11 col-sm-10 col-11 question__title">
                                     <div class="form-group">
-                                        <span style="font-size: 22px;" class="form-control" name="ques-title[]" id="ques-title">
+                                        <p style="font-size: 22px;" class="form-control" name="ques-title[]" id="ques-title">
                                             <b>
                                             <?php
                                             echo $qs['question'];
                                             ?>
                                             </b>
-                                        </span>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="col-md-1 col-sm-2 col-1">
@@ -205,7 +216,7 @@ if (isset($_POST['turn-in'])) {
     }
     // Save to response table
     $response_id = uniqid();
-    $sql = "insert into Response values('" . $response_id . "', '" . $Quiz_id . "', '" . $_SESSION['client_id'] . "', " . $totalGrade . ", " . $inTime . ")";
+    $sql = "insert into Response values('" . $response_id . "', '" . $Quiz_id . "', '" . $_SESSION['client_id'] . "', NOW(), " . $totalGrade . ", " . $inTime . ")";
     if (!$conn->query($sql)) {
         echo "
                 <script>
@@ -216,11 +227,7 @@ if (isset($_POST['turn-in'])) {
         $success = true;
         for ($i = 0; $i < count($questionData); $i++) {
             $detail_id = uniqid();
-            if ($questionData[$i]['type'] == 1) {
-                $sql = "insert into ResponseDetails values('" . $detail_id . "', NULL, '" . $response_id . "', '" . $qsId[$i] . "', '" . $opsId[$i] . "', " . $isCorr[$i] . ")";
-            } else {
-                $sql = "insert into ResponseDetails values('" . $detail_id . "', '" . $textAns[$i] . "', '" . $response_id . "', '" . $qsId[$i] . "', '" . $opsId[$i] . "', " . $isCorr[$i] . ")";
-            }
+            $sql = "insert into ResponseDetails values('" . $detail_id . "', '" . $response_id . "', '" . $qsId[$i] . "', '" . $opsId[$i] . "', " . $isCorr[$i] . ")";
             if (!$conn->query($sql)) {
                 $success = false;
                 break;

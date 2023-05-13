@@ -57,7 +57,7 @@
             $row = $result->fetch_array();
             array_push($quizName, $row['title']);
             array_push($diff, $row['level']);
-            array_push($category, isset($data['category']) ? $data['category'] : 0);
+            array_push($category, $row['Category_id']);
         }
         echo json_encode([$Quiz_id, $quizName, $diff, $category]);
     }

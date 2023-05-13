@@ -7,7 +7,7 @@
         $numQs = [];
         $quizId = [];
         foreach ($id as $i) {
-            $sql = "select * from Quiz where Quiz_id='$i' and active=1";
+            $sql = "select * from Quiz where Quiz_id='$i' and active=1 and isPublic=1";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 $data = $result->fetch_array();
