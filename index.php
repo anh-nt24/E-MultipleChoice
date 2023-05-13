@@ -17,6 +17,9 @@
 <body>
     <?php
         session_start();
+        date_default_timezone_set("Asia/Bangkok");
+        error_reporting(E_ALL);
+        ini_set('display_errors', '0');
         include('connection.php');
         include('client/main.php');
     ?>

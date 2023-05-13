@@ -99,7 +99,6 @@
         $sql = "select * from ResponseDetails where Response_id = '".$Response_id."' and Question_id = '".$qs['Question_id']."'";
         $result = $conn->query($sql);
         $row = $result->fetch_array();
-        $textAns = $row['text'];
         $isCorr = $row['isCorrect'];
         $thisScore = ($isCorr == 1) ? $qs['score'] : 0;
         $Option_id = $row['Option_id'];
@@ -191,7 +190,6 @@
                         </div>
                     </div>
 <?php
-            $qsOrder += 1;
         }
 ?>
                 </div>

@@ -191,7 +191,7 @@
                                         <div class="row pl-2">
                                             <div class="correct-answer d-flex">
                                                 <span class="pr-3">Correct answer <span class="correct-answer__instruction" style="font-size: 9px;">(number only)</span>: </span>
-                                                <input name="correct-ans[]" style="width: 50px" type="number" placeholder="1" value="<?php echo $orderNum;?>">
+                                                <input nput onfocus="changeMax(this)" name="correct-ans[]" min="1" style="width: 50px" type="number" placeholder="1" value="<?php echo $orderNum;?>">
                                             </div>
                                         </div>
                                     <?php

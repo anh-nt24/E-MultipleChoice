@@ -66,6 +66,24 @@ setInterval(() => {
 			}
 		});
 	});
+	// const optionElements = document.querySelectorAll('.quiz-question__options');
+	// optionElements.forEach((element, idx) => {
+	// 	const add = document.querySelectorAll('.addOption')[idx];
+	// 	const remove = element.querySelectorAll('.btn');
+	// 	remove.forEach(e => {
+	// 		e.addEventListener('click', () => {
+	// 			const num = element.querySelectorAll('.option').length;
+	// 		})
+	// 	})
+	// 	add.addEventListener('click', () => {
+	// 		const num = element.querySelectorAll('.option').length;
+	// 		console.log(num);
+	// 	})
+	// });
+	// const addOption = document.querySelectorAll('.addOption');
+	// addOption.addEventListener('click', () => {
+		
+	// })
 }, 500);
 
 
@@ -184,7 +202,7 @@ const addQuestion = (e) => {
 				<div class="row pl-2">
 					<div class="correct-answer d-flex">
 						<span class="pr-3">Correct answer <span class="correct-answer__instruction" style="font-size: 9px;">(number only)</span>: </span>
-						<input name="correct-ans[]" style="width: 50px" type="number" placeholder="1">
+						<input onfocus="changeMax(this)" name="correct-ans[]" min="1" style="width: 50px" type="number" placeholder="1">
 					</div>
 				</div>
 			</div>
@@ -251,4 +269,9 @@ const success = (id) => {
 	$('#success').modal('show');
 }
 
-
+const changeMax = (element) => {
+	const parent = element.parentElement.parentElement.parentElement;
+	const options = parent.querySelector('.quiz-question__options');
+	const num = options.querySelectorAll('.option').length;
+	element.max = num;
+}

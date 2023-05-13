@@ -15,7 +15,7 @@ const showResult = () => {
             if (data == 1) {
                 document.querySelector('.search-result').innerHTML = `
                     <span class="col-12 res-not-found">
-                        The <b>quiz ID</b> you are trying to search does not exist or is expired. Please try again!
+                        The quiz you are trying to search is not available. Please try again!
                     </span>
                 `;
             }

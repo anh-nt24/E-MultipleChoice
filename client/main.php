@@ -46,8 +46,8 @@
                 ";
                 }
                 if ($dist == 'review') {
-                    include('components/footer.php');
                     include('pages/result.php');
+                    include('components/footer.php');
                 }
                 elseif ($dist == 'home') {
                     include('components/header.php');

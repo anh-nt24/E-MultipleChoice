@@ -21,8 +21,10 @@ if (isset($_GET['q'])) {
             <div style="min-height: 300px" class="col-12 d-flex my-2 mx-auto">
                 
                 <div id="histogram" class="col-6 px-1">
+                    <img src="asset/img/histogram.png" style="width: 100%" alt="">
                 </div>
                 <div id="scatter" class="col-6 px-1">
+                    <img src="asset/img/scatter.png" style="width: 100%" alt="">
                 </div>
             </div>
             <div class="col-12 mx-auto my-1">

@@ -37,9 +37,9 @@ const getWeightedVector = ({name, diff, frequency, category}) => {
 
     const vector = [
         category*10,
-        sum / factor,
         frequency/factor,
         diff/factor,
+        sum / factor,
     ];
 
     return vector;
@@ -86,8 +86,6 @@ const recommend = async () => {
         const vectors = quizzes.map(item => {
             return getWeightedVector(item);
         });
-    
-        
         const n = 4; 
         const historyVector = Array(n).fill(0); 
     
@@ -128,7 +126,6 @@ const recommend = async () => {
                 cosineSimilarity
             };
         });
-        
         const sortedSimilarities = similarities;
         sortedSimilarities.sort((a, b) => b.cosineSimilarity - a.cosineSimilarity);
         sortedSimilarities.sort((a, b) => {
@@ -137,10 +134,11 @@ const recommend = async () => {
               const indexB = sortedSimilarities.findIndex((item) => item.category === b.category);
               return indexA - indexB; // sort by the first occurrence of each category
           });
+        
         // sortedSimilarities.sort((a, b) => b.category - a.category);
         sortedSimilarities.slice(Math.min(20, sortedSimilarities.length));
         const similarityId = sortedSimilarities.map(e => e.id);
-    
+
         var data = await $.ajax({
             url: 'client/model/GetQuizById.php',
             type: 'post',
