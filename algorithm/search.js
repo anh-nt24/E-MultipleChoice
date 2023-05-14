@@ -63,7 +63,11 @@ const showResult = () => {
     });
 }
 
-const openQuiz = (id) => {
+const openQuiz = (id, element) => {
+    if (element) {
+        element.parentElement.style.display = 'none';
+        deleteCookie('library', id);
+    }
     window.location.href = `?action=quiz&token=${window.btoa(id)}`;
 }
 
@@ -82,24 +86,29 @@ const saveQuiz = (id) => {
             const element = document.querySelector('ul.library__content');
             var html = element.innerHTML;
             var newhtml = ''
-            newhtml += `
-                    <li>
-                            <a href="?action=quiz&token=${window.btoa(id)}">
-                                <img src="asset/img/lib.png" alt="">
-                                <div class="library__content__info zoom">
-                                    <span class="quiz-name">${name}</span>
-                                    <br>
-                                    <ul class="d-flex justify-content-between nopadding extra-info">
-                                        <li>
-                                            <span class="quiz-time">Duration: ${duration}</span>
-                                        </li>
-                                        <li>
-                                            <span class="quiz-level">Difficulty: ${level}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </a>
-                    </li>
+            newhtml += ` 
+                <li>
+                    <a onclick="openQuiz('${id}', this)">
+                        <img src="asset/img/lib.png" alt="">
+                        <div class="library__content__info">
+                            <span class="quiz-name">${name}</span>
+                            <br>
+                            <ul class="d-flex justify-content-between nopadding extra-info">
+                                <li>
+                                    <span class="quiz-time">Duration: ${duration}</span>
+                                </li>
+                                <li>
+                                    <span class="quiz-level">Difficulty: ${level}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="show-delete-p" style="display: none">
+                            <button onclick="deleteLib('${id}', this); event.preventDefault();" class='show-delete btn m-auto d-flex align-items-center justify-content-center shadow-none'>
+                                <i class="fa fa-close"></i>
+                            </button>
+                        <div>
+                    </a>
+                </li>
             `;
             element.innerHTML = newhtml + html;
         }

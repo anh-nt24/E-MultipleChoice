@@ -19,3 +19,9 @@ const setCookie = (name, val) => {
     cur.unshift([val, new Date().toLocaleString().replace(",","").replace(/:.. /," ")]);
     document.cookie = `${name}=${JSON.stringify(cur)}; expires=Thu, 18 Dec 2024 12:00:00 UTC`;
 }
+
+const deleteCookie = (name, id) => {
+    var cur = getCookie(name);
+    const newCookies = cur.filter(item => item[0] !== id);
+    document.cookie = `${name}=${JSON.stringify(newCookies)}; expires=Thu, 18 Dec 2024 12:00:00 UTC`;
+}

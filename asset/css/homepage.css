@@ -227,30 +227,12 @@
     cursor: pointer;
 }
 
-
-/* .incommings__content::-webkit-scrollbar, 
-.library__content::-webkit-scrollbar {
-    width: 4px;
-    height: auto;
-    height: 10px;
-    background-color: var(--sub-bg-color);
-    border-radius: 10px;
-    cursor: default;
-}
-
-.incommings__content:hover::-webkit-scrollbar-thumb
-.library__content:hover::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    width: 14px;
-    height: 10px;
-    box-shadow: inset 10px 0 6px rgba(0,0,0,0.5);
-} */
-
 .incommings__content > li,
 .library__content > li {
     padding: 3px 0;
     margin: 0 auto;
     width: 90%;
+    position: relative;
 }
 
 ul.library__content {
@@ -262,9 +244,21 @@ ul.library__content {
     border-bottom: 1px solid var(--main-bg-color);
 }
 
-.incommings__content > li:hover,
-.library__content > li:hover {
-    background-color: rgba(0,0,0,0.09);
+.show-delete {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 13px;
+    padding: 5px 13px;
+}
+
+.library__content > li:hover div.show-delete-p {
+    display: block !important;
+}
+
+.show-delete:hover {
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.1);
 }
 
 .incommings__content li a,
@@ -288,7 +282,7 @@ ul.library__content {
 }
 
 .incommings__content *, 
-.library__content * {
+.library__content *:not(.show-delete, .show-delete i) {
     overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -324,6 +318,10 @@ ul.library__content {
 
 .extra-info li {
     max-height: 17px;
+}
+
+.extra-info {
+    list-style: none;
 }
 
 #main-content {

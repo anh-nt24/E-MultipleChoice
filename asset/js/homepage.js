@@ -246,9 +246,9 @@ const renderLibrary = async () => {
         const level = data[2];
         html += `
                 <li>
-                    <a href="?action=quiz&token=${window.btoa(id)}">
+                    <a onclick="openQuiz('${id}', this)">
                         <img src="asset/img/lib.png" alt="">
-                        <div class="library__content__info zoom">
+                        <div class="library__content__info">
                             <span class="quiz-name">${name}</span>
                             <br>
                             <ul class="d-flex justify-content-between nopadding extra-info">
@@ -260,6 +260,11 @@ const renderLibrary = async () => {
                                 </li>
                             </ul>
                         </div>
+                        <div class="show-delete-p" style="display: none">
+                            <button onclick="deleteLib('${id}', this); event.preventDefault();" class='show-delete btn m-auto d-flex align-items-center justify-content-center shadow-none'>
+                                <i class="fa fa-close"></i>
+                            </button>
+                        <div>
                     </a>
                 </li>
         `;
@@ -268,6 +273,18 @@ const renderLibrary = async () => {
 }
 
 renderLibrary();
+
+const libElement = document.querySelectorAll('.lib-quiz');
+libElement.forEach(element => {
+    element.addEventListener('click', () => {
+        
+    })
+})
+
+const deleteLib = (id, element) => {
+    element.parentElement.parentElement.parentElement.style.display = 'none';
+    deleteCookie('library', id);
+}
 
 
 const viewdetails = (id) => {
