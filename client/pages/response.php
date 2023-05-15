@@ -135,7 +135,7 @@ if (isset($_GET['q'])) {
             <div class="col-12">
             <div style="background-color: #FDF0F1;" class="bg-white rounded mt-3">
                     <h4 class="text-center pb-2"><b>List of responses</b></h4>
-                    <table class="table mt-2 table-border w-100 mb-5">
+                    <table id="table-file" class="table mt-2 table-border w-100 mb-1">
                         <thead class="text-center thead-light">
                             <tr>
                                 <th class="align-middle" style="width: 30%">Participants</th>
@@ -175,6 +175,9 @@ if (isset($_GET['q'])) {
                             ?>
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-end mb-5 px-1">
+                        <button class='btn btn-secondary py-1' onclick="exportXlsx('<?php echo $quizName?>')">Download file</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -183,6 +186,7 @@ if (isset($_GET['q'])) {
     <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
     <script src="https://cdn.syncfusion.com/ej2-charts/dist/ej2-charts.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.8/xlsx.full.min.js"></script>
 
     <script src="asset/js/response.js"></script>
     <script>

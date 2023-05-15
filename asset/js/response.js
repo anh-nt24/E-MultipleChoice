@@ -160,7 +160,7 @@ const getData = async (id) => {
 document.title = "MultiA - Responses Management"
 let sortOrder = 'desc'; // initialize to descending order
 
-function sortByHighestGrade(id) {
+const sortByHighestGrade = (id) => {
     let tableBody = document.querySelector('#table-body');
     sortOrder = sortOrder == 'asc' ? 'desc' : 'asc';
     if (sortOrder == 'asc')
@@ -179,4 +179,30 @@ function sortByHighestGrade(id) {
             $('#table-body').html(response);
         }
     });
+}
+
+const exportXlsx = (name) => {
+    var table = document.getElementById('table-file');
+    var wb = XLSX.utils.table_to_book(table, { sheet: 'Sheet 1' });
+    var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+    const stringToArrayBuff = (s) => {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+        return buf;
+    }
+
+    var blob = new Blob([stringToArrayBuff(wbout)], { type: 'application/octet-stream' });
+    var url = URL.createObjectURL(blob);
+
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = name + 'Responses.xlsx';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }, 0);
 }
