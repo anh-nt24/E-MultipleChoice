@@ -52,7 +52,7 @@ const showResult = () => {
                         </div>
                         <div class="result-option d-flex mt-3">
                             <button onclick="openQuiz('${dt['Quiz_id']}')" class="btn btn-primary take-now">Take now</button>
-                            <button onclick="saveQuiz('${dt['Quiz_id']}')" class="ml-3 btn btn-primary add-to-reminder">Add to reminder</button>
+                            <button onclick="saveQuiz('${dt['Quiz_id']}')" class="ml-3 btn btn-primary add-to-reminder">Save</button>
                         </div>
                     `;
                 });
@@ -103,7 +103,7 @@ const saveQuiz = (id) => {
                             </ul>
                         </div>
                         <div class="show-delete-p" style="display: none">
-                            <button onclick="deleteLib('${id}', this); event.preventDefault();" class='show-delete btn m-auto d-flex align-items-center justify-content-center shadow-none'>
+                            <button onclick="deleteLib('${id}', this); event.stopPropagation();" class='show-delete btn m-auto d-flex align-items-center justify-content-center shadow-none'>
                                 <i class="fa fa-close"></i>
                             </button>
                         <div>

@@ -261,7 +261,7 @@ const renderLibrary = async () => {
                             </ul>
                         </div>
                         <div class="show-delete-p" style="display: none">
-                            <button onclick="deleteLib('${id}', this); event.preventDefault();" class='show-delete btn m-auto d-flex align-items-center justify-content-center shadow-none'>
+                            <button onclick="deleteLib('${id}', this); event.stopPropagation();" class='show-delete btn m-auto d-flex align-items-center justify-content-center shadow-none'>
                                 <i class="fa fa-close"></i>
                             </button>
                         <div>
